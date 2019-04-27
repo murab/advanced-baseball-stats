@@ -1,0 +1,6 @@
+{
+  "require": {
+    "codeception/codeception": "3.0.0",
+    "duzun/hquery": "^2.2"
+  }
+}
