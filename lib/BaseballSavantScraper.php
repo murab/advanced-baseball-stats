@@ -30,6 +30,9 @@ class BaseballSavantScraper
                 if ($i == 1) {
                     // Name
                     $player_data['name'] = $val->innerHTML;
+                } elseif ($i == 2) {
+                    // PAs
+                    $player_data['pa'] = explode(' for ', trim($val->innerHTML))[1];
                 } elseif ($i == 3) {
                     // xWOBA
                     $player_data['xwoba'] = floatval($val->innerHTML);
@@ -38,7 +41,9 @@ class BaseballSavantScraper
                 $i++;
             }
             $this->data[$player_data['name']] = [
-                'xwoba' => $player_data['xwoba']
+                'name' => $player_data['name'],
+                'xwoba' => $player_data['xwoba'],
+                'pa' => $player_data['pa']
             ];
         }
     }

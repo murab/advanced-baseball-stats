@@ -6,7 +6,7 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=20&type=1&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&sort=7,d&page=1_200#custom';
+    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=10&type=1&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&sort=7,d&page=1_250';
 
     private $data;
 
@@ -33,12 +33,17 @@ class FangraphsScraper
                 } elseif ($i == 7) {
                     // K%
                     $player_data['k_percentage'] = floatval($val->innerHTML);
+                } elseif ($i == 8) {
+                    // BB%
+                    $player_data['bb_percentage'] = floatval($val->innerHTML);
                 }
 
                 $i++;
             }
             $this->data[$player_data['name']] = [
-                'k_percentage' => $player_data['k_percentage']
+                'name' => $player_data['name'],
+                'k_percentage' => $player_data['k_percentage'],
+                'bb_percentage' => $player_data['bb_percentage']
             ];
         }
     }
