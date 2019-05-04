@@ -29,7 +29,7 @@ class BaseballSavantScraper
 
                 if ($i == 1) {
                     // Name
-                    $player_data['name'] = preg_replace("/[^A-Za-z0-9 ]/", '', $val->innerHTML);
+                    $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML);
                 } elseif ($i == 2) {
                     // PAs
                     $player_data['pa'] = explode(' for ', trim($val->innerHTML))[1];

@@ -30,7 +30,7 @@ class FangraphsScraper
                 if ($i == 1) {
                     // Name
                     $player_data['name'] = hQuery::fromHTML($val->innerHTML)->find('a')->innerHTML;
-                    $player_data['name'] = preg_replace("/[^A-Za-z0-9 ]/", '', $player_data['name']);
+                    $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
                 } elseif ($i == 7) {
                     // K%
                     $player_data['k_percentage'] = floatval($val->innerHTML);
