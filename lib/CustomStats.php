@@ -64,13 +64,13 @@ class CustomStats
         $output = [];
         foreach ($all_data as $name => $data) {
             // Minimum 2 innings per start
-            //if ($data['pa'] / $data['g'] > 2) {
+            if ($data['pa'] / $data['g'] > 2) {
                 $output[] = [
                     'name' => $data['name'],
                     'pa' => $data['pa'],
                     'value' => $data['k_percentage'] / 100 - $data['xwoba']
                 ];
-            //}
+            }
         }
         usort($output, function($a, $b) {
             return ($a['value'] > $b['value']) ? -1 : 1;
