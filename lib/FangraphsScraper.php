@@ -50,7 +50,6 @@ class FangraphsScraper
                     'g' => $player_data['g'],
                     'ip' => $player_data['ip']
                 ];
-                var_dump($player_data);
             }
 
             $i++;
