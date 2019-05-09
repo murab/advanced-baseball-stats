@@ -63,8 +63,8 @@ class CustomStats
     {
         $output = [];
         foreach ($all_data as $name => $data) {
-            // Minimum 2 innings per start
-            if ($data['ip'] / $data['g'] > 3) {
+            // Minimum 9 ip and 2 innings per start
+            if ($data['ip'] >= 9 && $data['ip'] / $data['g'] > 3) {
                 $output[] = [
                     'name' => $data['name'],
                     'pa' => $data['pa'],
