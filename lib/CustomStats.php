@@ -68,6 +68,7 @@ class CustomStats
                 $output[] = [
                     'name' => $data['name'],
                     'pa' => $data['pa'],
+                    'ip' => $data['ip'],
                     'value' => $data['k_percentage'] / 100 - $data['xwoba']
                 ];
             }
