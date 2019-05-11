@@ -64,11 +64,14 @@ class CustomStats
         $output = [];
         foreach ($all_data as $name => $data) {
             // Minimum 9 ip and 2 innings per start
-            if ($data['ip'] >= 9 && $data['ip'] / $data['g'] > 3) {
+            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] > 3) {
                 $output[] = [
                     'name' => $data['name'],
                     'pa' => $data['pa'],
                     'ip' => $data['ip'],
+                    'g' => $data['g'],
+                    'k' => $data['k'],
+                    'gs' => $data['gs'],
                     'value' => $data['k_percentage'] / 100 - $data['xwoba']
                 ];
             }
