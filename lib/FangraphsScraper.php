@@ -6,7 +6,7 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,119,6,45,124,62,122,3,7,13&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_300';
+    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_300';
 
     private $data;
 
@@ -34,12 +34,18 @@ class FangraphsScraper
             } elseif ($i%25 == 8) {
                 // BB%
                 $player_data['bb_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%25 == 22) {
+            } elseif ($i%25 == 20) {
                 // Age
                 $player_data['age'] = (int) $stat->innerHTML;
-            } elseif ($i%25 == 23) {
+            } elseif ($i%25 == 21) {
                 // Games
                 $player_data['g'] = (int) $stat->innerHTML;
+            } elseif ($i%25 == 22) {
+                // Games
+                $player_data['gs'] = (int) $stat->innerHTML;
+            } elseif ($i%25 == 23) {
+                // Games
+                $player_data['k'] = (int) $stat->innerHTML;
             } elseif ($i%25 == 24) {
                 $player_data['ip'] = $stat->innerHTML;
                 $this->data[$player_data['name']] = [
@@ -48,10 +54,11 @@ class FangraphsScraper
                     'bb_percentage' => $player_data['bb_percentage'],
                     'age' => $player_data['age'],
                     'g' => $player_data['g'],
+                    'k' => $player_data['k'],
+                    'gs' => $player_data['gs'],
                     'ip' => $player_data['ip']
                 ];
             }
-
             $i++;
         }
     }

@@ -53,11 +53,12 @@ foreach ($KpercentMinusXwoba as $key => $player) {
     $player['rank_formatted'] = str_pad($rank, 3);
     $player['name_formatted'] = str_pad($player['name'], 18);
     $player['ip_formatted'] = str_pad($player['ip'], 5);
+    $player['kps_formatted'] = str_pad(number_format($player['k'] / $player['gs'], 1), 4);
 
     $KpercentMinusXwoba[$key]['rank'] = $rank;
     $val = $player['val_formatted'] = ((string) (number_format($player['value'] * 100, 1)) . '%');
 
-    echo "{$player['rank_formatted']} | {$player['name_formatted']} | {$player['ip_formatted']} IP | {$val}\n";
+    echo "{$player['rank_formatted']} | {$player['name_formatted']} | {$player['ip_formatted']} IP | {$player['kps_formatted']} KPS\n";
 
     if (in_array($player['name'], MY_PITCHERS)) {
         $my_pitchers[] = $player;
@@ -70,12 +71,12 @@ foreach ($KpercentMinusXwoba as $key => $player) {
 
 echo "\nBest Available\n";
 foreach ($best_available as $pitcher) {
-    echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['ip_formatted']} IP | {$pitcher['val_formatted']}\n";
+    echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['ip_formatted']} IP | {$pitcher['kps_formatted']} KPS\n";
 }
 
 echo "\nMy Pitchers\n";
 foreach ($my_pitchers as $pitcher) {
-    echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['ip_formatted']} IP | {$pitcher['val_formatted']}\n";
+    echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['ip_formatted']} IP | {$pitcher['kps_formatted']} KPS\n";
 }
 
 echo "\n\n";
