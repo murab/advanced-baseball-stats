@@ -6,7 +6,7 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_300';
+    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_1500';
 
     private $data;
 
