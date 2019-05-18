@@ -40,7 +40,7 @@ class BaseballSavantScraper
 
                 $i++;
             }
-            $this->data[$player_data['name']] = [
+            $this->data[strtolower($player_data['name'])] = [
                 'name' => $player_data['name'],
                 'xwoba' => $player_data['xwoba'],
                 'pa' => $player_data['pa']

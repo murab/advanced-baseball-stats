@@ -37,15 +37,18 @@ $a = new CustomStats();
 
 $fg = new FangraphsScraper();
 $bs = new BaseballSavantScraper();
+$prosp = new BaseballProspectusScraper();
 
 $a->setFangraphsScraper($fg);
 $a->setBaseballSavantScraper($bs);
-$a->data = $a->mergeSourceData($a->fgData, $a->bsData);
+$a->setBaseballProspectusScraper($prosp);
+$a->data = $a->mergeSourceData($a->fgData, $a->bsData, $a->prospectusData);
 
-$KpercentMinusXwoba = $a->computeKpercentMinusXwoba($a->filterData($a->data, 10, null));
+$KpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($a->filterData($a->data, 10, null));
 
 echo "\nAll Pitchers\n";
 foreach ($KpercentMinusXwoba as $key => $player) {
+
     $rank = $player['rank'] = $key + 1;
 
     $player['rank_formatted'] = str_pad($rank, 3);

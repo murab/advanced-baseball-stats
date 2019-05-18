@@ -48,7 +48,7 @@ class FangraphsScraper
                 $player_data['k'] = (int) $stat->innerHTML;
             } elseif ($i%25 == 24) {
                 $player_data['ip'] = $stat->innerHTML;
-                $this->data[$player_data['name']] = [
+                $this->data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
                     'k_percentage' => $player_data['k_percentage'],
                     'bb_percentage' => $player_data['bb_percentage'],
