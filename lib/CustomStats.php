@@ -106,7 +106,7 @@ class CustomStats
 //                }
 
                 // calculate adjusted xwoba
-                $data['xwoba'] = ((100 - $data['opprpa']) / 1 + 100) / 100 * $data['xwoba'];
+                $data['xwoba'] = ((100 - $data['opprpa']) / 2 + 100) / 100 * $data['xwoba'];
 
                 $output[] = [
                     'name' => $data['name'],
