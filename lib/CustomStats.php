@@ -81,8 +81,10 @@ class CustomStats
                     'ip' => $data['ip'],
                     'g' => $data['g'],
                     'k' => $data['k'],
+                    'kbb_percentage' => $data['kbb_percentage'],
                     'gs' => $data['gs'],
                     'opprpa' => $data['opprpa'],
+                    'velo' => $data['velo'],
                     'value' => $data['k_percentage'] / 100 - $data['xwoba']
                 ];
             }
@@ -99,11 +101,6 @@ class CustomStats
         foreach ($all_data as $name => $data) {
             // Minimum 9 ip and 2 innings per start
             if ($data['ip'] >= 15 && $data['ip'] / $data['g'] > 3) {
-//                if ($data['opprpa'] >= 100) {
-//                    $data['xwoba'] = (100 - ($data['opprpa'] + 100)) / 100 * $data['xwoba'];
-//                } elseif ($data['opprpa'] < 100) {
-//                    $data['xwoba'] = (100 - ($data['opprpa'] + 100)) / 100 * $data['xwoba'];
-//                }
 
                 // calculate adjusted xwoba
                 $data['xwoba'] = ((100 - $data['opprpa']) / 2 + 100) / 100 * $data['xwoba'];
@@ -114,9 +111,11 @@ class CustomStats
                     'ip' => $data['ip'],
                     'g' => $data['g'],
                     'k' => $data['k'],
+                    'kbb_percentage' => $data['kbb_percentage'],
                     'gs' => $data['gs'],
+                    'velo' => $data['velo'],
                     'opprpa' => $data['opprpa'],
-                    'value' => $data['k_percentage'] / 100 - $data['xwoba']
+                    'value' => number_format($data['k_percentage'] / 100 - $data['xwoba'], 3)
                 ];
             }
         }

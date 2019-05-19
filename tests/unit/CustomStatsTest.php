@@ -56,6 +56,29 @@ class CustomStatsTest extends \Codeception\Test\Unit
         $this->tester->assertEquals('Bob Jones', $output[0]['name']);
     }
 
+    public function testComputeKpercentMinusAdjustedXwoba()
+    {
+        $data = [
+            'Bob Jones' => [
+                'name' => 'Bob Jones',
+                'pa' => 123,
+                'ip' => '25',
+                'g' => 3,
+                'k' => 24,
+                'k_percentage' => 25.1,
+                'kbb_percentage' => 14.3,
+                'gs' => 3,
+                'velo' => 90.0,
+                'opprpa' => 80,
+                'xwoba' => .300
+            ]
+        ];
+        $cs = new CustomStats();
+        $output = $cs->computeKpercentMinusAdjustedXwoba($data);
+        $this->tester->assertEquals(-0.079, $output[0]['value']);
+        $this->tester->assertEquals('Bob Jones', $output[0]['name']);
+    }
+
     public function testMergeSourceData()
     {
         $fgData = [
