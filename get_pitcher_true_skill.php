@@ -2,33 +2,9 @@
 
 require_once __DIR__ . '/lib/CustomStats.php';
 
-const MY_PITCHERS = [
-    'Jacob deGrom',
-    'Zack Wheeler',
-    'Hyun-Jin Ryu',
-    'Tyler Skaggs',
-    'Griffin Canning',
-    'Jeff Samardzija',
-    'Drew Pomeranz',
-    'Pablo Lopez',
-    'Anibal Sanchez',
-    'Julio Urias',
-    'Derek Holland',
-    'Drew Smyly',
-    'CC Sabathia',
-    'Nick Pivetta'
-];
-
-const BEST_AVAILABLE = [
-    'Wade Miley',
-    'Jon Duplantier',
-    'John Means',
-    'Chris Bassitt',
-    'Mike Fiers',
-    'Trent Thornton',
-    'Danny Duffy',
-    'Merrill Kelly'
-];
+$players_of_interest = json_decode(file_get_contents('./players_of_interest.json'), true);
+$MyPlayersConst = $players_of_interest['my_pitchers'];
+$BestAvailableConst = $players_of_interest['fa_pitchers'];
 
 $my_pitchers = [];
 $best_available = [];
@@ -61,11 +37,11 @@ foreach ($KpercentMinusXwoba as $key => $player) {
 
     echo "{$player['rank_formatted']} | {$player['name_formatted']} | {$player['ip_formatted']} IP | {$player['kpg_formatted']} KPG\n";
 
-    if (in_array($player['name'], MY_PITCHERS)) {
+    if (in_array($player['name'], $MyPlayersConst)) {
         $my_pitchers[] = $player;
     }
 
-    if (in_array($player['name'], BEST_AVAILABLE)) {
+    if (in_array($player['name'], $BestAvailableConst)) {
         $best_available[] = $player;
     }
 }
