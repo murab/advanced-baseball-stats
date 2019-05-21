@@ -3,11 +3,9 @@
 require_once __DIR__ . '/lib/CustomStats.php';
 
 $players_of_interest = json_decode(file_get_contents('./players_of_interest.json'), true);
-$MyPlayersConst = $players_of_interest['my_pitchers'];
-$BestAvailableConst = $players_of_interest['fa_pitchers'];
 
-$my_pitchers = [];
-$best_available = [];
+$custom_lists = array_keys($players_of_interest);
+$custom_players = [];
 
 $a = new CustomStats();
 
@@ -41,23 +39,18 @@ foreach ($KpercentMinusXwoba as $key => $player) {
 
     echo "{$player['rank_formatted']} | {$player['name_formatted']} | {$player['kbb_percentage_formatted']}% | {$player['velo_formatted']} mph\n";
 
-    if (in_array($player['name'], $MyPlayersConst)) {
-        $my_pitchers[] = $player;
-    }
-
-    if (in_array($player['name'], $BestAvailableConst)) {
-        $best_available[] = $player;
+    foreach ($custom_lists as $list) {
+        if (in_array($player['name'], $players_of_interest[$list])) {
+            $custom_players[$list][] = $player;
+        }
     }
 }
 
-echo "\nBest Available\n";
-foreach ($best_available as $pitcher) {
-    echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['kbb_percentage_formatted']}% | {$pitcher['velo_formatted']} mph\n";
-}
-
-echo "\nMy Pitchers\n";
-foreach ($my_pitchers as $pitcher) {
-    echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['kbb_percentage_formatted']}% | {$pitcher['velo_formatted']} mph\n";
+foreach ($custom_lists as $list) {
+    echo "\n{$list}\n";
+    foreach ($custom_players[$list] as $pitcher) {
+        echo "{$pitcher['rank_formatted']} | {$pitcher['name_formatted']} | {$pitcher['kbb_percentage_formatted']}% | {$pitcher['velo_formatted']} mph\n";
+    }
 }
 
 echo "\n\n";
