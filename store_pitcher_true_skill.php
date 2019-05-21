@@ -66,3 +66,4 @@ $output = ob_get_contents();
 ob_end_clean();
 
 file_put_contents('./data.txt', $output);
+file_put_contents('./archive/pitchers-' . date('Y-m-d') . '.txt', $output);
