@@ -6,7 +6,7 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13,240,245&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_1500';
+    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13,139&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
 
     private $data;
 
@@ -52,9 +52,7 @@ class FangraphsScraper
             } elseif ($i%27 == 24) {
                 $player_data['ip'] = $stat->innerHTML;
             } elseif ($i%27 == 25) {
-                $player_data['velo4'] = (float) $stat->innerHTML;
-            } elseif ($i%27 == 26) {
-                $player_data['velo2'] = (float) $stat->innerHTML;
+                $player_data['velo'] = (float) $stat->innerHTML;
                 $this->data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
                     'k_percentage' => $player_data['k_percentage'],
@@ -65,7 +63,7 @@ class FangraphsScraper
                     'k' => $player_data['k'],
                     'gs' => $player_data['gs'],
                     'ip' => $player_data['ip'],
-                    'velo' => max($player_data['velo2'], $player_data['velo4'])
+                    'velo' => $player_data['velo']
                 ];
             }
             $i++;
