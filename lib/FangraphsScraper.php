@@ -23,35 +23,35 @@ class FangraphsScraper
         $player_data = [];
         foreach ($stats as $stat) {
 
-            if ($i%27 == 1) {
+            if ($i%26 == 1) {
                 $player_data = [];
                 // Name
                 $player_data['name'] = hQuery::fromHTML($stat->innerHTML)->find('a')->innerHTML;
                 $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
-            } elseif ($i%27 == 7) {
+            } elseif ($i%26 == 7) {
                 // K%
                 $player_data['k_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%27 == 8) {
+            } elseif ($i%26 == 8) {
                 // BB%
                 $player_data['bb_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%27 == 9) {
+            } elseif ($i%26 == 9) {
                 // K-BB%
                 $player_data['kbb_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%27 == 20) {
+            } elseif ($i%26 == 20) {
                 // Age
                 $player_data['age'] = (int) $stat->innerHTML;
-            } elseif ($i%27 == 21) {
+            } elseif ($i%26 == 21) {
                 // Games
                 $player_data['g'] = (int) $stat->innerHTML;
-            } elseif ($i%27 == 22) {
+            } elseif ($i%26 == 22) {
                 // Games
                 $player_data['gs'] = (int) $stat->innerHTML;
-            } elseif ($i%27 == 23) {
+            } elseif ($i%26 == 23) {
                 // Games
                 $player_data['k'] = (int) $stat->innerHTML;
-            } elseif ($i%27 == 24) {
+            } elseif ($i%26 == 24) {
                 $player_data['ip'] = $stat->innerHTML;
-            } elseif ($i%27 == 25) {
+            } elseif ($i%26 == 25) {
                 $player_data['velo'] = (float) $stat->innerHTML;
                 $this->data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
