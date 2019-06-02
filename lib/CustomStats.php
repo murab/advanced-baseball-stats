@@ -100,7 +100,7 @@ class CustomStats
         $output = [];
         foreach ($all_data as $name => $data) {
             // Minimum 9 ip and 2 innings per start
-            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] > 3) {
+            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] > 4) {
 
                 // calculate adjusted xwoba
                 $data['xwoba'] = ((100 - $data['opprpa']) / 2 + 100) / 100 * $data['xwoba'];
