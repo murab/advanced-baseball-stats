@@ -11,7 +11,8 @@ class CustomStats
     public $fgScraper;
     public $bsScraper;
     public $prospectusScraper;
-    public $fgData;
+    public $fgPitcherData;
+    public $fgLeagueBatterData;
     public $bsData;
     public $prospectusData;
 
@@ -25,7 +26,8 @@ class CustomStats
     public function setFangraphsScraper(FangraphsScraper $fgScraper)
     {
         $this->fgScraper = $fgScraper;
-        $this->fgData = $this->fgScraper->getData();
+        $this->fgPitcherData = $this->fgScraper->getPitcherData();
+        $this->fgLeagueBatterData = $this->fgScraper->getLeagueBatterData();
     }
 
     public function setBaseballSavantScraper(BaseballSavantScraper $bsScraper)
@@ -98,12 +100,17 @@ class CustomStats
     public function computeKpercentMinusAdjustedXwoba($all_data)
     {
         $output = [];
+        $league_ops = $this->fgLeagueBatterData['ops'];
         foreach ($all_data as $name => $data) {
             // Minimum 9 ip and 2 innings per start
-            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] > 4) {
+            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] >= 3) {
+
+                $opponent_quality_muliplier = $league_ops / $data['oppops'];
+
+                echo $opponent_quality_muliplier . "\n";
 
                 // calculate adjusted xwoba
-                $data['xwoba'] = ((100 - $data['opprpa']) / 2 + 100) / 100 * $data['xwoba'];
+                $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
 
                 $output[] = [
                     'name' => $data['name'],
@@ -115,6 +122,7 @@ class CustomStats
                     'gs' => $data['gs'],
                     'velo' => $data['velo'],
                     'opprpa' => $data['opprpa'],
+                    'oppops' => $data['oppops'],
                     'value' => number_format($data['k_percentage'] / 100 - $data['xwoba'], 3)
                 ];
             }

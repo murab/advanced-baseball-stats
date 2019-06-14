@@ -6,13 +6,20 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitchersKpercentageURL = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const pitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const leagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
 
-    private $data;
+    private $pitcher_data;
+    private $league_batter_data;
 
     public function __construct()
     {
-        $doc = hQuery::fromUrl(self::pitchersKpercentageURL, [
+
+    }
+
+    public function getPitcherData()
+    {
+        $doc = hQuery::fromUrl(self::pitcherDataSource, [
             'Accept'     => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
         ]);
@@ -53,7 +60,7 @@ class FangraphsScraper
                 $player_data['ip'] = $stat->innerHTML;
             } elseif ($i%26 == 25) {
                 $player_data['velo'] = (float) $stat->innerHTML;
-                $this->data[strtolower($player_data['name'])] = [
+                $this->pitcher_data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
                     'k_percentage' => $player_data['k_percentage'],
                     'bb_percentage' => $player_data['bb_percentage'],
@@ -68,10 +75,29 @@ class FangraphsScraper
             }
             $i++;
         }
+
+        return $this->pitcher_data;
     }
 
-    public function getData()
+    public function getLeagueBatterData()
     {
-        return $this->data;
+        $doc = hQuery::fromUrl(self::leagueBattersDataSource, [
+            'Accept'     => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+        ]);
+
+        $stats = $doc->find('.grid_line_regular');
+
+        $i = 0;
+        $data = [];
+        foreach ($stats as $stat) {
+            if ($i == 3) {
+                $data['ops'] = floatval($stat->innerHTML);
+                $this->league_batter_data['ops'] = $data['ops'];
+            }
+            $i++;
+        }
+
+        return $this->league_batter_data;
     }
 }

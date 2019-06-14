@@ -16,7 +16,7 @@ $prosp = new BaseballProspectusScraper();
 $a->setFangraphsScraper($fg);
 $a->setBaseballSavantScraper($bs);
 $a->setBaseballProspectusScraper($prosp);
-$a->data = $a->mergeSourceData($a->fgData, $a->bsData, $a->prospectusData);
+$a->data = $a->mergeSourceData($a->fgPitcherData, $a->bsData, $a->prospectusData);
 
 $KpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($a->filterData($a->data, 10, null));
 

@@ -36,6 +36,9 @@ class BaseballProspectusScraper
                 } elseif ($i == 19) {
                     // oppRPA+
                     $player_data['opprpa'] = (int) $val->innerHTML;
+                } elseif ($i == 20) {
+                    // oppOPS
+                    $player_data['oppops'] = (float) $val->innerHTML;
                 }
 
                 $i++;
@@ -43,7 +46,8 @@ class BaseballProspectusScraper
 
             $this->data[strtolower($player_data['name'])] = [
                 'name' => $player_data['name'],
-                'opprpa' => $player_data['opprpa']
+                'opprpa' => $player_data['opprpa'],
+                'oppops' => $player_data['oppops']
             ];
         }
     }
