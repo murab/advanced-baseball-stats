@@ -107,8 +107,6 @@ class CustomStats
 
                 $opponent_quality_muliplier = $league_ops / $data['oppops'];
 
-                echo $opponent_quality_muliplier . "\n";
-
                 // calculate adjusted xwoba
                 $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
 
