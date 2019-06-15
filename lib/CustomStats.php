@@ -116,6 +116,7 @@ class CustomStats
                     'ip' => $data['ip'],
                     'g' => $data['g'],
                     'k' => $data['k'],
+                    'k_percentage' => $data['k_percentage'],
                     'kbb_percentage' => $data['kbb_percentage'],
                     'gs' => $data['gs'],
                     'velo' => $data['velo'],

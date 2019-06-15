@@ -90,12 +90,17 @@ class FangraphsScraper
 
         $i = 0;
         $data = [];
-        foreach ($stats as $stat) {
+        if (is_array($stats)) foreach ($stats as $stat) {
             if ($i == 3) {
                 $data['ops'] = floatval($stat->innerHTML);
                 $this->league_batter_data['ops'] = $data['ops'];
             }
             $i++;
+        }
+
+        if (empty($this->league_batter_data)) {
+            echo "\nError: Could not fetch league batter data from FanGraphs.\n\n";
+            exit;
         }
 
         return $this->league_batter_data;
