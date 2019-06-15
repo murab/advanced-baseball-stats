@@ -19,9 +19,10 @@ class FangraphsScraper
 
     public function getPitcherData()
     {
+        hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl(self::pitcherDataSource, [
-            'Accept'     => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $stats = $doc->find('.grid_line_regular');
@@ -81,26 +82,33 @@ class FangraphsScraper
 
     public function getLeagueBatterData()
     {
+        hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl(self::leagueBattersDataSource, [
-            'Accept'     => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $stats = $doc->find('.grid_line_regular');
+        try {
+            $stats = $doc->find('.grid_line_regular');
+        } catch (Throwable $t) {
+            echo $t->getMessage();
+            exit;
+        }
 
         $i = 0;
         $data = [];
-        if (is_array($stats)) foreach ($stats as $stat) {
+
+        if (empty($stats)) {
+            echo "\nError: Could not fetch league batter data from FanGraphs.\n\n";
+            exit;
+        }
+
+        foreach ($stats as $stat) {
             if ($i == 3) {
                 $data['ops'] = floatval($stat->innerHTML);
                 $this->league_batter_data['ops'] = $data['ops'];
             }
             $i++;
-        }
-
-        if (empty($this->league_batter_data)) {
-            echo "\nError: Could not fetch league batter data from FanGraphs.\n\n";
-            exit;
         }
 
         return $this->league_batter_data;

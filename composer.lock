@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "693ff13b61a79176b16f8afd64467e85",
-    "content-hash": "c27aa164bc223a6be7bba9b1d4796e4c",
+    "hash": "8a1c7ac1994597c11ff502c3ea258823",
+    "content-hash": "f7482ce7c3bc2d785031614fca8480e0",
     "packages": [
         {
             "name": "behat/gherkin",
@@ -290,16 +290,16 @@
         },
         {
             "name": "duzun/hquery",
-            "version": "2.2.2",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/duzun/hQuery.php.git",
-                "reference": "2b9ea9d5d9d85d6525df12de5146ced92a792f97"
+                "reference": "d804e699ad32fe62661a94be389b033c5a5354f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/duzun/hQuery.php/zipball/2b9ea9d5d9d85d6525df12de5146ced92a792f97",
-                "reference": "2b9ea9d5d9d85d6525df12de5146ced92a792f97",
+                "url": "https://api.github.com/repos/duzun/hQuery.php/zipball/d804e699ad32fe62661a94be389b033c5a5354f9",
+                "reference": "d804e699ad32fe62661a94be389b033c5a5354f9",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,9 @@
                 "apigen/apigen": "~4.1",
                 "guzzlehttp/psr7": "^1.5",
                 "php-http/discovery": "^1.6",
-                "php-http/mock-client": "^1.2"
+                "php-http/mock-client": "^1.2",
+                "symfony/css-selector": "*",
+                "symfony/dom-crawler": "*"
             },
             "suggest": {
                 "php-http/discovery": "Might be required by hQuery::sendRequest()",
@@ -352,7 +354,7 @@
                 "xhtml",
                 "xml"
             ],
-            "time": "2019-03-22 22:22:08"
+            "time": "2019-05-28 06:24:32"
         },
         {
             "name": "facebook/webdriver",
