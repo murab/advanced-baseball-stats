@@ -6,7 +6,7 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,44,117,118,6,45,62,122,3,7,8,24,13,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const pitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const leagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
 
     private $pitcher_data;
@@ -45,20 +45,22 @@ class FangraphsScraper
             } elseif ($i%26 == 9) {
                 // K-BB%
                 $player_data['kbb_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%26 == 20) {
+            } elseif ($i%26 == 19) {
                 // Age
                 $player_data['age'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 21) {
+            } elseif ($i%26 == 20) {
                 // Games
                 $player_data['g'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 22) {
+            } elseif ($i%26 == 21) {
                 // Games
                 $player_data['gs'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 23) {
+            } elseif ($i%26 == 22) {
                 // Games
                 $player_data['k'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 24) {
+            } elseif ($i%26 == 23) {
                 $player_data['ip'] = $stat->innerHTML;
+            } elseif ($i%26 == 24) {
+                $player_data['k_percentage_plus'] = $stat->innerHTML;
             } elseif ($i%26 == 25) {
                 $player_data['velo'] = (float) $stat->innerHTML;
                 $this->pitcher_data[strtolower($player_data['name'])] = [
@@ -66,6 +68,7 @@ class FangraphsScraper
                     'k_percentage' => $player_data['k_percentage'],
                     'bb_percentage' => $player_data['bb_percentage'],
                     'kbb_percentage' => $player_data['kbb_percentage'],
+                    'k_percentage_plus' => $player_data['k_percentage_plus'],
                     'age' => $player_data['age'],
                     'g' => $player_data['g'],
                     'k' => $player_data['k'],
