@@ -28,7 +28,7 @@ foreach ($KpercentMinusXwoba as $key => $player) {
     $rank = $player['rank'] = $key + 1;
 
     $player['rank_formatted'] = str_pad($rank, 3);
-    $player['name_formatted'] = str_pad($player['name'], 18);
+    $player['name_formatted'] = str_pad(substr($player['name'], 0, 18), 18);
     $player['k_percentage_formatted'] = str_pad(number_format($player['k_percentage'], 1), 4, ' ', STR_PAD_LEFT);
     $player['k_percentage_plus_formatted'] = str_pad($player['k_percentage_plus'], 3, ' ', STR_PAD_LEFT);
     $player['velo_formatted'] = str_pad(number_format($player['velo'], 1), 4);
