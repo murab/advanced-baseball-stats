@@ -66,17 +66,37 @@ class CustomStatsTest extends \Codeception\Test\Unit
                 'g' => 3,
                 'k' => 24,
                 'k_percentage' => 25.1,
+                'k_percentage_plus' => 110,
                 'kbb_percentage' => 14.3,
                 'gs' => 3,
                 'velo' => 90.0,
                 'opprpa' => 80,
+                'oppops' => .850,
                 'xwoba' => .300
+            ],
+            'Tom Seaver' => [
+                'name' => 'Tom Seaver',
+                'pa' => 123,
+                'ip' => '25',
+                'g' => 3,
+                'k' => 24,
+                'k_percentage' => 30.0,
+                'k_percentage_plus' => 120,
+                'kbb_percentage' => 17.3,
+                'gs' => 3,
+                'velo' => 95.0,
+                'opprpa' => 90,
+                'oppops' => .900,
+                'xwoba' => .250
             ]
         ];
         $cs = new CustomStats();
-        $output = $cs->computeKpercentMinusAdjustedXwoba($data);
-        $this->tester->assertEquals(-0.079, $output[0]['value']);
-        $this->tester->assertEquals('Bob Jones', $output[0]['name']);
+        $output = $cs->computeKpercentMinusAdjustedXwoba($data, .850);
+        $this->tester->assertEquals(-0.049, $output[1]['value']);
+        $this->tester->assertEquals('Tom Seaver', $output[0]['name']);
+        $output = $cs->computeKpercentMinusAdjustedXwoba($data, .425);
+        $this->tester->assertEquals(.101, $output[1]['value']);
+        $this->tester->assertEquals('Tom Seaver', $output[0]['name']);
     }
 
     public function testMergeSourceData()
@@ -95,8 +115,15 @@ class CustomStatsTest extends \Codeception\Test\Unit
                 'xwoba' => '0.0325'
             ]
         ];
+        $bpData = [
+            'Bob Jones' => [
+                'name' => 'Bob Jones',
+                'opprpa' => 110,
+                'oppops' => '0.800'
+            ]
+        ];
         $cs = new CustomStats();
-        $output = $cs->mergeSourceData($fgData, $bsData);
+        $output = $cs->mergeSourceData($fgData, $bsData, $bpData);
         $this->tester->assertEquals('Bob Jones', $output['Bob Jones']['name']);
     }
 }

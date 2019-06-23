@@ -12,8 +12,10 @@ class CustomStats
     public $bsScraper;
     public $prospectusScraper;
     public $fgPitcherData;
+    public $fgPitcherDataLast30Days;
     public $fgLeagueBatterData;
     public $bsData;
+    public $bsDataLast30Days;
     public $prospectusData;
 
     public $data;
@@ -27,13 +29,15 @@ class CustomStats
     {
         $this->fgScraper = $fgScraper;
         $this->fgPitcherData = $this->fgScraper->getPitcherData();
+        $this->fgPitcherDataLast30Days = $this->fgScraper->getPitcherDataLast30Days();
         $this->fgLeagueBatterData = $this->fgScraper->getLeagueBatterData();
     }
 
     public function setBaseballSavantScraper(BaseballSavantScraper $bsScraper)
     {
         $this->bsScraper = $bsScraper;
-        $this->bsData = $this->bsScraper->getData();
+        $this->bsData = $this->bsScraper->getpitchersXwobaData();
+        $this->bsDataLast30Days = $this->bsScraper->getPitchersXwobaDataLast30Days();
     }
 
     public function setBaseballProspectusScraper(BaseballProspectusScraper $prospectusScraper)
@@ -55,12 +59,12 @@ class CustomStats
         return $data;
     }
 
-    public function filterData($orig_data = [], $min_pa = null, $limit = null)
+    public function filterPitcherData($orig_data = [], $min_ip = 15, $min_ip_per_g = 3.0, $limit = null)
     {
         $data = [];
-        if ($min_pa || $limit) {
+        if ($min_ip && $min_ip_per_g) {
             foreach ($orig_data as $key => $player) {
-                if ((int)$player['pa'] > $min_pa) {
+                if ($player['ip'] >= $min_ip && ($player['ip'] / $player['g']) > $min_ip_per_g) {
                     $data[] = $player;
                 }
             }
@@ -75,63 +79,70 @@ class CustomStats
     {
         $output = [];
         foreach ($all_data as $name => $data) {
-            // Minimum 9 ip and 2 innings per start
-            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] > 4) {
-                $output[] = [
-                    'name' => $data['name'],
-                    'pa' => $data['pa'],
-                    'ip' => $data['ip'],
-                    'g' => $data['g'],
-                    'k' => $data['k'],
-                    'k_percentage' => $data['k_percentage'],
-                    'k_percentage_plus' => $data['k_percentage_plus'],
-                    'kbb_percentage' => $data['kbb_percentage'],
-                    'gs' => $data['gs'],
-                    'opprpa' => $data['opprpa'],
-                    'velo' => $data['velo'],
-                    'value' => $data['k_percentage'] / 100 - $data['xwoba']
-                ];
-            }
+            $output[] = array_merge($this->generatePlayerOutput($data), ['value' => $data['k_percentage'] / 100 - $data['xwoba']]);
         }
         usort($output, function($a, $b) {
             return ($a['value'] > $b['value']) ? -1 : 1;
         });
+        $rank = 1;
+        foreach ($output as $key => $player) {
+            $output[$key]['rank_k_minus_xwoba'] = $rank;
+            $rank++;
+        }
         return $output;
     }
 
-    public function computeKpercentMinusAdjustedXwoba($all_data)
+    public function computeKpercentMinusAdjustedXwoba($all_data, $league_ops, $last_30_data = null)
     {
         $output = [];
-        $league_ops = $this->fgLeagueBatterData['ops'];
         foreach ($all_data as $name => $data) {
-            // Minimum 9 ip and 2 innings per start
-            if ($data['ip'] >= 15 && $data['ip'] / $data['g'] >= 3) {
 
-                $opponent_quality_muliplier = $league_ops / $data['oppops'];
+            $opponent_quality_muliplier = $league_ops / $data['oppops'];
 
-                // calculate adjusted xwoba
-                $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
+            // calculate adjusted xwoba
+            $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
 
-                $output[] = [
-                    'name' => $data['name'],
-                    'pa' => $data['pa'],
-                    'ip' => $data['ip'],
-                    'g' => $data['g'],
-                    'k' => $data['k'],
-                    'k_percentage' => $data['k_percentage'],
-                    'k_percentage_plus' => $data['k_percentage_plus'],
-                    'kbb_percentage' => $data['kbb_percentage'],
-                    'gs' => $data['gs'],
-                    'velo' => $data['velo'],
-                    'opprpa' => $data['opprpa'],
-                    'oppops' => $data['oppops'],
-                    'value' => number_format($data['k_percentage'] / 100 - $data['xwoba'], 3)
-                ];
-            }
+            $output[] = array_merge($this->generatePlayerOutput($data), ['value' => number_format($data['k_percentage'] / 100 - $data['xwoba'], 3)]);
         }
         usort($output, function($a, $b) {
             return ($a['value'] > $b['value']) ? -1 : 1;
         });
+        $rank = 1;
+        foreach ($output as $key => $player) {
+            $output[$key]['rank_k_minus_adj_xwoba'] = $rank;
+            $rank++;
+        }
+
+        if ($last_30_data) {
+            foreach ($output as $key => $player) {
+                foreach ($last_30_data as $player30) {
+                    if ($player['name'] == $player30['name']) {
+                        $output[$key]['rank_k_minus_adj_xwoba_last_30'] = $player30['rank_k_minus_adj_xwoba'] ?? '';
+                    }
+                }
+            }
+        }
+
+        return $output;
+    }
+
+    private function generatePlayerOutput ($data)
+    {
+        $output = [
+            'name' => $data['name'],
+            'pa' => $data['pa'],
+            'ip' => $data['ip'],
+            'g' => $data['g'],
+            'k' => $data['k'],
+            'k_percentage' => $data['k_percentage'],
+            'k_percentage_plus' => $data['k_percentage_plus'],
+            'kbb_percentage' => $data['kbb_percentage'],
+            'gs' => $data['gs'],
+            'velo' => $data['velo'],
+            'opprpa' => $data['opprpa'],
+            'oppops' => $data['oppops']
+        ];
+
         return $output;
     }
 }
