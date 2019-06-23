@@ -92,15 +92,17 @@ class CustomStats
         return $output;
     }
 
-    public function computeKpercentMinusAdjustedXwoba($all_data, $league_ops, $last_30_data = null)
+    public function computeKpercentMinusAdjustedXwoba($all_data, $league_ops, $last_30_data = null, $enable_opp_quality_adjustment = true)
     {
         $output = [];
         foreach ($all_data as $name => $data) {
 
-            $opponent_quality_muliplier = $league_ops / $data['oppops'];
+            if ($enable_opp_quality_adjustment == true) {
+                $opponent_quality_muliplier = $league_ops / $data['oppops'];
 
-            // calculate adjusted xwoba
-            $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
+                // calculate adjusted xwoba
+                $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
+            }
 
             $output[] = array_merge($this->generatePlayerOutput($data), ['value' => number_format($data['k_percentage'] / 100 - $data['xwoba'], 3)]);
         }

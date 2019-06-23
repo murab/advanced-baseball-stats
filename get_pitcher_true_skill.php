@@ -19,7 +19,7 @@ $a->setBaseballProspectusScraper($prosp);
 $data = $a->mergeSourceData($a->fgPitcherData, $a->bsData, $a->prospectusData);
 $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30Days, $a->prospectusData);
 
-$KpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($dataLast30), $a->fgLeagueBatterData['ops']);
+$KpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($dataLast30), $a->fgLeagueBatterData['ops'], null, false);
 $KpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($data), $a->fgLeagueBatterData['ops'], $KpercentMinusXwobaLast30);
 
 echo "\nAll Pitchers\n";
