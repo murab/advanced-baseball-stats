@@ -6,8 +6,8 @@ use duzun\hQuery;
 
 class FangraphsScraper
 {
-    const pitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
-    const pitcherDataSourceLast30Days = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,41,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=3&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const pitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const pitcherDataSourceLast30Days = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=10&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=3&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const leagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
 
     private $league_batter_data;
@@ -37,6 +37,9 @@ class FangraphsScraper
             } elseif ($i%26 == 9) {
                 // K-BB%
                 $player_data['kbb_percentage'] = floatval($stat->innerHTML);
+            } elseif ($i%26 == 10) {
+                // SwStr%
+                $player_data['swstr_percentage'] = floatval($stat->innerHTML);
             } elseif ($i%26 == 19) {
                 // Age
                 $player_data['age'] = (int) $stat->innerHTML;
@@ -60,6 +63,7 @@ class FangraphsScraper
                     'k_percentage' => $player_data['k_percentage'],
                     'bb_percentage' => $player_data['bb_percentage'],
                     'kbb_percentage' => $player_data['kbb_percentage'],
+                    'swstr_percentage' => $player_data['swstr_percentage'],
                     'k_percentage_plus' => $player_data['k_percentage_plus'],
                     'age' => $player_data['age'],
                     'g' => $player_data['g'],

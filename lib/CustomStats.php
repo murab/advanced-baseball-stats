@@ -139,6 +139,7 @@ class CustomStats
             'k_percentage' => $data['k_percentage'],
             'k_percentage_plus' => $data['k_percentage_plus'],
             'kbb_percentage' => $data['kbb_percentage'],
+            'swstr_percentage' => $data['swstr_percentage'],
             'gs' => $data['gs'],
             'velo' => $data['velo'],
             'opprpa' => $data['opprpa'],
