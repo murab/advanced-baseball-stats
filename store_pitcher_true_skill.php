@@ -25,6 +25,9 @@ $KpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherDat
 
 ob_start();
 
+echo "\nLeague Average FBv: {$a->fgLeaguePitcherData['fbv']}";
+echo "\nLeague Average SwStr%: {$a->fgLeaguePitcherData['swstr_percentage']}%\n";
+
 echo "\nAll Pitchers\n";
 foreach ($KpercentMinusXwoba as $key => $player) {
 

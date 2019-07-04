@@ -23,6 +23,9 @@ $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30D
 $KpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($dataLast30), $a->fgLeagueBatterData['ops'], null, false);
 $KpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($data), $a->fgLeagueBatterData['ops'], $KpercentMinusXwobaLast30);
 
+echo "\nLeague Average FBv: {$a->fgLeaguePitcherData['fbv']}";
+echo "\nLeague Average SwStr%: {$a->fgLeaguePitcherData['swstr_percentage']}%\n";
+
 echo "\nAll Pitchers\n";
 foreach ($KpercentMinusXwoba as $key => $player) {
 

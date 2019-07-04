@@ -14,6 +14,7 @@ class CustomStats
     public $fgPitcherData;
     public $fgPitcherDataLast30Days;
     public $fgLeagueBatterData;
+    public $fgLeaguePitcherData;
     public $bsData;
     public $bsDataLast30Days;
     public $prospectusData;
@@ -31,6 +32,7 @@ class CustomStats
         $this->fgPitcherData = $this->fgScraper->getPitcherData();
         $this->fgPitcherDataLast30Days = $this->fgScraper->getPitcherDataLast30Days();
         $this->fgLeagueBatterData = $this->fgScraper->getLeagueBatterData();
+        $this->fgLeaguePitcherData = $this->fgScraper->getLeaguePitcherData();
     }
 
     public function setBaseballSavantScraper(BaseballSavantScraper $bsScraper)
