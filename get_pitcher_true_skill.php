@@ -20,14 +20,37 @@ $a->setBaseballProspectusScraper($prosp);
 $data = $a->mergeSourceData($a->fgPitcherData, $a->bsData, $a->prospectusData);
 $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30Days, $a->prospectusData);
 
-$KpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($dataLast30), $a->fgLeagueBatterData['ops'], null, false);
-$KpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($a->filterPitcherData($data), $a->fgLeagueBatterData['ops'], $KpercentMinusXwobaLast30);
+$filtered_data_last_30 = $a->filterPitcherData($dataLast30);
+$filtered_data = $a->filterPitcherData($data);
+
+$StartersKpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['sp'], $a->fgLeagueBatterData['ops'], null, false);
+$StartersKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['sp'], $a->fgLeagueBatterData['ops'], $StartersKpercentMinusXwobaLast30);
+$RelieversKpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['rp'], $a->fgLeagueBatterData['ops'], null, false);
+$RelieversKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['rp'], $a->fgLeagueBatterData['ops'], $RelieversKpercentMinusXwobaLast30);
 
 echo "\nLeague Average FBv: {$a->fgLeaguePitcherData['fbv']}";
 echo "\nLeague Average SwStr%: {$a->fgLeaguePitcherData['swstr_percentage']}%\n";
 
-echo "\nAll Pitchers\n";
-foreach ($KpercentMinusXwoba as $key => $player) {
+echo "\nAll Starters\n";
+foreach ($StartersKpercentMinusXwoba as $key => $player) {
+
+    $player_formatted_data = Formatter::pitcher($player);
+
+    echo Formatter::pitcherOutput($player_formatted_data);
+
+    foreach ($custom_lists as $list) {
+        if (in_array($player['name'], $players_of_interest[$list])) {
+            $custom_players[$list][] = $player_formatted_data;
+        }
+    }
+}
+
+echo "\nTop 100 Relievers\n";
+foreach ($RelieversKpercentMinusXwoba as $key => $player) {
+
+    if ($key > 100) {
+        break;
+    }
 
     $player_formatted_data = Formatter::pitcher($player);
 
