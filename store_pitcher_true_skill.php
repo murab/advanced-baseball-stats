@@ -50,13 +50,11 @@ foreach ($StartersKpercentMinusXwoba as $key => $player) {
 echo "\nTop 100 Relievers\n";
 foreach ($RelieversKpercentMinusXwoba as $key => $player) {
 
-    if ($key > 100) {
-        break;
-    }
-
     $player_formatted_data = Formatter::pitcher($player);
 
-    echo Formatter::pitcherOutput($player_formatted_data);
+    if ($key <= 100) {
+        echo Formatter::pitcherOutput($player_formatted_data);
+    }
 
     foreach ($custom_lists as $list) {
         if (in_array($player['name'], $players_of_interest[$list])) {
