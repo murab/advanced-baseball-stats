@@ -63,7 +63,10 @@ foreach ($RelieversKpercentMinusXwoba as $key => $player) {
     }
 }
 
-foreach ($custom_lists as $list) {
+foreach ($custom_lists as $key => $list) {
+    usort($custom_lists[$key], function ($a, $b) {
+        return $a['rank_k_minus_adj_xwoba'] <=> $b['rank_k_minus_adj_xwoba'];
+    });
     echo "\n{$list}\n";
     foreach ($custom_players[$list] as $player) {
         echo Formatter::pitcherOutput($player);
