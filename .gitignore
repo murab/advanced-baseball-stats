@@ -2,3 +2,4 @@ data.txt
 vendor/
 archive/*.txt
 /players_of_interest.json
+.idea

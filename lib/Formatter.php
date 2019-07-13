@@ -6,6 +6,7 @@ class Formatter
     {
         $player = [];
 
+        $player['rank_k_minus_adj_xwoba'] = $data['rank_k_minus_adj_xwoba'];
         $player['rank_formatted'] = str_pad($data['rank_k_minus_adj_xwoba'], 3);
         $player['rank_last_30_formatted'] = str_pad($data['rank_k_minus_adj_xwoba_last_30'] ?? '', 3);
         $player['name_formatted'] = str_pad(substr($data['name'], 0, 16), 16);
