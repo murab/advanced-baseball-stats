@@ -34,6 +34,38 @@ echo "\nLeague Average FBv: {$a->fgLeaguePitcherData['fbv']}";
 echo "\nLeague Average K-BB%: {$a->fgLeaguePitcherData['kbb_percentage']}%";
 echo "\nLeague Average SwStr%: {$a->fgLeaguePitcherData['swstr_percentage']}%\n";
 
+foreach ($StartersKpercentMinusXwoba as $key => $player) {
+
+    $player_formatted_data = Formatter::pitcher($player);
+
+    foreach ($custom_lists as $list) {
+        if (in_array($player['name'], $players_of_interest[$list])) {
+            $custom_players[$list][] = $player_formatted_data;
+        }
+    }
+}
+
+foreach ($RelieversKpercentMinusXwoba as $key => $player) {
+
+    $player_formatted_data = Formatter::pitcher($player);
+
+    foreach ($custom_lists as $list) {
+        if (in_array($player['name'], $players_of_interest[$list])) {
+            $custom_players[$list][] = $player_formatted_data;
+        }
+    }
+}
+
+foreach ($custom_lists as $list) {
+    usort($custom_players[$list], function ($a, $b) {
+        return $a['rank_k_minus_adj_xwoba'] <=> $b['rank_k_minus_adj_xwoba'];
+    });
+    echo "\n{$list}\n";
+    foreach ($custom_players[$list] as $player) {
+        echo Formatter::pitcherOutput($player);
+    }
+}
+
 echo "\nAll Starters\n";
 foreach ($StartersKpercentMinusXwoba as $key => $player) {
 
@@ -53,7 +85,7 @@ foreach ($RelieversKpercentMinusXwoba as $key => $player) {
 
     $player_formatted_data = Formatter::pitcher($player);
 
-    if ($key <= 100) {
+    if ($key < 100) {
         echo Formatter::pitcherOutput($player_formatted_data);
     }
 
@@ -61,16 +93,6 @@ foreach ($RelieversKpercentMinusXwoba as $key => $player) {
         if (in_array($player['name'], $players_of_interest[$list])) {
             $custom_players[$list][] = $player_formatted_data;
         }
-    }
-}
-
-foreach ($custom_lists as $list) {
-    usort($custom_players[$list], function ($a, $b) {
-        return $a['rank_k_minus_adj_xwoba'] <=> $b['rank_k_minus_adj_xwoba'];
-    });
-    echo "\n{$list}\n";
-    foreach ($custom_players[$list] as $player) {
-        echo Formatter::pitcherOutput($player);
     }
 }
 
