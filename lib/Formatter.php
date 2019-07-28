@@ -2,6 +2,25 @@
 
 class Formatter
 {
+    /**
+     * @param array $data
+     * @return string
+     */
+    public static function leagueAveragePitcher(array $data)
+    {
+        $output = '';
+        $output .= "\nLeague Average ERA: {$data['era']}";
+        $output .= "\nLeague Average WHIP: {$data['whip']}";
+        $output .= "\n\nLeague Average K-BB%: {$data['kbb_percentage']}%";
+        $output .= "\nLeague Average SwStr%: {$data['swstr_percentage']}%";
+        $output .= "\n\nLeague Average FBv: {$data['fbv']}\n";
+        return $output;
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
     public static function pitcher($data)
     {
         $player = [];
@@ -24,6 +43,10 @@ class Formatter
         return $player;
     }
 
+    /**
+     * @param $player
+     * @return string
+     */
     public static function pitcherOutput($player)
     {
         //100 150 | Jordan Yamamoto  | 120+ | 13.3% | 91

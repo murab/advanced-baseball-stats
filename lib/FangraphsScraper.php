@@ -133,19 +133,19 @@ class FangraphsScraper
         foreach ($stats as $stat) {
             if ($i == 2) {
                 $data['fbv'] = floatval($stat->innerHTML);
-                $this->league_pitcher_data['fbv'] = $data['fbv'];
+                $this->league_pitcher_data['fbv'] = number_format($data['fbv'], 1);
             } else if ($i == 3) {
                 $data['swstr_percentage'] = floatval($stat->innerHTML);
-                $this->league_pitcher_data['swstr_percentage'] = $data['swstr_percentage'];
+                $this->league_pitcher_data['swstr_percentage'] = number_format($data['swstr_percentage'], 1);
             } else if ($i == 4) {
                 $data['kbb_percentage'] = floatval($stat->innerHTML);
-                $this->league_pitcher_data['kbb_percentage'] = $data['kbb_percentage'];
+                $this->league_pitcher_data['kbb_percentage'] = number_format($data['kbb_percentage'], 1);
             } else if ($i == 5) {
                 $data['era'] = floatval($stat->innerHTML);
-                $this->league_pitcher_data['era'] = $data['era'];
+                $this->league_pitcher_data['era'] = number_format($data['era'], 2);
             } else if ($i == 6) {
                 $data['whip'] = floatval($stat->innerHTML);
-                $this->league_pitcher_data['whip'] = $data['whip'];
+                $this->league_pitcher_data['whip'] = number_format($data['whip'], 2);
             }
             $i++;
         }

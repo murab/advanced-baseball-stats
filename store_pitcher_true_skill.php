@@ -35,11 +35,7 @@ $RelieversKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_d
 
 ob_start();
 
-echo "\nLeague Average ERA: {$a->fgLeaguePitcherData['era']}";
-echo "\nLeague Average WHIP: {$a->fgLeaguePitcherData['whip']}";
-echo "\nLeague Average FBv: {$a->fgLeaguePitcherData['fbv']}";
-echo "\nLeague Average K-BB%: {$a->fgLeaguePitcherData['kbb_percentage']}%";
-echo "\nLeague Average SwStr%: {$a->fgLeaguePitcherData['swstr_percentage']}%\n";
+echo Formatter::leagueAveragePitcher($a->fgLeaguePitcherData);
 
 foreach ($StartersKpercentMinusXwoba as $key => $player) {
 
