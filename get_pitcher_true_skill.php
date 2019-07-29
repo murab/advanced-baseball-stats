@@ -23,15 +23,10 @@ $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30D
 $filtered_data_last_30 = $a->filterPitcherData($dataLast30);
 $filtered_data = $a->filterPitcherData($data);
 
-$enable_opp_quality_adjustment = false;
-if (!empty($a->prospectusData)) {
-    $enable_opp_quality_adjustment = true;
-}
-
 $StartersKpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['sp'], $a->fgLeagueBatterData['ops'], null, false);
-$StartersKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['sp'], $a->fgLeagueBatterData['ops'], $StartersKpercentMinusXwobaLast30, $enable_opp_quality_adjustment);
+$StartersKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['sp'], $a->fgLeagueBatterData['ops'], $StartersKpercentMinusXwobaLast30);
 $RelieversKpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['rp'], $a->fgLeagueBatterData['ops'], null, false);
-$RelieversKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['rp'], $a->fgLeagueBatterData['ops'], $RelieversKpercentMinusXwobaLast30, $enable_opp_quality_adjustment);
+$RelieversKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['rp'], $a->fgLeagueBatterData['ops'], $RelieversKpercentMinusXwobaLast30);
 
 echo Formatter::leagueAveragePitcher($a->fgLeaguePitcherData);
 

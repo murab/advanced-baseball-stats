@@ -52,8 +52,9 @@ class CustomStats
     {
         $data = [];
         foreach ($fgData as $name => $player) {
-            if (array_key_exists($name, $bsData)) {
+            if (array_key_exists($name, $bsData) && array_key_exists($name, $fgData) && array_key_exists($name, $prospectusData)) {
                 $data[$name] = array_merge_recursive($bsData[$name], $fgData[$name]);
+                $data[$name] = array_merge_recursive($data[$name], $prospectusData[$name]);
                 $data[$name]['name'] = $bsData[$name]['name'];
             }
 
