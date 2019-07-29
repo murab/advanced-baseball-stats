@@ -52,13 +52,14 @@ class CustomStats
     {
         $data = [];
         foreach ($fgData as $name => $player) {
-            if (array_key_exists($name, $bsData) && array_key_exists($name, $fgData)) {
+            if (array_key_exists($name, $bsData)) {
                 $data[$name] = array_merge_recursive($bsData[$name], $fgData[$name]);
                 $data[$name]['name'] = $bsData[$name]['name'];
             }
 
-            if (array_key_exists($name, $prospectusData)) {
+            if (array_key_exists($name, $prospectusData) && array_key_exists($name, $bsData)) {
                 $data[$name] = array_merge_recursive($data[$name], $prospectusData[$name]);
+                $data[$name]['name'] = $prospectusData[$name]['name'];
             }
         }
         return $data;
@@ -69,6 +70,9 @@ class CustomStats
         $data = [];
         if ($min_ip && $min_ip_per_g) {
             foreach ($orig_data as $key => $player) {
+                if (empty($player['ip'])) {
+                    continue;
+                }
                 if ($player['ip'] >= $min_ip && ($player['ip'] / $player['g']) > $min_ip_per_g) {
                     $data['sp'][] = $player;
                 } else if ($player['ip'] >= $min_ip)  {
@@ -104,7 +108,7 @@ class CustomStats
         $output = [];
         foreach ($all_data as $name => $data) {
 
-            if ($enable_opp_quality_adjustment == true) {
+            if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
                 $opponent_quality_muliplier = $league_ops / $data['oppops'];
 
                 // calculate adjusted xwoba
@@ -149,8 +153,8 @@ class CustomStats
             'swstr_percentage' => $data['swstr_percentage'],
             'gs' => $data['gs'],
             'velo' => $data['velo'],
-            'opprpa' => $data['opprpa'],
-            'oppops' => $data['oppops']
+            'opprpa' => !empty($data['opprpa']) ? $data['opprpa'] : null,
+            'oppops' => !empty($data['oppops']) ? $data['oppops'] : null
         ];
 
         return $output;
