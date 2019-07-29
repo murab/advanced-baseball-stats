@@ -57,10 +57,6 @@ class CustomStats
                 $data[$name] = array_merge_recursive($data[$name], $prospectusData[$name]);
                 $data[$name]['name'] = $bsData[$name]['name'];
             }
-
-            if (array_key_exists($name, $prospectusData)) {
-                $data[$name] = array_merge_recursive($data[$name], $prospectusData[$name]);
-            }
         }
         return $data;
     }
