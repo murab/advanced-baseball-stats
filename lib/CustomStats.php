@@ -8,6 +8,11 @@ require_once __DIR__ . '/BaseballProspectusScraper.php';
 
 class CustomStats
 {
+    const BEST_K_PER_GAME = 9.45;
+    const WORST_K_PER_GAME = 3.75;
+    const BEST_XWOBA = 0.249;
+    const WORST_XWOBA = 0.350;
+
     public $fgScraper;
     public $bsScraper;
     public $prospectusScraper;
@@ -138,17 +143,25 @@ class CustomStats
     public function computeKperGameMinusAdjustedXwoba($all_data, $league_ops, $last_30_data = null, $enable_opp_quality_adjustment = true)
     {
         $output = [];
+
         foreach ($all_data as $name => $data) {
 
             if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
-                $opponent_quality_muliplier = $league_ops / $data['oppops'];
+                $opponent_quality_multiplier = $league_ops / $data['oppops'];
 
                 // calculate adjusted xwoba
-                $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
+                $data['xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             }
 
             $k_per_game = $data['k'] / $data['g'];
-            $output[] = array_merge($this->generatePlayerOutput($data), ['value' => number_format($k_per_game / 25 - $data['xwoba'], 3)]);
+
+            $score = (
+                (($k_per_game - self::WORST_K_PER_GAME) / (self::BEST_K_PER_GAME - self::WORST_K_PER_GAME))
+                +
+                (($data['xwoba'] - self::WORST_XWOBA) / (self::BEST_XWOBA - self::WORST_XWOBA))
+            );
+
+            $output[] = array_merge($this->generatePlayerOutput($data), ['value' => number_format($score, 3)]);
         }
         usort($output, function($a, $b) {
             return ($a['value'] > $b['value']) ? -1 : 1;
