@@ -23,14 +23,14 @@ $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30D
 $filtered_data_last_30 = $a->filterPitcherData($dataLast30);
 $filtered_data = $a->filterPitcherData($data);
 
-$StartersKpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['sp'], $a->fgLeagueBatterData['ops'], null, false);
-$StartersKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['sp'], $a->fgLeagueBatterData['ops'], $StartersKpercentMinusXwobaLast30);
-$RelieversKpercentMinusXwobaLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['rp'], $a->fgLeagueBatterData['ops'], null, false);
-$RelieversKpercentMinusXwoba = $a->computeKpercentMinusAdjustedXwoba($filtered_data['rp'], $a->fgLeagueBatterData['ops'], $RelieversKpercentMinusXwobaLast30);
+$startersLast30 = $a->computeKperGameMinusAdjustedXwoba($filtered_data_last_30['sp'], $a->fgLeagueBatterData['ops'], null, false);
+$starters = $a->computeKperGameMinusAdjustedXwoba($filtered_data['sp'], $a->fgLeagueBatterData['ops'], $startersLast30);
+$relieversLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['rp'], $a->fgLeagueBatterData['ops'], null, false);
+$relievers = $a->computeKpercentMinusAdjustedXwoba($filtered_data['rp'], $a->fgLeagueBatterData['ops'], $relieversLast30);
 
 echo Formatter::leagueAveragePitcher($a->fgLeaguePitcherData);
 
-foreach ($StartersKpercentMinusXwoba as $key => $player) {
+foreach ($starters as $key => $player) {
 
     $player_formatted_data = Formatter::pitcher($player);
 
@@ -41,7 +41,7 @@ foreach ($StartersKpercentMinusXwoba as $key => $player) {
     }
 }
 
-foreach ($RelieversKpercentMinusXwoba as $key => $player) {
+foreach ($relievers as $key => $player) {
 
     $player_formatted_data = Formatter::pitcher($player);
 
@@ -63,7 +63,7 @@ foreach ($custom_lists as $list) {
 }
 
 echo "\nAll Starters\n";
-foreach ($StartersKpercentMinusXwoba as $key => $player) {
+foreach ($starters as $key => $player) {
 
     $player_formatted_data = Formatter::pitcher($player);
 
@@ -76,14 +76,12 @@ foreach ($StartersKpercentMinusXwoba as $key => $player) {
     }
 }
 
-echo "\nTop 100 Relievers\n";
-foreach ($RelieversKpercentMinusXwoba as $key => $player) {
+echo "\nAll Relievers\n";
+foreach ($relievers as $key => $player) {
 
     $player_formatted_data = Formatter::pitcher($player);
 
-    if ($key < 100) {
-        echo Formatter::pitcherOutput($player_formatted_data);
-    }
+    echo Formatter::pitcherOutput($player_formatted_data);
 
     foreach ($custom_lists as $list) {
         if (in_array($player['name'], $players_of_interest[$list])) {

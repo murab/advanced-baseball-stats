@@ -52,8 +52,11 @@ class CustomStats
     {
         $data = [];
         foreach ($fgData as $name => $player) {
-            if (array_key_exists($name, $bsData) && array_key_exists($name, $fgData) && array_key_exists($name, $prospectusData)) {
+            if (array_key_exists($name, $bsData) && array_key_exists($name, $fgData)) {
                 $data[$name] = array_merge_recursive($bsData[$name], $fgData[$name]);
+                $data[$name]['name'] = $bsData[$name]['name'];
+            }
+            if (array_key_exists($name, $prospectusData)) {
                 $data[$name] = array_merge_recursive($data[$name], $prospectusData[$name]);
                 $data[$name]['name'] = $bsData[$name]['name'];
             }
@@ -61,7 +64,7 @@ class CustomStats
         return $data;
     }
 
-    public function filterPitcherData($orig_data = [], $min_ip = 15, $min_ip_per_g = 3.0, $limit = null)
+    public function filterPitcherData($orig_data = [], $min_ip = 15, $min_ip_per_g = 4.0, $limit = null)
     {
         $data = [];
         if ($min_ip && $min_ip_per_g) {
@@ -101,7 +104,7 @@ class CustomStats
         $output = [];
         foreach ($all_data as $name => $data) {
 
-            if ($enable_opp_quality_adjustment == true) {
+            if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
                 $opponent_quality_muliplier = $league_ops / $data['oppops'];
 
                 // calculate adjusted xwoba
@@ -109,6 +112,43 @@ class CustomStats
             }
 
             $output[] = array_merge($this->generatePlayerOutput($data), ['value' => number_format($data['k_percentage'] / 100 - $data['xwoba'], 3)]);
+        }
+        usort($output, function($a, $b) {
+            return ($a['value'] > $b['value']) ? -1 : 1;
+        });
+        $rank = 1;
+        foreach ($output as $key => $player) {
+            $output[$key]['rank_k_minus_adj_xwoba'] = $rank;
+            $rank++;
+        }
+
+        if ($last_30_data) {
+            foreach ($output as $key => $player) {
+                foreach ($last_30_data as $player30) {
+                    if ($player['name'] == $player30['name']) {
+                        $output[$key]['rank_k_minus_adj_xwoba_last_30'] = $player30['rank_k_minus_adj_xwoba'] ?? '';
+                    }
+                }
+            }
+        }
+
+        return $output;
+    }
+
+    public function computeKperGameMinusAdjustedXwoba($all_data, $league_ops, $last_30_data = null, $enable_opp_quality_adjustment = true)
+    {
+        $output = [];
+        foreach ($all_data as $name => $data) {
+
+            if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
+                $opponent_quality_muliplier = $league_ops / $data['oppops'];
+
+                // calculate adjusted xwoba
+                $data['xwoba'] = $opponent_quality_muliplier * $data['xwoba'];
+            }
+
+            $k_per_game = $data['k'] / $data['g'];
+            $output[] = array_merge($this->generatePlayerOutput($data), ['value' => number_format($k_per_game / 25 - $data['xwoba'], 3)]);
         }
         usort($output, function($a, $b) {
             return ($a['value'] > $b['value']) ? -1 : 1;
@@ -146,8 +186,8 @@ class CustomStats
             'swstr_percentage' => $data['swstr_percentage'],
             'gs' => $data['gs'],
             'velo' => $data['velo'],
-            'opprpa' => $data['opprpa'],
-            'oppops' => $data['oppops']
+            'opprpa' => !empty($data['opprpa']) ? $data['opprpa'] : null,
+            'oppops' => !empty($data['oppops']) ? $data['oppops'] : null
         ];
 
         return $output;

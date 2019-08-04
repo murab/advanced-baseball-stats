@@ -14,15 +14,23 @@ class BaseballProspectusScraper
     public function __construct()
     {
         hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl(self::oppRPAplusURL, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        try {
+            $doc = hQuery::fromUrl(self::oppRPAplusURL, [
+                'Accept' => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+                //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            ]);
+        } catch (Exception $e) {
+            $this->data = [];
+            return;
+        }
 
         $players = $doc->find('tr.TTdata,tr.TTdata_ltgrey');
 
-        $i = 0;
-        $player_data = [];
+        if (count($players) == 0) {
+            $this->data = [];
+            return;
+        }
+
         foreach ($players as $player) {
 
             $vals = $player->find('td');
