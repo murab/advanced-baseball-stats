@@ -14,6 +14,7 @@ class Formatter
         $output .= "\n\nLeague Average K-BB%: {$data['kbb_percentage']}%";
         $output .= "\nLeague Average SwStr%: {$data['swstr_percentage']}%";
         $output .= "\n\nLeague Average FBv: {$data['fbv']}\n";
+        $output .= "\n\nLeague Average K per game: {$data['k_per_game']}\n";
         return $output;
     }
 

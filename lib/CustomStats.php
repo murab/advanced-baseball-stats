@@ -205,4 +205,15 @@ class CustomStats
 
         return $output;
     }
+
+    public function leagueAverageKperGame(array $data) : float
+    {
+        $total_k = 0;
+        $total_g = 0;
+        foreach ($data['sp'] as $starter) {
+            $total_k += $starter['k'];
+            $total_g += $starter['g'];
+        }
+        return $total_k / $total_g;
+    }
 }

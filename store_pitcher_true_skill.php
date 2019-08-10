@@ -23,6 +23,8 @@ $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30D
 $filtered_data_last_30 = $a->filterPitcherData($dataLast30, 7);
 $filtered_data = $a->filterPitcherData($data);
 
+$a->fgLeaguePitcherData['k_per_game'] = $a->leagueAverageKperGame($filtered_data);
+
 $startersLast30 = $a->computeKperGameMinusAdjustedXwoba($filtered_data_last_30['sp'], $a->fgLeagueBatterData['ops'], null, false);
 $starters = $a->computeKperGameMinusAdjustedXwoba($filtered_data['sp'], $a->fgLeagueBatterData['ops'], $startersLast30);
 $relieversLast30 = $a->computeKpercentMinusAdjustedXwoba($filtered_data_last_30['rp'], $a->fgLeagueBatterData['ops'], null, false);
