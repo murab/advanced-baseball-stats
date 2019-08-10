@@ -20,7 +20,7 @@ $a->setBaseballProspectusScraper($prosp);
 $data = $a->mergeSourceData($a->fgPitcherData, $a->bsData, $a->prospectusData);
 $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30Days, $a->prospectusData);
 
-$filtered_data_last_30 = $a->filterPitcherData($dataLast30, 10);
+$filtered_data_last_30 = $a->filterPitcherData($dataLast30, 7);
 $filtered_data = $a->filterPitcherData($data);
 
 $startersLast30 = $a->computeKperGameMinusAdjustedXwoba($filtered_data_last_30['sp'], $a->fgLeagueBatterData['ops'], null, false);
