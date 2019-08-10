@@ -13,8 +13,8 @@ class Formatter
         $output .= "\nLeague Average WHIP: {$data['whip']}";
         $output .= "\n\nLeague Average K-BB%: {$data['kbb_percentage']}%";
         $output .= "\nLeague Average SwStr%: {$data['swstr_percentage']}%";
-        $output .= "\nLeague Average FBv: {$data['fbv']}";
-        $output .= "\n\nLeague Average K per game: " . number_format($data['k_per_game'], 2) . "\n";
+        $output .= "\n\nLeague Average FBv: {$data['fbv']}";
+        $output .= "\nLeague Average K per game: " . number_format($data['k_per_game'], 2) . "\n";
         return $output;
     }
 
