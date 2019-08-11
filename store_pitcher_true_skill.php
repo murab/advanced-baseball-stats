@@ -20,7 +20,7 @@ $a->setBaseballProspectusScraper($prosp);
 $data = $a->mergeSourceData($a->fgPitcherData, $a->bsData, $a->prospectusData);
 $dataLast30 = $a->mergeSourceData($a->fgPitcherDataLast30Days, $a->bsDataLast30Days, $a->prospectusData);
 
-$filtered_data_last_30 = $a->filterPitcherData($dataLast30, 7);
+$filtered_data_last_30 = $a->filterPitcherData($dataLast30, 7, 3.5);
 $filtered_data = $a->filterPitcherData($data);
 
 $a->fgLeaguePitcherData['k_per_game'] = $a->leagueAverageKperGame($filtered_data);
