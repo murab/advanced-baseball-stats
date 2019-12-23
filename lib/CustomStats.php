@@ -35,7 +35,7 @@ class CustomStats
     {
         $this->fgScraper = $fgScraper;
         $this->fgPitcherData = $this->fgScraper->getPitcherData();
-        $this->fgPitcherDataLast30Days = $this->fgScraper->getPitcherDataLast30Days();
+        $this->fgPitcherDataLast30Days = $this->fgScraper->getPitcherData2ndHalf();
         $this->fgLeagueBatterData = $this->fgScraper->getLeagueBatterData();
         $this->fgLeaguePitcherData = $this->fgScraper->getLeaguePitcherData();
     }
@@ -44,7 +44,7 @@ class CustomStats
     {
         $this->bsScraper = $bsScraper;
         $this->bsData = $this->bsScraper->getpitchersXwobaData();
-        $this->bsDataLast30Days = $this->bsScraper->getPitchersXwobaDataLast30Days();
+        $this->bsDataLast30Days = $this->bsScraper->getPitchersXwobaData2ndHalf();
     }
 
     public function setBaseballProspectusScraper(BaseballProspectusScraper $prospectusScraper)

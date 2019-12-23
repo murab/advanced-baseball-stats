@@ -7,6 +7,7 @@ use duzun\hQuery;
 class BaseballSavantScraper
 {
     const pitchersXwobaURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=xwoba&player_event_sort=h_launch_speed&sort_order=asc&min_pas=0#results';
+    const pitchersXwoba2ndHalfURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=2019-07-09&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=xwoba&player_event_sort=h_launch_speed&sort_order=asc&min_pas=0#results';
 
     public function __construct()
     {
@@ -71,6 +72,19 @@ class BaseballSavantScraper
 
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($url, [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        $players = $doc->find('#search_results tbody tr');
+        $data = $this->parseData($players);
+        return $data;
+    }
+
+    public function getPitchersXwobaData2ndHalf()
+    {
+        hQuery::$cache_expires = 0;
+        $doc = hQuery::fromUrl(self::pitchersXwoba2ndHalfURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
             //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
