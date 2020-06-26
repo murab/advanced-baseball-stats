@@ -24,7 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('scrape:fangraphs')->dailyAt('4:00');
+        $schedule->command('scrape:savant')->dailyAt('4:00');
+        $schedule->command('scrape:prospectus')->dailyAt('4:00');
+        $schedule->command('z:text')->dailyAt('4:00');
     }
 
     /**

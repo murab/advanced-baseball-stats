@@ -145,7 +145,7 @@ class CustomStats
     {
         $output = [];
 
-        foreach ($all_data as $name => $data) {
+        foreach ($all_data as $data) {
 
             if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
                 $opponent_quality_multiplier = $league_ops / $data['oppops'];

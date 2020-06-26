@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Player;
 use App\Stat;
+use App\League;
 use Illuminate\Console\Command;
 use duzun\hQuery;
 
@@ -60,8 +61,6 @@ class scrapeFangraphs extends Command
 
         $data = $this->getPitcherData();
         $data_2nd = $this->getPitcherData2ndHalf();
-//        $league_hitters = $this->getLeagueBatterData();
-//        $league_pitchers = $this->getLeaguePitcherData();
 
         foreach ($data as $player) {
             $Player = Player::firstOrCreate(['name' => $player['name']]);
@@ -99,9 +98,22 @@ class scrapeFangraphs extends Command
             $stats->save();
         }
 
-//        foreach ($league_hitters as $league_hitter) {
-//
-//        }
+        $league_hitters = $this->getLeagueBatterData();
+        $league_pitchers = $this->getLeaguePitcherData();
+
+        $league = League::firstOrCreate([
+            'year' => $year,
+        ]);
+
+        $league->velo = $league_pitchers['fbv'];
+        $league->swstr_percentage = $league_pitchers['swstr_percentage'];
+        $league->kbb_percentage = $league_pitchers['kbb_percentage'];
+        $league->era = $league_pitchers['era'];
+        $league->whip = $league_pitchers['whip'];
+
+        $league->ops = $league_hitters['ops'];
+
+        $league->save();
     }
 
     private function setUrls($year)

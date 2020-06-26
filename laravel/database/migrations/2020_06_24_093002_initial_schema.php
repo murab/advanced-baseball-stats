@@ -98,7 +98,6 @@ class InitialSchema extends Migration
 
         Schema::create('leagues', function (Blueprint $table) {
             $table->id('id');
-
             $table->date('created_at');
             $table->date('updated_at');
         });
