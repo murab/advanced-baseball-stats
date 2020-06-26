@@ -14,7 +14,7 @@ class InitialSchema extends Migration
     public function up()
     {
         Schema::create('players', function (Blueprint $table) {
-            $table->id('id');
+            $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->integer('fg_id')->nullable();
             $table->integer('bs_id')->nullable();
@@ -26,7 +26,7 @@ class InitialSchema extends Migration
 
         Schema::create('stats', function (Blueprint $table) {
             $table->id('id');
-            $table->bigInteger('player_id');
+            $table->unsignedBigInteger('player_id');
 
             $table->integer('year');
 
@@ -77,7 +77,6 @@ class InitialSchema extends Migration
             $table->date('created_at');
             $table->date('updated_at');
 
-            $table->foreign('player_id')->references('id')->on('players');
             $table->unique(['player_id', 'year']);
 
             /**
@@ -94,6 +93,10 @@ class InitialSchema extends Migration
             'ip' => $player_data['ip'],
             'velo' => $player_data['velo']
              */
+        });
+
+        Schema::table('stats', function($table) {
+            $table->foreign('player_id')->references('id')->on('players');
         });
 
         Schema::create('leagues', function (Blueprint $table) {
