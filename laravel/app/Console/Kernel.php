@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('scrape:savant')->dailyAt('4:00');
         $schedule->command('scrape:prospectus')->dailyAt('4:00');
         $schedule->command('z:text')->dailyAt('4:00');
+        $schedule->command('z:tru')->dailyAt('4:00');
     }
 
     /**

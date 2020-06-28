@@ -57,6 +57,10 @@ class fullScrape extends Command
 
         $this->info('Tabulating data and generating output files');
         $this->call('z:text', ['year' => $year]);
+
+        $this->info('Computing and storing true skill ratings');
+        $this->call('z:tru', ['year' => $year]);
+
         return 1;
     }
 }

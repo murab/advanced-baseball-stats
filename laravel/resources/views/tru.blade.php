@@ -8,6 +8,23 @@
     <h1>
         True Pitcher Rankings
     </h1>
+
+    <div class="form-group">
+        <label for="positionSelect">Position</label>
+        <select class="form-control" id="positionSelect" name="positionSelect">
+            <option value="sp">SP</option>
+            <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="yearSelect">Year</label>
+        <select class="form-control" id="yearSelect" name="yearSelect">
+            @foreach ($years as $oneYear)
+                <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
+            @endforeach
+        </select>
+    </div>
+
     <table id="tru" class="table table-bordered table-hover table-sm">
         <thead>
             <tr>
@@ -19,9 +36,9 @@
                 <td>K%</td>
                 <td>BB%</td>
                 <td>K-BB%</td>
-                <td>ERA</td>
-                <td>WHIP</td>
+                <td>SwStr%</td>
                 <td>Velo</td>
+                <td>True Score</td>
             </tr>
         </thead>
         <tbody>
@@ -32,12 +49,12 @@
                     <td>{{$stat['age']}}</td>
                     <td>{{$stat['gs']}}</td>
                     <td>{{$stat['ip']}}</td>
-                    <td>{{$stat['k_percentage']}}</td>
-                    <td>{{$stat['bb_percentage']}}</td>
-                    <td>{{$stat['kbb_percentage']}}</td>
-                    <td>{{$stat['era']}}</td>
-                    <td>{{$stat['whip']}}</td>
-                    <td>{{$stat['velo']}}</td>
+                    <td>{{number_format($stat['k_percentage'],1)}}</td>
+                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['velo'], 1)}}</td>
+                    <td>{{number_format($stat['tru'], 2)}}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -51,6 +68,11 @@
         $(document).ready(function() {
             $('#tru').DataTable({
                 paging: false,
+            });
+            $('#positionSelect, #yearSelect').change(function() {
+                var year = $('#yearSelect').val();
+                var position = $('#positionSelect').val();
+                window.location.href = '/tru/'+year+'/'+position;
             });
         });
     </script>

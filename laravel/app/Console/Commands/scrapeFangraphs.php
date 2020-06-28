@@ -72,6 +72,7 @@ class scrapeFangraphs extends Command
             ]);
 
             $stats->age = $player['age'];
+            $stats->position = $player['ip'] / $player['g'] > 3.0 ? 'SP' : 'RP';
 
             $stats->velo = $player['velo'];
             $stats->k_percentage = $player['k_percentage'];

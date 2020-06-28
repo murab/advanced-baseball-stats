@@ -8,18 +8,26 @@ class Stat extends Model
 {
     protected $guarded = [];
 
+    const MIN_STARTER_IP_PER_GAME = 3;
+    const BEST_K_PER_GAME = 9.45;
+    const WORST_K_PER_GAME = 3.75;
+    const BEST_XWOBA = 0.249;
+    const WORST_XWOBA = 0.350;
+
     public function player()
     {
         return $this->belongsTo('App\Player');
     }
 
-    public static function total($year)
+    public static function total($year, $position = 'SP')
     {
-        $players = Stat::where('year', $year)->get();
+        $players = Stat::where(['year' => $year, 'position' => strtoupper($position)])->get();
         $data = [];
         foreach ($players as $player) {
             $data[$player->player['name']] = [
+                'id' => $player['id'],
                 'name' => $player->player['name'],
+                'age' => $player['age'],
                 'velo' => $player['velo'],
                 'k_percentage' => $player['k_percentage'],
                 'bb_percentage' => $player['bb_percentage'],
@@ -41,13 +49,15 @@ class Stat extends Model
         return $data;
     }
 
-    public static function secondHalf($year)
+    public static function secondHalf($year, $position = 'SP')
     {
-        $players = Stat::where('year', $year)->get();
+        $players = Stat::where(['year' => $year, 'position' => strtoupper($position)])->get();
         $data = [];
         foreach ($players as $player) {
             $data[$player->player['name']] = [
+                'id' => $player['id'],
                 'name' => $player->player['name'],
+                'age' => $player['age'],
                 'velo' => $player['secondhalf_velo'],
                 'k_percentage' => $player['secondhalf_k_percentage'],
                 'bb_percentage' => $player['secondhalf_bb_percentage'],
@@ -69,7 +79,7 @@ class Stat extends Model
         return $data;
     }
 
-    public static function startingPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 15, ?float $min_ip_per_g = 4.0)
+    public static function startingPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 15, ?float $min_ip_per_g = 3.0)
     {
         if (empty($year)) {
             if (date('m-d') > '03-25') {
@@ -80,14 +90,14 @@ class Stat extends Model
         }
 
         if ($secondHalf) {
-            $stats = Stat::secondHalf($year);
+            $stats = Stat::secondHalf($year, 'SP');
         } else {
-            $stats = Stat::total($year);
+            $stats = Stat::total($year, 'SP');
         }
         $data = [];
         foreach ($stats as $stat) {
             if ($stat['ip'] && $stat['g'] && $stat['ip'] > $min_ip && ($stat['ip'] / $stat['g'] > $min_ip_per_g)) {
-                $data[] = $stat;
+                $data[$stat['id']] = $stat;
             }
         }
 
@@ -105,15 +115,15 @@ class Stat extends Model
         }
 
         if ($secondHalf) {
-            $stats = Stat::secondHalf($year);
+            $stats = Stat::secondHalf($year, 'RP');
         } else {
-            $stats = Stat::total($year);
+            $stats = Stat::total($year, 'RP');
         }
 
         $data = [];
         foreach ($stats as $stat) {
             if ($stat['ip'] && $stat['g'] && $stat['ip'] > $min_ip && $stat['ip'] / $stat['g'] < $min_ip_per_g) {
-                $data[] = $stat;
+                $data[$stat['id']] = $stat;
             }
         }
         return $data;
@@ -160,5 +170,84 @@ class Stat extends Model
         $league['k_per_game'] = $total_k / $total_g;
 
         return $league;
+    }
+
+    public static function worstKperGame(int $year, string $position)
+    {
+        return self::WORST_K_PER_GAME;
+
+        $kpg = Stat::where([
+            'year' => $year,
+            'position' => $position,
+        ])->orderBy('k_per_game', 'asc')->first();
+
+        if (count($kpg)) {
+            return $kpg['k_per_game'];
+        } else {
+            return 0;
+        }
+    }
+
+    public static function bestKperGame(int $year, string $position)
+    {
+        return self::BEST_K_PER_GAME;
+
+        $kpg = Stat::where([
+            'year' => $year,
+            'position' => $position,
+        ])->orderBy('k_per_game', 'desc')->first()->get();
+
+        if (count($kpg)) {
+            return $kpg['k_per_game'];
+        } else {
+            return 0;
+        }
+    }
+
+    public static function bestXwoba(int $year, string $position)
+    {
+        return self::BEST_XWOBA;
+    }
+
+    public static function worstXwoba(int $year, string $position)
+    {
+        return self::WORST_XWOBA;
+    }
+
+    public static function computeKperGameMinusAdjustedXwoba(int $year, string $position = 'SP', $second_half = false)
+    {
+        $enable_opp_quality_adjustment = ($second_half == false);
+
+        if (strtoupper($position) == 'SP') {
+            $all_data = Stat::startingPitcherStats($year,$second_half);
+        } else {
+            $all_data = Stat::reliefPitcherStats($year,$second_half);
+        }
+
+        $worst_k_per_game = Stat::worstKperGame($year, $position);
+        $best_k_per_game = Stat::bestKperGame($year, $position);
+        $best_xwoba = Stat::bestXwoba($year, $position);
+        $worst_xwoba = Stat::worstXwoba($year, $position);
+
+        $league_ops = Stat::leagueAverageStats($year)['ops'];
+
+        foreach ($all_data as $key => $data) {
+
+            if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
+                $opponent_quality_multiplier = $league_ops / $data['oppops'];
+
+                // calculate adjusted xwoba
+                $data['xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
+            }
+
+            $k_per_game = $data['k'] / $data['g'];
+
+            $all_data[$key]['tru'] = (
+                (($k_per_game - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
+                +
+                (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
+            );
+        }
+        return $all_data;
     }
 }
