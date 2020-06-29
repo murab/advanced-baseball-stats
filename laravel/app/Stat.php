@@ -21,7 +21,16 @@ class Stat extends Model
 
     public static function total($year, $position = 'SP')
     {
-        $players = Stat::where(['year' => $year, 'position' => strtoupper($position)])->get();
+        $players = Stat::where([
+            'year' => $year,
+            'position' => strtoupper($position),
+            ['oppops', '<>', null],
+            ['xwoba', '<>', null],
+            ['k', '<>', null],
+            ['g', '<>', null],
+            ['k_per_game', '<>', null],
+        ])->get();
+
         $data = [];
         foreach ($players as $player) {
             $data[$player->player['name']] = [
@@ -51,7 +60,15 @@ class Stat extends Model
 
     public static function secondHalf($year, $position = 'SP')
     {
-        $players = Stat::where(['year' => $year, 'position' => strtoupper($position)])->get();
+        $players = Stat::where([
+            'year' => $year,
+            'position' => strtoupper($position),
+            ['secondhalf_xwoba', '<>', null],
+            ['secondhalf_k', '<>', null],
+            ['secondhalf_g', '<>', null],
+            ['secondhalf_k_per_game', '<>', null],
+        ])->get();
+
         $data = [];
         foreach ($players as $player) {
             $data[$player->player['name']] = [
@@ -240,13 +257,18 @@ class Stat extends Model
                 $data['xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             }
 
-            $k_per_game = $data['k'] / $data['g'];
-
-            $all_data[$key]['tru'] = (
-                (($k_per_game - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
-                +
-                (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
-            );
+            if (strtoupper($position) == 'SP') {
+                $all_data[$key]['tru'] = (
+                    (($data['k_per_game'] - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
+                    +
+                    (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
+                );
+            } else if (strtoupper($position) == 'RP') {
+                // rank among rp at k percentage + rank among rp at xadjusted xwoba might be better
+                $all_data[$key]['tru'] = (
+                    $data['k_percentage'] - $data['xwoba'] * 100
+                );
+            }
         }
         return $all_data;
     }

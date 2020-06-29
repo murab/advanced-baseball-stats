@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Stat;
+use Illuminate\Support\Facades\DB;
 
 class calculateTru extends Command
 {
@@ -46,6 +47,8 @@ class calculateTru extends Command
                 $year = date('Y')-1;
             }
         }
+
+        DB::statement('update stats set tru = null, secondhalf_tru = null where year = ?',[$year]);
 
         $starters = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP');
         $starters2ndHalf = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP',true);
