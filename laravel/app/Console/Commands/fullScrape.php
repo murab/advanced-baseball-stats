@@ -55,11 +55,11 @@ class fullScrape extends Command
         $this->info('Scraping Prospectus');
         $this->call('scrape:prospectus', ['year' => $year]);
 
-        $this->info('Tabulating data and generating output files');
-        $this->call('z:text', ['year' => $year]);
-
         $this->info('Computing and storing true skill ratings');
         $this->call('z:tru', ['year' => $year]);
+
+        $this->info('Tabulating data and generating output files');
+        $this->call('z:text', ['year' => $year]);
 
         return 1;
     }

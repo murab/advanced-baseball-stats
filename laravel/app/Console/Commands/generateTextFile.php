@@ -140,9 +140,9 @@ class generateTextFile extends Command
         }
 
         foreach ($custom_lists as $list) {
-//            usort($custom_players[$list], function ($a, $b) {
-//                return $a['rank_k_minus_adj_xwoba'] <=> $b['rank_k_minus_adj_xwoba'];
-//            });
+            usort($custom_players[$list], function ($a, $b) {
+                return $b['rank_k_minus_adj_xwoba'] <=> $a['rank_k_minus_adj_xwoba'];
+            });
             echo "\n{$list}\n";
             foreach ($custom_players[$list] as $player) {
                 echo \Formatter::pitcherOutput($player);
