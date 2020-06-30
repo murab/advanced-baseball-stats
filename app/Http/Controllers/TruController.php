@@ -18,7 +18,7 @@ class TruController extends Controller
             ['tru', '<>', null],
         ])->orderBy('tru', 'desc')->get();
 
-        $years = DB::table('stats')->groupBy('year')->pluck('year')->toArray();
+        $years = DB::table('stats')->groupBy('year')->orderBy('year', 'desc')->pluck('year')->toArray();
 
         if (!in_array(date('Y'),$years)) {
             array_unshift($years, date('Y'));
