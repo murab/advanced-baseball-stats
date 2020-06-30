@@ -61,6 +61,7 @@ class calculateTru extends Command
             $Stat->secondhalf_tru = $starters2ndHalf[$starter['id']]['tru'] ?? null;
             $Stat->tru_rank = $starter['tru_rank'];
             $Stat->secondhalf_tru_rank = $starters2ndHalf[$starter['id']]['tru_rank'] ?? null;
+            $Stat->adjusted_xwoba = $starter['adjusted_xwoba'] ?? null;
             $Stat->save();
         }
 
@@ -70,6 +71,7 @@ class calculateTru extends Command
             $Stat->secondhalf_tru = $relievers2ndHalf[$reliever['id']]['tru'] ?? null;
             $Stat->tru_rank = $reliever['tru_rank'];
             $Stat->secondhalf_tru_rank = $relievers2ndHalf[$reliever['id']]['tru_rank'] ?? null;
+            $Stat->adjusted_xwoba = $reliever['adjusted_xwoba'] ?? null;
             $Stat->save();
         }
         return 1;

@@ -253,11 +253,6 @@ class Stat extends Model
             return $a['k_percentage'] > $b['k_percentage'];
         });
 
-        $xwoba_sorted = $all_data;
-        usort($xwoba_sorted, function($a, $b) {
-            return $a['xwoba'] < $b['xwoba'];
-        });
-
         //die(var_dump(array_search('Tyler Glasnow', array_column($xwoba_sorted, 'name'))));
 
         foreach ($all_data as $key => $data) {
@@ -266,11 +261,21 @@ class Stat extends Model
                 $opponent_quality_multiplier = $league_ops / $data['oppops'];
 
                 // calculate adjusted xwoba
-                $data['xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
+                $all_data[$key]['adjusted_xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             }
+        }
 
-            $k_rank = array_search($data['id'], array_column($xwoba_sorted, 'id'));
-            $xwoba_rank = array_search($data['id'], array_column($k_sorted, 'id'));
+        $xwoba_sorted = $all_data;
+        if ($second_half == false) {
+            usort($xwoba_sorted, function($a, $b) {
+                return $a['adjusted_xwoba'] < $b['adjusted_xwoba'];
+            });
+        }
+
+        foreach ($all_data as $key => $data) {
+
+            $k_rank = array_search($data['id'], array_column($k_sorted, 'id'));
+            $xwoba_rank = array_search($data['id'], array_column($xwoba_sorted, 'id'));
 
             if (strtoupper($position) == 'SP') {
                 $all_data[$key]['tru'] = (
