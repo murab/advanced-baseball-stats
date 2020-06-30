@@ -59,6 +59,8 @@ class calculateTru extends Command
             $Stat = Stat::find($starter['id']);
             $Stat->tru = $starter['tru'];
             $Stat->secondhalf_tru = $starters2ndHalf[$starter['id']]['tru'] ?? null;
+            $Stat->tru_rank = $starter['tru_rank'];
+            $Stat->secondhalf_tru_rank = $starters2ndHalf[$starter['id']]['tru_rank'] ?? null;
             $Stat->save();
         }
 
@@ -66,6 +68,8 @@ class calculateTru extends Command
             $Stat = Stat::find($reliever['id']);
             $Stat->tru = $reliever['tru'];
             $Stat->secondhalf_tru = $relievers2ndHalf[$reliever['id']]['tru'] ?? null;
+            $Stat->tru_rank = $reliever['tru_rank'];
+            $Stat->secondhalf_tru_rank = $relievers2ndHalf[$reliever['id']]['tru_rank'] ?? null;
             $Stat->save();
         }
         return 1;

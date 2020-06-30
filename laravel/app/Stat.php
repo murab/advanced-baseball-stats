@@ -248,6 +248,18 @@ class Stat extends Model
 
         $league_ops = Stat::leagueAverageStats($year)['ops'];
 
+        $k_sorted = $all_data;
+        usort($k_sorted, function($a, $b) {
+            return $a['k_percentage'] > $b['k_percentage'];
+        });
+
+        $xwoba_sorted = $all_data;
+        usort($xwoba_sorted, function($a, $b) {
+            return $a['xwoba'] < $b['xwoba'];
+        });
+
+        //die(var_dump(array_search('Tyler Glasnow', array_column($xwoba_sorted, 'name'))));
+
         foreach ($all_data as $key => $data) {
 
             if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
@@ -257,19 +269,40 @@ class Stat extends Model
                 $data['xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             }
 
+            $k_rank = array_search($data['id'], array_column($xwoba_sorted, 'id'));
+            $xwoba_rank = array_search($data['id'], array_column($k_sorted, 'id'));
+
             if (strtoupper($position) == 'SP') {
                 $all_data[$key]['tru'] = (
-                    (($data['k_per_game'] - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
-                    +
-                    (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
+                    $k_rank + $xwoba_rank
+//                    (($data['k_per_game'] - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
+//                    +
+//                    (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
                 );
             } else if (strtoupper($position) == 'RP') {
                 // rank among rp at k percentage + rank among rp at xadjusted xwoba might be better
                 $all_data[$key]['tru'] = (
-                    $data['k_percentage'] - $data['xwoba'] * 100
+                    //$data['k_percentage'] - $data['xwoba'] * 100
+                    $k_rank + $xwoba_rank
                 );
             }
         }
-        return $all_data;
+
+        $tru_sorted = $all_data;
+        usort($tru_sorted, function($a, $b) {
+            return $a['tru'] < $b['tru'];
+        });
+
+//        usort($ret, function($a, $b) {
+//            return $a['tru_rank'] > $b['tru_rank'];
+//        });
+
+        $ret = [];
+        foreach ($all_data as $key => $player) {
+            $ret[$player['id']] = $player;
+            $ret[$player['id']]['tru_rank'] = array_search($player['id'], array_column($tru_sorted, 'id')) + 1;
+        }
+
+        return $ret;
     }
 }

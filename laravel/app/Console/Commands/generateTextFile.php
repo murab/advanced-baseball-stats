@@ -97,21 +97,21 @@ class generateTextFile extends Command
         $filtered_data_last_30 = $a->filterPitcherData(Stat::secondHalf($year), 7, 3.25);
         $filtered_data = $a->filterPitcherData($data);
 
+        $starters = Stat::where(['year' => $year, 'position' => 'SP', ['tru_rank', '<>', null]])->with('player')->orderBy('tru_rank', 'asc')->get()->toArray();
+        $relievers = Stat::where(['year' => $year, 'position' => 'RP', ['tru_rank', '<>', null]])->with('player')->orderBy('tru_rank', 'asc')->get()->toArray();
 
-        $starters = Stat::startingPitcherStats($year);
-        $starters2ndHalf = Stat::startingPitcherStats($year,true);
-        $relievers = Stat::reliefPitcherStats($year);
-        $relievers2ndHalf = Stat::reliefPitcherStats($year,true);
+        //die(var_dump($starters));
+
+//        $starters = Stat::startingPitcherStats($year);
+        //$startersLast30 = Stat::startingPitcherStats($year,true);
+//        $relievers = Stat::reliefPitcherStats($year);
+        //$relieversLast30 = Stat::reliefPitcherStats($year,true);
         $league = Stat::leagueAverageStats($year);
 
-        $startersLast30 = $a->computeKperGameMinusAdjustedXwoba($starters2ndHalf,
-            $league['ops'], null, false);
-        $starters = $a->computeKperGameMinusAdjustedXwoba($starters, $league['ops'],
-            $startersLast30);
-        $relieversLast30 = $a->computeKpercentMinusAdjustedXwoba($relievers2ndHalf,
-            $league['ops'], null, false);
-        $relievers = $a->computeKpercentMinusAdjustedXwoba($relievers, $league['ops'],
-            $relieversLast30);
+//        $startersLast30 = Stat::computeKperGameMinusAdjustedXwoba($year,'SP',true);
+//        $starters = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP');
+//        $relieversLast30 = Stat::computeKperGameMinusAdjustedXwoba($year,'RP',true);
+//        $relievers = Stat::computeKperGameMinusAdjustedXwoba($year,'RP');
 
         ob_start();
 
@@ -122,7 +122,7 @@ class generateTextFile extends Command
             $player_formatted_data = \Formatter::pitcher($player);
 
             foreach ($custom_lists as $list) {
-                if (in_array($player['name'], $players_of_interest[$list])) {
+                if (in_array($player['player']['name'], $players_of_interest[$list])) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
             }
@@ -133,16 +133,16 @@ class generateTextFile extends Command
             $player_formatted_data = \Formatter::pitcher($player);
 
             foreach ($custom_lists as $list) {
-                if (in_array($player['name'], $players_of_interest[$list])) {
+                if (in_array($player['player']['name'], $players_of_interest[$list])) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
             }
         }
 
         foreach ($custom_lists as $list) {
-            usort($custom_players[$list], function ($a, $b) {
-                return $a['rank_k_minus_adj_xwoba'] <=> $b['rank_k_minus_adj_xwoba'];
-            });
+//            usort($custom_players[$list], function ($a, $b) {
+//                return $a['rank_k_minus_adj_xwoba'] <=> $b['rank_k_minus_adj_xwoba'];
+//            });
             echo "\n{$list}\n";
             foreach ($custom_players[$list] as $player) {
                 echo \Formatter::pitcherOutput($player);
@@ -157,7 +157,7 @@ class generateTextFile extends Command
             echo \Formatter::pitcherOutput($player_formatted_data);
 
             foreach ($custom_lists as $list) {
-                if (in_array($player['name'], $players_of_interest[$list])) {
+                if (in_array($player['player']['name'], $players_of_interest[$list])) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
             }
@@ -171,7 +171,7 @@ class generateTextFile extends Command
             echo \Formatter::pitcherOutput($player_formatted_data);
 
             foreach ($custom_lists as $list) {
-                if (in_array($player['name'], $players_of_interest[$list])) {
+                if (in_array($player['player']['name'], $players_of_interest[$list])) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
             }

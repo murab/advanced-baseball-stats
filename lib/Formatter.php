@@ -26,11 +26,11 @@ class Formatter
     {
         $player = [];
 
-        $player['rank_k_minus_adj_xwoba'] = $data['rank_k_minus_adj_xwoba'];
-        $player['rank_formatted'] = str_pad($data['rank_k_minus_adj_xwoba'], 3);
+        $player['rank_k_minus_adj_xwoba'] = $data['tru'];
+        $player['rank_formatted'] = str_pad($data['tru_rank'], 3);
         $player['ip_formatted'] = str_pad((int)$data['ip'], 3);
-        $player['rank_last_30_formatted'] = str_pad($data['rank_k_minus_adj_xwoba_last_30'] ?? '', 3);
-        $player['name_formatted'] = str_pad(substr($data['name'], 0, 20), 20);
+        $player['rank_last_30_formatted'] = str_pad($data['secondhalf_tru_rank'] ?? '', 3);
+        $player['name_formatted'] = str_pad(substr($data['player']['name'], 0, 20), 20);
         $player['swstr_percentage_formatted'] = str_pad(number_format($data['swstr_percentage'], 1), 4, ' ', STR_PAD_LEFT);
         //$player['k_percentage_formatted'] = str_pad(number_format($data['k_percentage'], 1), 4, ' ', STR_PAD_LEFT);
         $player['k_percentage_plus_formatted'] = str_pad($data['k_percentage_plus'], 3, ' ', STR_PAD_LEFT);
