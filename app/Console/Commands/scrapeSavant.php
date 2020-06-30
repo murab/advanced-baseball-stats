@@ -6,6 +6,7 @@ use App\Player;
 use App\Stat;
 use Illuminate\Console\Command;
 use duzun\hQuery;
+use Illuminate\Support\Str;
 
 class scrapeSavant extends Command
 {
@@ -61,7 +62,11 @@ class scrapeSavant extends Command
         $data_2nd = $this->getPitchersXwobaData2ndHalf();
 
         foreach ($data as $player) {
-            $Player = Player::firstOrCreate(['name' => $player['name']]);
+            $Player = Player::firstOrCreate([
+                'slug' => Str::slug($player['name'])
+            ], [
+                'name' => $player['name'],
+            ]);
             $lowername = strtolower($player['name']);
 
             $stats = Stat::firstOrNew([

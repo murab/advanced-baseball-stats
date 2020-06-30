@@ -16,7 +16,7 @@ class TruController extends Controller
             'year' => $year,
             'position' => strtoupper($position),
             ['tru', '<>', null],
-        ])->orderBy('tru', 'desc')->get();
+        ])->orderBy('tru_rank', 'asc')->get();
 
         $years = DB::table('stats')->groupBy('year')->orderBy('year', 'desc')->pluck('year')->toArray();
 

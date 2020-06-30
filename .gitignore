@@ -12,3 +12,6 @@ npm-debug.log
 yarn-error.log
 /public/css/*
 /public/js/*
+/.idea/xstats.iml
+/.idea/workspace.xml
+/.idea/php.xml

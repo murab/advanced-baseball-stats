@@ -7,6 +7,8 @@ use App\Stat;
 use App\League;
 use Illuminate\Console\Command;
 use duzun\hQuery;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class scrapeFangraphs extends Command
 {
@@ -63,7 +65,11 @@ class scrapeFangraphs extends Command
         $data_2nd = $this->getPitcherData2ndHalf();
 
         foreach ($data as $player) {
-            $Player = Player::firstOrCreate(['name' => $player['name']]);
+            $Player = Player::firstOrCreate([
+                'slug' => Str::slug($player['name'])
+            ], [
+                'name' => $player['name'],
+            ]);
             $lowername = strtolower($player['name']);
 
             $stats = Stat::firstOrNew([

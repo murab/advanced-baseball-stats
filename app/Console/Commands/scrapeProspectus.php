@@ -6,6 +6,7 @@ use App\Player;
 use App\Stat;
 use Illuminate\Console\Command;
 use duzun\hQuery;
+use Illuminate\Support\Str;
 
 class scrapeProspectus extends Command
 {
@@ -119,7 +120,11 @@ class scrapeProspectus extends Command
         }
 
         foreach ($this->data as $player) {
-            $Player = Player::firstOrCreate(['name' => $player['name']]);
+            $Player = Player::firstOrCreate([
+                'slug' => Str::slug($player['name'])
+            ], [
+                'name' => $player['name'],
+            ]);
 
             $stats = Stat::firstOrNew([
                 'player_id' => $Player->id,

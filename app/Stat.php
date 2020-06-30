@@ -253,8 +253,6 @@ class Stat extends Model
             return $a['k_percentage'] > $b['k_percentage'];
         });
 
-        //die(var_dump(array_search('Tyler Glasnow', array_column($xwoba_sorted, 'name'))));
-
         foreach ($all_data as $key => $data) {
 
             if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
@@ -299,12 +297,11 @@ class Stat extends Model
 
         $tru_sorted = $all_data;
         usort($tru_sorted, function($a, $b) {
+            if ($a['tru'] == $b['tru']) {
+                return $a['k_percentage'] < $b['k_percentage'];
+            }
             return $a['tru'] < $b['tru'];
         });
-
-//        usort($ret, function($a, $b) {
-//            return $a['tru_rank'] > $b['tru_rank'];
-//        });
 
         $ret = [];
         foreach ($all_data as $key => $player) {
