@@ -270,6 +270,10 @@ class Stat extends Model
             usort($xwoba_sorted, function($a, $b) {
                 return $a['adjusted_xwoba'] < $b['adjusted_xwoba'];
             });
+        } else {
+            usort($xwoba_sorted, function($a, $b) {
+                return $a['xwoba'] < $b['xwoba'];
+            });
         }
 
         foreach ($all_data as $key => $data) {
