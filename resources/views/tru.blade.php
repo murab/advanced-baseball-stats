@@ -62,7 +62,7 @@
                     <td class="text-center">{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td class="text-center">{{number_format($stat['velo'], 1)}}</td>
 {{--                    <td>{{number_format($stat['xwoba'], 3)}}</td>--}}
-                    <td class="text-center">{{number_format($stat['adjusted_xwoba'], 3)}}</td>
+                    <td class="text-center">{{ltrim(number_format($stat['adjusted_xwoba'], 3), '0')}}</td>
 {{--                    <td>{{number_format($stat['oppops'], 3)}}</td>--}}
 {{--                    <td>{{number_format($stat['tru'], 2)}}</td>--}}
                 </tr>
