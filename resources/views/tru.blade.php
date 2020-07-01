@@ -9,36 +9,41 @@
         True Pitcher Rankings
     </h1>
 
-    <div class="form-group">
-        <label for="positionSelect">Position</label>
-        <select class="form-control" id="positionSelect" name="positionSelect">
-            <option value="sp">SP</option>
-            <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="yearSelect">Year</label>
-        <select class="form-control" id="yearSelect" name="yearSelect">
-            @foreach ($years as $oneYear)
-                <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
-            @endforeach
-        </select>
+    <div class="row">
+        <div class="col-sm-1">
+            <label for="positionSelect">Position</label>
+            <select class="form-control" id="positionSelect" name="positionSelect">
+                <option value="sp">SP</option>
+                <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
+            </select>
+        </div>
+{{--    </div>--}}
+{{--    <div class="form-group">--}}
+        <div class="col-sm-2">
+                <label for="yearSelect">Year</label>
+                <select class="form-control" id="yearSelect" name="yearSelect">
+                    @foreach ($years as $oneYear)
+                        <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
+                    @endforeach
+                </select>
+        </div>
     </div>
 
     <table id="tru" class="table table-bordered table-hover table-sm">
         <thead>
             <tr>
-                <td>Rank</td>
-                <td>Name</td>
-                <td>Age</td>
+                <td class="text-center">Rank</td>
+                <td class="text-center">Name</td>
+                <td class="text-center">Age</td>
 {{--                <td>GS</td>--}}
-                <td>IP</td>
+                <td class="text-center">IP</td>
 {{--                <td>K%</td>--}}
 {{--                <td>BB%</td>--}}
-                <td>K-BB%</td>
-                <td>SwStr%</td>
-                <td>Velo</td>
+                <td class="text-center">K-BB%</td>
+                <td class="text-center">SwStr%</td>
+                <td class="text-center">Velo</td>
 {{--                <td>xWOBA</td>--}}
+                <td class="text-center">Adj xWOBA</td>
 {{--                <td>OppOPS</td>--}}
 {{--                <td>True Score</td>--}}
             </tr>
@@ -46,17 +51,18 @@
         <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td>{{$key+1}}</td>
+                    <td class="text-center">{{$key+1}}</td>
                     <td>{{$stat->player['name']}}</td>
-                    <td>{{$stat['age']}}</td>
+                    <td class="text-center">{{$stat['age']}}</td>
 {{--                    <td>{{$stat['gs']}}</td>--}}
-                    <td>{{$stat['ip']}}</td>
+                    <td class="text-center">{{$stat['ip']}}</td>
 {{--                    <td>{{number_format($stat['k_percentage'],1)}}</td>--}}
 {{--                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>--}}
-                    <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['velo'], 1)}}</td>
+                    <td class="text-center">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                    <td class="text-center">{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td class="text-center">{{number_format($stat['velo'], 1)}}</td>
 {{--                    <td>{{number_format($stat['xwoba'], 3)}}</td>--}}
+                    <td class="text-center">{{number_format($stat['adjusted_xwoba'], 3)}}</td>
 {{--                    <td>{{number_format($stat['oppops'], 3)}}</td>--}}
 {{--                    <td>{{number_format($stat['tru'], 2)}}</td>--}}
                 </tr>
@@ -70,9 +76,17 @@
     <script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#tru').DataTable({
-                paging: false,
+            var t = $('#tru').DataTable({
+                paging: false
             });
+
+            // manage index column
+            t.on( 'order.dt ', function () {
+                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                } );
+            } ).draw();
+
             $('#positionSelect, #yearSelect').change(function() {
                 var year = $('#yearSelect').val();
                 var position = $('#positionSelect').val();
