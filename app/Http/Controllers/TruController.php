@@ -25,6 +25,7 @@ class TruController extends Controller
         }
 
         return view('tru', [
+            'page_title' => "{$year} " . strtoupper($position) . " - True Pitcher Rankings",
             'stats' => $stats,
             'years' => $years,
             'year' => $year,

@@ -248,11 +248,6 @@ class Stat extends Model
 
         $league_ops = Stat::leagueAverageStats($year)['ops'];
 
-        $k_sorted = $all_data;
-        usort($k_sorted, function($a, $b) {
-            return $a['k_percentage'] > $b['k_percentage'];
-        });
-
         foreach ($all_data as $key => $data) {
 
             if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
@@ -264,13 +259,24 @@ class Stat extends Model
         }
 
         $xwoba_sorted = $all_data;
+        $k_sorted = $all_data;
+
         if ($second_half == false) {
             usort($xwoba_sorted, function($a, $b) {
                 return $a['adjusted_xwoba'] < $b['adjusted_xwoba'];
             });
+
+            usort($k_sorted, function($a, $b) {
+                return $a['k_percentage'] > $b['k_percentage'];
+            });
         } else {
             usort($xwoba_sorted, function($a, $b) {
                 return $a['xwoba'] < $b['xwoba'];
+            });
+
+            $k_sorted = $all_data;
+            usort($k_sorted, function($a, $b) {
+                return $a['k_percentage'] > $b['k_percentage'];
             });
         }
 

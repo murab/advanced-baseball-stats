@@ -31,16 +31,16 @@
                 <td>Rank</td>
                 <td>Name</td>
                 <td>Age</td>
-                <td>GS</td>
+{{--                <td>GS</td>--}}
                 <td>IP</td>
-                <td>K%</td>
-                <td>BB%</td>
+{{--                <td>K%</td>--}}
+{{--                <td>BB%</td>--}}
                 <td>K-BB%</td>
                 <td>SwStr%</td>
                 <td>Velo</td>
-                <td>xWOBA</td>
-                <td>OppOPS</td>
-                <td>True Score</td>
+{{--                <td>xWOBA</td>--}}
+{{--                <td>OppOPS</td>--}}
+{{--                <td>True Score</td>--}}
             </tr>
         </thead>
         <tbody>
@@ -49,16 +49,16 @@
                     <td>{{$key+1}}</td>
                     <td>{{$stat->player['name']}}</td>
                     <td>{{$stat['age']}}</td>
-                    <td>{{$stat['gs']}}</td>
+{{--                    <td>{{$stat['gs']}}</td>--}}
                     <td>{{$stat['ip']}}</td>
-                    <td>{{number_format($stat['k_percentage'],1)}}</td>
-                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
+{{--                    <td>{{number_format($stat['k_percentage'],1)}}</td>--}}
+{{--                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>--}}
                     <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
                     <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td>{{number_format($stat['velo'], 1)}}</td>
-                    <td>{{number_format($stat['xwoba'], 3)}}</td>
-                    <td>{{number_format($stat['oppops'], 3)}}</td>
-                    <td>{{number_format($stat['tru'], 2)}}</td>
+{{--                    <td>{{number_format($stat['xwoba'], 3)}}</td>--}}
+{{--                    <td>{{number_format($stat['oppops'], 3)}}</td>--}}
+{{--                    <td>{{number_format($stat['tru'], 2)}}</td>--}}
                 </tr>
             @endforeach
         </tbody>
