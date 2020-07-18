@@ -256,10 +256,12 @@ class Stat extends Model
                 // calculate adjusted xwoba
                 $all_data[$key]['adjusted_xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             }
+            $all_data[$key]['innings_per_game'] = $data['ip'] / $data['g'];
         }
 
         $xwoba_sorted = $all_data;
         $k_sorted = $all_data;
+        $ipg_sorted = $all_data;
 
         if ($second_half == false) {
             usort($xwoba_sorted, function($a, $b) {
@@ -268,6 +270,10 @@ class Stat extends Model
 
             usort($k_sorted, function($a, $b) {
                 return $a['k_percentage'] > $b['k_percentage'];
+            });
+
+            usort($ipg_sorted, function ($a, $b) {
+                return $a['innings_per_game'] > $b['innings_per_game'];
             });
         } else {
             usort($xwoba_sorted, function($a, $b) {
@@ -278,16 +284,21 @@ class Stat extends Model
             usort($k_sorted, function($a, $b) {
                 return $a['k_percentage'] > $b['k_percentage'];
             });
+
+            usort($ipg_sorted, function ($a, $b) {
+                return $a['innings_per_game'] > $b['innings_per_game'];
+            });
         }
 
         foreach ($all_data as $key => $data) {
 
             $k_rank = array_search($data['id'], array_column($k_sorted, 'id'));
             $xwoba_rank = array_search($data['id'], array_column($xwoba_sorted, 'id'));
+            $ipg_rank = array_search($data['id'], array_column($ipg_sorted, 'id'));
 
             if (strtoupper($position) == 'SP') {
                 $all_data[$key]['tru'] = (
-                    $k_rank + $xwoba_rank
+                    $k_rank + $xwoba_rank + $ipg_rank
 //                    (($data['k_per_game'] - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
 //                    +
 //                    (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
