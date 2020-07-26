@@ -242,9 +242,12 @@ class scrapeFangraphs extends Command
             //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $stats = $doc->find('.grid_line_regular');
+        if ($doc) {
+            $stats = $doc->find('.grid_line_regular');
 
-        return $this->parsePitcherData($stats);
+            return $this->parsePitcherData($stats);
+        }
+        return [];
     }
 
     public function getLeaguePitcherData()
