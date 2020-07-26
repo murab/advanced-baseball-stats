@@ -184,7 +184,7 @@ class Stat extends Model
             $total_g += $stat['g'];
         }
 
-        $league['k_per_game'] = $total_k / $total_g;
+        $league['k_per_game'] = $total_g ? $total_k / $total_g : 0;
 
         return $league;
     }
