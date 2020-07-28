@@ -12,9 +12,13 @@ class scrapeSavant extends Command
 {
     const RAWpitchersXwobaURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=xwoba&player_event_sort=h_launch_speed&sort_order=asc&min_pas=0&chk_stats_pa=on&chk_stats_xwoba=on#results';
     const RAWpitchersXwoba2ndHalfURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=2019-07-09&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=xwoba&player_event_sort=h_launch_speed&sort_order=asc&min_pas=0&chk_stats_pa=on&chk_stats_xwoba=on#results';
+    const RAWpitchersVeloURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=FF%7C&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_pas=0&chk_stats_velocity=on#results';
+    const RAWpitchersVelo2ndHalfURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=FF%7C&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_pas=0&chk_stats_velocity=on#results';
 
     private $pitchersXwobaURL;
     private $pitchersXwoba2ndHalfURL;
+    private $pitchersVeloURL;
+    private $pitchersVelo2ndHalfURL;
 
     /**
      * The name and signature of the console command.
@@ -60,6 +64,8 @@ class scrapeSavant extends Command
 
         $data = $this->getpitchersXwobaData();
         $data_2nd = $this->getPitchersXwobaData2ndHalf();
+        $velo = $this->getpitchersVeloData();
+        $velo_2nd = $this->getPitchersVeloData2ndHalf();
 
         foreach ($data as $player) {
             $Player = Player::firstOrCreate([
@@ -78,6 +84,8 @@ class scrapeSavant extends Command
             $stats->secondhalf_pa = $data_2nd[$lowername]['pa'] ?? null;
             $stats->xwoba = $player['xwoba'];
             $stats->secondhalf_xwoba = $data_2nd[$lowername]['xwoba'] ?? null;
+            $stats->velo = isset($velo[$lowername]) ? $velo[$lowername]['velo'] : 0;
+            $stats->secondhalf_velo = isset($velo_2nd[$lowername]) ? $velo_2nd[$lowername]['velo'] : 0;
             $stats->save();
         }
 
@@ -88,9 +96,11 @@ class scrapeSavant extends Command
     {
         $this->pitchersXwobaURL = str_replace('2019',$year,self::RAWpitchersXwobaURL);
         $this->pitchersXwoba2ndHalfURL = str_replace('2019', $year, self::RAWpitchersXwoba2ndHalfURL);
+        $this->pitchersVeloURL = str_replace('2019',$year,self::RAWpitchersVeloURL);
+        $this->pitchersVelo2ndHalfURL = str_replace('2019',$year,self::RAWpitchersVelo2ndHalfURL);
     }
 
-    private function parseData($players) {
+    private function parseXwobaData($players) {
         $data = [];
 
         foreach ($players as $player) {
@@ -125,6 +135,38 @@ class scrapeSavant extends Command
         return $data;
     }
 
+    private function parseVeloData($players) {
+        $data = [];
+
+        foreach ($players as $player) {
+
+            $vals = $player->find('td');
+
+            $i = 0;
+            $player_data = [];
+            foreach ($vals as $val) {
+
+                if ($i == 2) {
+                    // Name
+                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
+                } elseif ($i == 6) {
+                    // Velo
+                    $player_data['velo'] = ($val->innerHTML);
+                    die(var_dump($player_data));
+                }
+
+                $i++;
+            }
+            if (!empty($player_data['velo'])) {
+                $data[strtolower($player_data['name'])] = [
+                    'name' => $player_data['name'],
+                    'velo' => $player_data['velo'],
+                ];
+            }
+        }
+        return $data;
+    }
+
     public function getpitchersXwobaData()
     {
         hQuery::$cache_expires = 0;
@@ -138,29 +180,9 @@ class scrapeSavant extends Command
 
         $data = [];
         if ($players) {
-            $data = $this->parseData($players);
+            $data = $this->parseXwobaData($players);
         }
 
-        return $data;
-    }
-
-    public function getPitchersXwobaDataLast30Days()
-    {
-        // create last 30 days URL
-        $url_parts = parse_url($this->pitchersXwobaURL);
-        parse_str($url_parts['query'], $params);
-        $params['game_date_gt'] = date('Y-m-d', strtotime('30 days ago'));     // Overwrite if exists
-        $url_parts['query'] = http_build_query($params);
-        $url = $url_parts['scheme'] . '://' . $url_parts['host'] . $url_parts['path'] . '?' . $url_parts['query'];
-
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($url, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
-
-        $players = $doc->find('#search_results tbody tr');
-        $data = $this->parseData($players);
         return $data;
     }
 
@@ -173,7 +195,39 @@ class scrapeSavant extends Command
         ]);
 
         $players = $doc->find('#search_results tbody tr');
-        $data = $this->parseData($players);
+        $data = $this->parseXwobaData($players);
+        return $data;
+    }
+
+    public function getpitchersVeloData()
+    {
+        hQuery::$cache_expires = 0;
+
+        $doc = hQuery::fromUrl($this->pitchersVeloURL, [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        $players = $doc->find('#search_results tbody tr');
+
+        $data = [];
+        if ($players) {
+            $data = $this->parseVeloData($players);
+        }
+
+        return $data;
+    }
+
+    public function getPitchersVeloData2ndHalf()
+    {
+        hQuery::$cache_expires = 0;
+        $doc = hQuery::fromUrl($this->pitchersVelo2ndHalfURL, [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        $players = $doc->find('#search_results tbody tr');
+        $data = $this->parseVeloData($players);
         return $data;
     }
 }

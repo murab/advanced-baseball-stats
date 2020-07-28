@@ -80,7 +80,7 @@ class scrapeFangraphs extends Command
             $stats->age = $player['age'];
             $stats->position = $player['ip'] / $player['g'] > 3.0 ? 'SP' : 'RP';
 
-            $stats->velo = $player['velo'];
+            //$stats->velo = $player['velo'];
             $stats->k_percentage = $player['k_percentage'];
             $stats->bb_percentage = $player['bb_percentage'];
             $stats->swstr_percentage = $player['swstr_percentage'];
@@ -91,7 +91,7 @@ class scrapeFangraphs extends Command
             $stats->k_per_game = $player['k_per_game'];
             $stats->ip = $player['ip'];
 
-            $stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
+            //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
             $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? null;
             $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? null;
             $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? null;
