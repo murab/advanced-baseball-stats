@@ -152,7 +152,6 @@ class scrapeSavant extends Command
                 } elseif ($i == 6) {
                     // Velo
                     $player_data['velo'] = ($val->innerHTML);
-                    die(var_dump($player_data));
                 }
 
                 $i++;
