@@ -71,7 +71,6 @@ class generateTextFile extends Command
             $player_formatted_data = \Formatter::pitcher($player);
 
             foreach ($custom_lists as $list) {
-                $custom_players[$list] = [];
                 if (in_array($player['player']['name'], $players_of_interest[$list])) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
@@ -83,7 +82,6 @@ class generateTextFile extends Command
             $player_formatted_data = \Formatter::pitcher($player);
 
             foreach ($custom_lists as $list) {
-                $custom_players[$list] = [];
                 if (in_array($player['player']['name'], $players_of_interest[$list])) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
@@ -91,7 +89,6 @@ class generateTextFile extends Command
         }
 
         foreach ($custom_lists as $list) {
-            $custom_players[$list] = [];
             usort($custom_players[$list], function ($a, $b) {
                 return $b['rank_k_minus_adj_xwoba'] <=> $a['rank_k_minus_adj_xwoba'];
             });
