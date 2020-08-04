@@ -95,7 +95,7 @@ class Stat extends Model
         return $data;
     }
 
-    public static function startingPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 15, ?float $min_ip_per_g = 3.0)
+    public static function startingPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 10, ?float $min_ip_per_g = 3.0)
     {
         if (empty($year)) {
             if (date('m-d') > '03-25') {
