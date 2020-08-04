@@ -24,7 +24,6 @@ class Stat extends Model
         $players = Stat::where([
             'year' => $year,
             'position' => strtoupper($position),
-            ['oppops', '<>', null],
             ['xwoba', '<>', null],
             ['k', '<>', null],
             ['g', '<>', null],
@@ -121,7 +120,7 @@ class Stat extends Model
         return $data;
     }
 
-    public static function reliefPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 10, ?float $min_ip_per_g = 3.0)
+    public static function reliefPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 5, ?float $min_ip_per_g = 3.0)
     {
         if (empty($year)) {
             if (date('m-d') > '03-25') {
@@ -250,12 +249,12 @@ class Stat extends Model
 
         foreach ($all_data as $key => $data) {
 
+            $opponent_quality_multiplier = 1;
             if ($enable_opp_quality_adjustment == true && !empty($data['oppops'])) {
                 $opponent_quality_multiplier = $league_ops / $data['oppops'];
-
-                // calculate adjusted xwoba
-                $all_data[$key]['adjusted_xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             }
+            // calculate adjusted xwoba
+            $all_data[$key]['adjusted_xwoba'] = $opponent_quality_multiplier * $data['xwoba'];
             $all_data[$key]['innings_per_game'] = $data['ip'] / $data['g'];
         }
 
