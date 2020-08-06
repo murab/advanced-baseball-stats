@@ -24,11 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scrape:fangraphs')->dailyAt('4:00');
-        $schedule->command('scrape:savant')->dailyAt('4:00');
-        $schedule->command('scrape:prospectus')->dailyAt('4:00');
-        $schedule->command('z:text')->dailyAt('4:00');
-        $schedule->command('z:tru')->dailyAt('4:00');
+        $schedule->command('z:full')->dailyAt('5:45');
+        $schedule->command('z:full')->dailyAt('7:00');
     }
 
     /**
