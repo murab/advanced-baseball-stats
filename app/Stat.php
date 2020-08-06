@@ -112,7 +112,7 @@ class Stat extends Model
         }
         $data = [];
         foreach ($stats as $stat) {
-            if ($stat['ip'] && $stat['g'] && $stat['ip'] > $min_ip && ($stat['ip'] / $stat['g'] > $min_ip_per_g)) {
+            if ($stat['ip'] && $stat['g'] && $stat['ip'] >= $min_ip && ($stat['ip'] / $stat['g'] > $min_ip_per_g)) {
                 $data[$stat['id']] = $stat;
             }
         }
