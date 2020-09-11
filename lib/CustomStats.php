@@ -70,7 +70,7 @@ class CustomStats
         return $data;
     }
 
-    public function filterPitcherData($orig_data = [], $min_ip = 10, $min_ip_per_g = 4.0, $limit = null)
+    public function filterPitcherData($orig_data = [], $min_ip = 10, $min_ip_per_g = 3.0, $limit = null)
     {
         $data = [];
         if ($min_ip && $min_ip_per_g) {
