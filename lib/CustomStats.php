@@ -75,7 +75,7 @@ class CustomStats
         $data = [];
         if ($min_ip && $min_ip_per_g) {
             foreach ($orig_data as $key => $player) {
-                if ($player['ip'] >= $min_ip && ($player['ip'] / $player['g']) > $min_ip_per_g) {
+                if ($player['ip'] >= $min_ip && ($player['ip'] / $player['g']) >= $min_ip_per_g) {
                     $data['sp'][] = $player;
                 } else if ($player['ip'] >= $min_ip)  {
                     $data['rp'][] = $player;
