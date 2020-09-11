@@ -12,12 +12,12 @@ use Illuminate\Support\Str;
 
 class scrapeFangraphs extends Command
 {
-    const RAWpitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
-    const RAWpitcherDataSourceLast30Days = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=3&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
-    const RAWpitcherDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
-    const RAWpitcherDataSource1stHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76&season=2019&month=30&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const RAWpitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const RAWpitcherDataSourceLast30Days = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48&season=2019&month=3&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const RAWpitcherDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
+    const RAWpitcherDataSource1stHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48&season=2019&month=30&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const RAWleagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
-    const RAWleaguePitchersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,76,113,217,6,42&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
+    const RAWleaguePitchersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,76,113,217,6,42,48&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
 
     /**
      * The name and signature of the console command.
@@ -84,6 +84,7 @@ class scrapeFangraphs extends Command
             $stats->k_percentage = $player['k_percentage'];
             $stats->bb_percentage = $player['bb_percentage'];
             $stats->swstr_percentage = $player['swstr_percentage'];
+            $stats->gb_percentage = $player['gb_percentage'];
             $stats->k_percentage_plus = $player['k_percentage_plus'];
             $stats->g = $player['g'];
             $stats->gs = $player['gs'];
@@ -95,6 +96,7 @@ class scrapeFangraphs extends Command
             $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? null;
             $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? null;
             $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? null;
+            $stats->secondhalf_gb_percentage = $data_2nd[$lowername]['gb_percentage'] ?? null;
             $stats->secondhalf_k_percentage_plus = $data_2nd[$lowername]['k_percentage_plus'] ?? null;
             $stats->secondhalf_g = $data_2nd[$lowername]['g'] ?? null;
             $stats->secondhalf_gs = $data_2nd[$lowername]['gs'] ?? null;
@@ -115,6 +117,7 @@ class scrapeFangraphs extends Command
         $league->velo = $league_pitchers['fbv'];
         $league->swstr_percentage = $league_pitchers['swstr_percentage'];
         $league->kbb_percentage = $league_pitchers['kbb_percentage'];
+        $league->gb_percentage = $league_pitchers['gb_percentage'];
         $league->era = $league_pitchers['era'];
         $league->whip = $league_pitchers['whip'];
 
@@ -138,47 +141,50 @@ class scrapeFangraphs extends Command
         $player_data = [];
         foreach ($stats as $stat) {
 
-            if ($i%26 == 1) {
+            if ($i%27 == 1) {
                 $player_data = [];
                 // Name
                 $player_data['name'] = hQuery::fromHTML($stat->innerHTML)->find('a')->innerHTML;
                 $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
-            } elseif ($i%26 == 7) {
+            } elseif ($i%27 == 7) {
                 // K%
                 $player_data['k_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%26 == 8) {
+            } elseif ($i%27 == 8) {
                 // BB%
                 $player_data['bb_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%26 == 9) {
+            } elseif ($i%27 == 9) {
                 // K-BB%
                 $player_data['kbb_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%26 == 10) {
+            } elseif ($i%27 == 10) {
                 // SwStr%
                 $player_data['swstr_percentage'] = floatval($stat->innerHTML);
-            } elseif ($i%26 == 19) {
+            } elseif ($i%27 == 19) {
                 // Age
                 $player_data['age'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 20) {
+            } elseif ($i%27 == 20) {
                 // Games
                 $player_data['g'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 21) {
+            } elseif ($i%27 == 21) {
                 // Games
                 $player_data['gs'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 22) {
+            } elseif ($i%27 == 22) {
                 // Games
                 $player_data['k'] = (int) $stat->innerHTML;
-            } elseif ($i%26 == 23) {
+            } elseif ($i%27 == 23) {
                 $player_data['ip'] = $stat->innerHTML;
-            } elseif ($i%26 == 24) {
+            } elseif ($i%27 == 24) {
                 $player_data['k_percentage_plus'] = $stat->innerHTML;
-            } elseif ($i%26 == 25) {
+            } elseif ($i%27 == 25) {
                 $player_data['velo'] = (float) $stat->innerHTML;
+            } elseif ($i%27 == 26) {
+                $player_data['gb_percentage'] = (float) $stat->innerHTML;
                 $data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
                     'k_percentage' => $player_data['k_percentage'],
                     'bb_percentage' => $player_data['bb_percentage'],
                     'kbb_percentage' => $player_data['kbb_percentage'],
                     'swstr_percentage' => $player_data['swstr_percentage'],
+                    'gb_percentage' => $player_data['gb_percentage'],
                     'k_percentage_plus' => $player_data['k_percentage_plus'],
                     'age' => $player_data['age'],
                     'g' => $player_data['g'],
@@ -289,6 +295,9 @@ class scrapeFangraphs extends Command
             } else if ($i == 6) {
                 $data['whip'] = floatval($stat->innerHTML);
                 $this->league_pitcher_data['whip'] = number_format($data['whip'], 2);
+            } else if ($i == 7) {
+                $data['gb_percentage'] = floatval($stat->innerHTML);
+                $this->league_pitcher_data['gb_percentage'] = number_format($data['gb_percentage'], 1);
             }
             $i++;
         }
