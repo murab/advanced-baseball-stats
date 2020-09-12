@@ -8,12 +8,19 @@ class Formatter
      */
     public static function leagueAveragePitcher(array $data)
     {
+        $data['era'] = number_format($data['era'], 2);
+        $data['whip'] = number_format($data['whip'], 2);
+        $data['kbb_percentage'] = number_format($data['kbb_percentage'], 1);
+        $data['swstr_percentage'] = number_format($data['swstr_percentage'], 1);
+        $data['gb_percentage'] = number_format($data['gb_percentage'], 1);
+        $data['velo'] = number_format($data['velo'], 1);
+
         $output = "\nLeague Averages";
         $output .= "\nERA: {$data['era']}";
         $output .= "\nWHIP: {$data['whip']}";
         $output .= "\n\nK-BB%: {$data['kbb_percentage']}%";
         $output .= "\nSwStr%: {$data['swstr_percentage']}%";
-        $output .= "\nGB%: {$data['gb_percentage']}";
+        $output .= "\nGB%: {$data['gb_percentage']}%";
         $output .= "\n\nFBv: {$data['velo']}";
         $output .= "\nK per game: " . number_format($data['k_per_game'], 2) . "\n";
         return $output;
@@ -43,7 +50,6 @@ class Formatter
         //$KpercentMinusXwoba[$key]['rank'] = $rank;
 
         //$val = $player['val_formatted'] = ((string) (number_format($data['value'] * 100, 1)) . '%');
-
         return $player;
     }
 
