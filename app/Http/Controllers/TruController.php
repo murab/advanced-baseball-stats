@@ -25,7 +25,7 @@ class TruController extends Controller
         }
 
         return view('tru', [
-            'page_title' => "{$year} " . strtoupper($position) . " - True Pitcher Rankings",
+            'page_title' => "{$year} " . strtoupper($position) . " - Automated Pitcher Rankings",
             'stats' => $stats,
             'years' => $years,
             'year' => $year,

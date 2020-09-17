@@ -6,7 +6,7 @@
 
 @section('content')
     <h1>
-        True Pitcher Rankings
+        Automated Pitcher Rankings
     </h1>
 
     <div class="row">
