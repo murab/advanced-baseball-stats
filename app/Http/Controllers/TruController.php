@@ -30,6 +30,7 @@ class TruController extends Controller
             'years' => $years,
             'year' => $year,
             'position' => $position,
+            'num' => count($stats),
         ]);
     }
 }

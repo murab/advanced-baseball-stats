@@ -304,12 +304,17 @@ class Stat extends Model
 //                    +
 //                    (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))
                 );
+                $all_data[$key]['k_rank'] = $k_rank+1;
+                $all_data[$key]['xwoba_rank'] = $xwoba_rank+1;
+                $all_data[$key]['ipg_rank'] = $ipg_rank+1;
             } else if (strtoupper($position) == 'RP') {
                 // rank among rp at k percentage + rank among rp at xadjusted xwoba might be better
                 $all_data[$key]['tru'] = (
                     //$data['k_percentage'] - $data['xwoba'] * 100
                     $k_rank + $xwoba_rank
                 );
+                $all_data[$key]['k_rank'] = $k_rank+1;
+                $all_data[$key]['xwoba_rank'] = $xwoba_rank+1;
             }
         }
 

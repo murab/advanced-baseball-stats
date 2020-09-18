@@ -29,21 +29,26 @@
         </div>
     </div>
 
-    <table id="tru" class="table table-bordered table-hover table-sm">
+    <table id="tru" class="table table-bordered table-hover table-sm" style="font-size: 12px">
         <thead>
             <tr>
                 <td class="text-center">Rank</td>
                 <td class="text-center">Name</td>
                 <td class="text-center">Age</td>
-{{--                <td>GS</td>--}}
+                <td class="text-center">G</td>
                 <td class="text-center">IP</td>
-{{--                <td>K%</td>--}}
-{{--                <td>BB%</td>--}}
+                <td class="text-center">IP per G</td>
+                <td>K%</td>
+                <td>BB%</td>
                 <td class="text-center">K-BB%</td>
                 <td class="text-center">SwStr%</td>
                 <td class="text-center">Velo</td>
 {{--                <td>xWOBA</td>--}}
-                <td class="text-center">Adj xWOBA</td>
+                <td class="text-center">GB%</td>
+                <td class="text-center">IP per G Rank</td>
+                <td class="text-center">K% Rank</td>
+                <td class="text-center">xERA Rank</td>
+                <td class="text-center" style="font-weight: bold">Average Rank</td>
 {{--                <td>OppOPS</td>--}}
 {{--                <td>True Score</td>--}}
             </tr>
@@ -54,15 +59,26 @@
                     <td class="text-center">{{$key+1}}</td>
                     <td>{{$stat->player['name']}}</td>
                     <td class="text-center">{{$stat['age']}}</td>
-{{--                    <td>{{$stat['gs']}}</td>--}}
+                    <td>{{$stat['g']}}</td>
                     <td class="text-center">{{$stat['ip']}}</td>
-{{--                    <td>{{number_format($stat['k_percentage'],1)}}</td>--}}
-{{--                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>--}}
+                    <td class="text-center">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                    <td>{{number_format($stat['k_percentage'],1)}}</td>
+                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="text-center">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
                     <td class="text-center">{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td class="text-center">{{number_format($stat['velo'], 1)}}</td>
 {{--                    <td>{{number_format($stat['xwoba'], 3)}}</td>--}}
-                    <td class="text-center">{{ltrim(number_format($stat['adjusted_xwoba'], 3), '0')}}</td>
+                    <td class="text-center">{{number_format($stat['gb_percentage'], 1)}}</td>
+                    <td class="text-center">{{ $position != 'rp' ? abs($stat['ip_per_g_rank'] - $num) : ''}}</td>
+                    <td class="text-center">{{abs($stat['k_rank'] - $num) ?? ''}}</td>
+                    <td class="text-center">{{abs($stat['xwoba_rank'] - $num) ?? ''}}</td>
+
+                    @if ($position == 'sp')
+                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3 - $num)), 1) }}</td>
+                    @else
+                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['k_rank'] + $stat['xwoba_rank']) / 2 - $num)), 1) }}</td>
+                    @endif
+
 {{--                    <td>{{number_format($stat['oppops'], 3)}}</td>--}}
 {{--                    <td>{{number_format($stat['tru'], 2)}}</td>--}}
                 </tr>

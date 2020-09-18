@@ -62,6 +62,12 @@ class calculateTru extends Command
             $Stat->tru_rank = $starter['tru_rank'];
             $Stat->secondhalf_tru_rank = $starters2ndHalf[$starter['id']]['tru_rank'] ?? null;
             $Stat->adjusted_xwoba = $starter['adjusted_xwoba'] ?? null;
+            $Stat->k_rank = $starter['k_rank'] ?? null;
+            $Stat->secondhalf_k_rank = $starters2ndHalf[$starter['id']]['k_rank'] ?? null;
+            $Stat->ip_per_g_rank = $starter['ipg_rank'] ?? null;
+            $Stat->secondhalf_ip_per_g_rank = $starters2ndHalf[$starter['id']]['ipg_rank'] ?? null;
+            $Stat->xwoba_rank = $starter['xwoba_rank'] ?? null;
+            $Stat->secondhalf_xwoba_rank = $starters2ndHalf[$starter['id']]['xwoba_rank'] ?? null;
             $Stat->save();
         }
 
@@ -72,6 +78,12 @@ class calculateTru extends Command
             $Stat->tru_rank = $reliever['tru_rank'];
             $Stat->secondhalf_tru_rank = $relievers2ndHalf[$reliever['id']]['tru_rank'] ?? null;
             $Stat->adjusted_xwoba = $reliever['adjusted_xwoba'] ?? null;
+            $Stat->k_rank = $reliever['k_rank'] ?? null;
+            $Stat->secondhalf_k_rank = $relievers2ndHalf[$reliever['id']]['k_rank'] ?? null;
+            $Stat->ip_per_g_rank = $reliever['ipg_rank'] ?? null;
+            $Stat->secondhalf_ip_per_g_rank = $relievers2ndHalf[$reliever['id']]['ipg_rank'] ?? null;
+            $Stat->xwoba_rank = $reliever['xwoba_rank'] ?? null;
+            $Stat->secondhalf_xwoba_rank = $relievers2ndHalf[$reliever['id']]['xwoba_rank'] ?? null;
             $Stat->save();
         }
         return 1;
