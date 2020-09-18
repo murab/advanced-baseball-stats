@@ -32,5 +32,5 @@ Route::get('/pitchers/{year?}/{position?}', 'PitcherController@index')->where([
 ])->name('pitcher_ranks');
 
 Route::get('/hitters/{year?}', 'HitterController@index')->where([
-
+    'year' => '2[0-9]{3}',
 ])->name('hitter_ranks');

@@ -93,7 +93,7 @@
             $('#positionSelect, #yearSelect').change(function() {
                 var year = $('#yearSelect').val();
                 var position = $('#positionSelect').val();
-                window.location.href = '/ranks/'+year+'/'+position;
+                window.location.href = '/hitters/'+year;
             });
         });
     </script>
