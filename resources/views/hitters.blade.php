@@ -6,7 +6,7 @@
 
 @section('content')
     <h1>
-        Automated Hitter Rankings
+        Hitter Rankings
     </h1>
 
     <div class="row">

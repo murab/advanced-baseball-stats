@@ -6,10 +6,8 @@
 
 @section('content')
     <h1>
-        Automated Pitcher Rankings
+        Pitcher Rankings
     </h1>
-
-    <div class="float-right"><a href="/hitters">View Hitters</a></div>
 
     <div class="row">
         <div class="col-sm-1">
