@@ -24,8 +24,15 @@ class TruController extends Controller
             array_unshift($years, date('Y'));
         }
 
+        $long_position = '';
+        if ($position == 'sp') {
+            $long_position = 'Starting';
+        } else if ($position == 'rp') {
+            $long_position = 'Relief';
+        }
+
         return view('tru', [
-            'page_title' => "{$year} " . strtoupper($position) . " - Automated Pitcher Rankings",
+            'page_title' => "{$year} " . strtoupper($position) . " - {$long_position} Pitcher Rankings",
             'stats' => $stats,
             'years' => $years,
             'year' => $year,
