@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Player;
 use App\Stat;
 use App\League;
+use App\Hitter;
 use Illuminate\Console\Command;
 use duzun\hQuery;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,9 @@ class scrapeFangraphs extends Command
     const RAWpitcherDataSource1stHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48&season=2019&month=30&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const RAWleagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
     const RAWleaguePitchersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,76,113,217,6,42,48&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
+
+    const RAWhitterDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
+    const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_3000';
 
     /**
      * The name and signature of the console command.
@@ -60,6 +64,35 @@ class scrapeFangraphs extends Command
         }
 
         $this->setUrls($year);
+
+        $data = $this->getHitterData();
+        $data_2nd = $this->getHitterData2ndHalf();
+
+        foreach ($data as $player) {
+            $Player = Player::firstOrCreate([
+                'slug' => Str::slug($player['name'])
+            ], [
+                'name' => $player['name'],
+            ]);
+            $lowername = strtolower($player['name']);
+
+            $stats = Hitter::firstOrNew([
+                'player_id' => $Player->id,
+                'year' => $year,
+            ]);
+
+            $stats->age = $player['age'];
+
+            foreach ($data[$lowername] as $stat => $val) {
+                if (in_array($stat, ['name', 'age'])) { continue; }
+                $player['secondhalf_'.$stat] = $data_2nd[$lowername][$stat] ?? null;
+            }
+            unset($player['name']);
+
+            $stats->fill($player);
+
+            $stats->save();
+        }
 
         $data = $this->getPitcherData();
         $data_2nd = $this->getPitcherData2ndHalf();
@@ -133,6 +166,83 @@ class scrapeFangraphs extends Command
         $this->pitcherDataSource1stHalf = str_replace('2019',$year,self::RAWpitcherDataSource1stHalf);
         $this->leagueBattersDataSource = str_replace('2019',$year,self::RAWleagueBattersDataSource);
         $this->leaguePitchersDataSource = str_replace('2019',$year,self::RAWleaguePitchersDataSource);
+        $this->hitterDataSource = str_replace('2019',$year,self::RAWhitterDataSource);
+        $this->hitterDataSource2ndHalf = str_replace('2019',$year,self::RAWhitterDataSource2ndHalf);
+    }
+
+    public function parseHitterData($stats)
+    {
+        $i = 0;
+        $player_data = [];
+        foreach ($stats as $stat)
+        {
+            $col = $i%16;
+            switch ($col) {
+                case 1:
+                    $player_data = [];
+                    // Name
+                    $player_data['name'] = hQuery::fromHTML($stat->innerHTML)->find('a')->innerHTML;
+                    $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
+                    break;
+                case 3:
+                    // Age
+                    $player_data['age'] = (int) $stat->innerHTML;
+                    break;
+                case 4:
+                    // G
+                    $player_data['g'] = (int) $stat->innerHTML;
+                    break;
+                case 5:
+                    // PA
+                    $player_data['pa'] = (int) $stat->innerHTML;
+                    break;
+                case 6:
+                    // R
+                    $player_data['r'] = (int) $stat->innerHTML;
+                    break;
+                case 7:
+                    // AVG
+                    $player_data['avg'] = floatval($stat->innerHTML);
+                    break;
+                case 8:
+                    // HR
+                    $player_data['hr'] = (int) $stat->innerHTML;
+                    break;
+                case 9:
+                    // RBI
+                    $player_data['rbi'] = (int) $stat->innerHTML;
+                    break;
+                case 10:
+                    // SB
+                    $player_data['sb'] = (int) $stat->innerHTML;
+                    break;
+                case 11:
+                    // K%
+                    $player_data['k_percentage'] = floatval($stat->innerHTML);
+                    break;
+                case 12:
+                    // BB%
+                    $player_data['bb_percentage'] = floatval($stat->innerHTML);
+                    break;
+                case 13:
+                    // SwStr%
+                    $player_data['swstr_percentage'] = floatval($stat->innerHTML);
+                    break;
+                case 14:
+                    // HardHit%
+                    $player_data['hardhit_percentage'] = floatval($stat->innerHTML);
+                    break;
+                case 15:
+                    // wRC+
+                    $player_data['wrc_plus'] = (int) $stat->innerHTML;
+                    foreach ($player_data as $stat => $val) {
+                        $data[strtolower($player_data['name'])][$stat] = $val;
+                    }
+                    break;
+            }
+            $i++;
+        }
+        return $data;
     }
 
     public function parsePitcherData($stats)
@@ -199,6 +309,35 @@ class scrapeFangraphs extends Command
         }
 
         return $data;
+    }
+
+    public function getHitterData()
+    {
+        hQuery::$cache_expires = 0;
+        $doc = hQuery::fromUrl($this->hitterDataSource, [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        $stats = $doc->find('.grid_line_regular');
+
+        return $this->parseHitterData($stats);
+    }
+
+    public function getHitterData2ndHalf()
+    {
+        hQuery::$cache_expires = 0;
+        $doc = hQuery::fromUrl($this->hitterDataSource2ndHalf, [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        if ($doc) {
+            $stats = $doc->find('.grid_line_regular');
+
+            return $this->parseHitterData($stats);
+        }
+        return [];
     }
 
     public function getPitcherData()

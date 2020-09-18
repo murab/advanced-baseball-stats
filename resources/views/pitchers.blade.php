@@ -9,6 +9,8 @@
         Automated Pitcher Rankings
     </h1>
 
+    <div class="float-right"><a href="/hitters">View Hitters</a></div>
+
     <div class="row">
         <div class="col-sm-1">
             <label for="positionSelect">Position</label>
@@ -106,7 +108,7 @@
             $('#positionSelect, #yearSelect').change(function() {
                 var year = $('#yearSelect').val();
                 var position = $('#positionSelect').val();
-                window.location.href = '/ranks/'+year+'/'+position;
+                window.location.href = '/pitchers/'+year+'/'+position;
             });
         });
     </script>

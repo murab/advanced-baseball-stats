@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Stat;
 use Illuminate\Support\Facades\DB;
 
-class TruController extends Controller
+class PitcherController extends Controller
 {
     public function index(Request $request, $year = null, ?string $position = 'sp')
     {
@@ -31,7 +31,8 @@ class TruController extends Controller
             $long_position = 'Relief';
         }
 
-        return view('tru', [
+        return view('pitchers', [
+            'page' => 'pitchers',
             'page_title' => "{$year} " . strtoupper($position) . " - {$long_position} Pitcher Rankings",
             'stats' => $stats,
             'years' => $years,

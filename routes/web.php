@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return redirect('ranks');
+    return redirect('pitchers');
 });
 
 Route::get('/ranks', function(Request $request) {
@@ -26,7 +26,11 @@ Route::get('/ranks', function(Request $request) {
     return redirect()->route('ranks', ['year' => $year, 'position' => $position]);
 });
 
-Route::get('/ranks/{year?}/{position?}', 'TruController@index')->where([
+Route::get('/pitchers/{year?}/{position?}', 'PitcherController@index')->where([
     'year' => '2[0-9]{3}',
     'position' => 'sp|rp',
-])->name('ranks');
+])->name('pitcher_ranks');
+
+Route::get('/hitters/{year?}', 'HitterController@index')->where([
+
+])->name('hitter_ranks');

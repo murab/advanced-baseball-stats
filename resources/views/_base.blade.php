@@ -15,7 +15,9 @@
 </head>
 <body>
 
-<div class="container">
+@include('_nav')
+
+<div class="container" style="margin-top: 25px">
     <div class="row">
         <div class="col">
             @yield('content')
