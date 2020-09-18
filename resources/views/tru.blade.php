@@ -74,9 +74,9 @@
                     <td class="text-center">{{abs($stat['xwoba_rank'] - $num) + 1 ?? ''}}</td>
 
                     @if ($position == 'sp')
-                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['ip_per_g_rank']+1 + $stat['k_rank']+1 + $stat['xwoba_rank']+1) / 3 - $num)), 1) }}</td>
+                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['ip_per_g_rank']-1 + $stat['k_rank']-1 + $stat['xwoba_rank']-1) / 3 - $num)), 1) }}</td>
                     @else
-                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['k_rank']+1 + $stat['xwoba_rank']+1) / 2 - $num)), 1) }}</td>
+                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['k_rank']-1 + $stat['xwoba_rank']-1) / 2 - $num)), 1) }}</td>
                     @endif
 
 {{--                    <td>{{number_format($stat['oppops'], 3)}}</td>--}}
