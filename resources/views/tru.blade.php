@@ -69,9 +69,9 @@
                     <td class="text-center">{{number_format($stat['velo'], 1)}}</td>
 {{--                    <td>{{number_format($stat['xwoba'], 3)}}</td>--}}
                     <td class="text-center">{{number_format($stat['gb_percentage'], 1)}}</td>
-                    <td class="text-center">{{ $position != 'rp' ? abs($stat['ip_per_g_rank'] - $num) : ''}}</td>
-                    <td class="text-center">{{abs($stat['k_rank'] - $num) ?? ''}}</td>
-                    <td class="text-center">{{abs($stat['xwoba_rank'] - $num) ?? ''}}</td>
+                    <td class="text-center">{{ $position != 'rp' ? abs($stat['ip_per_g_rank'] - $num) + 1 : ''}}</td>
+                    <td class="text-center">{{abs($stat['k_rank'] - $num) + 1 ?? ''}}</td>
+                    <td class="text-center">{{abs($stat['xwoba_rank'] - $num) + 1 ?? ''}}</td>
 
                     @if ($position == 'sp')
                         <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3 - $num)), 1) }}</td>
