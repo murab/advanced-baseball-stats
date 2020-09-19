@@ -6,10 +6,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item @if ($page == 'pitchers') active @endif">
+            <li class="nav-item @if (!empty($page) && $page == 'pitchers') active @endif">
                 <a class="nav-link" href="/pitchers">Pitchers</a>
             </li>
-            <li class="nav-item @if ($page == 'hitters') active @endif">
+            <li class="nav-item @if (!empty($page) && $page == 'hitters') active @endif">
                 <a class="nav-link" href="/hitters">Hitters</a>
             </li>
         </ul>

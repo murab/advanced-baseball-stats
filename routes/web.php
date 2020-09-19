@@ -14,9 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return redirect('pitchers');
-});
+Route::get('/', 'HomepageController@index')->name('homepage');
 
 Route::get('/ranks', function(Request $request) {
     $year = date('Y');

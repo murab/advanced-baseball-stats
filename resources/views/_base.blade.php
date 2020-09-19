@@ -25,6 +25,10 @@
     </div>
 </div>
 
+<footer class="container" style="text-align: center">
+    <p><small>© {{ Carbon\Carbon::today()->format('Y') }}</small></p>
+</footer>
+
 <script type="text/javascript" src="/js/app.js"></script>
 @yield('javascript')
 
