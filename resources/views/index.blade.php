@@ -8,11 +8,13 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1 class="display-3">RotoRanker</h1>
+            <h1 class="display-4">RotoRanker</h1>
             <p>Automated MLB pitcher and hitter rankings using unique blends of statistics and Statcast data. Updated daily.</p>
             <p>
                 <a class="btn btn-primary btn-lg" href="/pitchers" role="button">View Pitcher Rankings »</a>
-                <a class="btn btn-primary btn-lg" href="/hitters" role="button" style="margin-left: 20px">View Hitter Rankings »</a>
+            </p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/hitters" role="button">View Hitter Rankings »</a>
             </p>
         </div>
     </div>
