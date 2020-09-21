@@ -35,4 +35,6 @@ Route::get('/hitters/{year?}', 'HitterController@index')->where([
 
 Route::get('/articles', 'ArticleController@index')->name('articles');
 
+Route::get('/about', 'ArticleController@about')->name('about');
+
 Route::get('/articles/{slug}', 'ArticleController@showPost')->name('article');

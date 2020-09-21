@@ -9,7 +9,7 @@ class HomepageController extends Controller
 {
     public function index()
     {
-        $posts = Post::published()->get();
+        $posts = $posts = Post::type('post')->published()->get();
 
         return view('index', [
             'posts' => $posts,

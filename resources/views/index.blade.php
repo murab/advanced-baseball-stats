@@ -27,6 +27,7 @@
 
                 <div class="col-md-4">
                     <h2>{{$post['title']}}</h2>
+                    <p>{{$post['excerpt']}}</p>
                     <p><a class="btn btn-secondary" href="/articles/{{$post['slug']}}" role="button">View article »</a></p>
                 </div>
 

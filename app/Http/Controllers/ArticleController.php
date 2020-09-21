@@ -9,11 +9,23 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $posts = $posts = Post::published()->get();
+        $posts = Post::type('post')->published()->get();
 
         return view('articles', [
+            'page_title' => 'Articles',
             'page' => 'articles',
             'posts' => $posts,
+        ]);
+    }
+
+    public function about()
+    {
+        $post = Post::slug('about-rotoranker')->first();
+
+        return view('article', [
+            'page_title' => $post['title'],
+            'page' => 'about',
+            'post' => $post,
         ]);
     }
 
@@ -22,6 +34,7 @@ class ArticleController extends Controller
         $post = Post::slug($slug)->first();
 
         return view('article', [
+            'page_title' => $post['title'],
             'page' => 'articles',
             'post' => $post,
         ]);
