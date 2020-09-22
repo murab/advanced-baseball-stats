@@ -24,6 +24,10 @@
 
         @endforeach
 
+        @if (empty($posts))
+            <p>None yet. Please check back again soon.</p>
+        @endif
+
         <hr>
     </div>
 </div> <!-- /container -->
