@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1 style="margin-top: 25px">
+    <h1>
         Pitcher Rankings
     </h1>
 

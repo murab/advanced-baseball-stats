@@ -19,7 +19,7 @@
 
 <main role="main">
     @yield('jumbotron')
-    <div class="container">
+    <div class="container" style="margin-top: 25px">
         <div class="row">
             <div class="col">
                 @yield('content')
