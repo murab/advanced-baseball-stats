@@ -24,7 +24,7 @@
 
         @endforeach
 
-        @if (empty($posts))
+        @if (!count($posts))
             <p>None yet. Please check back again soon.</p>
         @endif
 
