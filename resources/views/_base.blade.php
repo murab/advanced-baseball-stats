@@ -6,7 +6,8 @@
 
     <title>{{ isset($page_title) ? $page_title . ' | ' .  getenv('APP_NAME') : getenv('APP_NAME') }}</title>
 
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
     <script data-ad-client="ca-pub-9421705552575420" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
