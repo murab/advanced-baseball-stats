@@ -10,6 +10,16 @@
     <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-178664100-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-178664100-1');
+    </script>
+    
     <script data-ad-client="ca-pub-9421705552575420" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     @yield('css')
