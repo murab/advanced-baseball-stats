@@ -17,13 +17,16 @@
 
 @include('_nav')
 
-<div class="container" style="margin-top: 25px">
-    <div class="row">
-        <div class="col">
-            @yield('content')
+<main role="main">
+    @yield('jumbotron')
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @yield('content')
+            </div>
         </div>
     </div>
-</div>
+</main>
 
 <footer class="container" style="text-align: center">
     <p><small>© {{ Carbon\Carbon::today()->format('Y') }}</small></p>

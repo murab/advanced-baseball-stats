@@ -24,6 +24,7 @@
 {{--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
 {{--        </form>--}}
                 <div class="form-inline my-2 my-lg-0">
+                    <span style="color: darkgray">Suggestions? Tweet us!</span>
                     <p class="my-sm-0 my-2"><a class="nav-link" href="https://twitter.com/therotoranker">@TheRotoRanker</a></p>
                 </div>
     </div>
