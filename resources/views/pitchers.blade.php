@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive-md">
         <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
