@@ -27,55 +27,57 @@
         </div>
     </div>
 
-    <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
-        <thead>
-        <tr>
-            <td>Rank</td>
-            <td style="width: 100px">Name</td>
-            <td>Age</td>
-            <td>G</td>
-            <td>IP</td>
-            <td>IP per G</td>
-            <td>GB%</td>
-            <td>K%</td>
-            <td>BB%</td>
-            <td>K-BB%</td>
-            <td>SwStr%</td>
-            <td>Velo</td>
-            <td>IP per G Rank</td>
-            <td>K% Rank</td>
-            <td>xERA Rank</td>
-            <td style="font-weight: bold">Average Rank</td>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($stats as $key => $stat)
+    <div class="table-responsive">
+        <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
+            <thead>
             <tr>
-                <td>{{$key+1}}</td>
-                <td style="text-align: left"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
-                <td>{{$stat['age']}}</td>
-                <td>{{$stat['g']}}</td>
-                <td>{{$stat['ip']}}</td>
-                <td>{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
-                <td>{{number_format($stat['gb_percentage'], 1)}}</td>
-                <td>{{number_format($stat['k_percentage'],1)}}</td>
-                <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
-                <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
-                <td>{{number_format($stat['velo'], 1)}}</td>
-                <td>{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
-                <td>{{ $stat['k_rank'] ?? ''}}</td>
-                <td>{{ $stat['xwoba_rank'] ?? ''}}</td>
-
-                @if ($position == 'sp')
-                    <td style="font-weight: bold">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
-                @else
-                    <td style="font-weight: bold">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
-                @endif
+                <td>Rank</td>
+                <td style="width: 100px">Name</td>
+                <td>Age</td>
+                <td>G</td>
+                <td>IP</td>
+                <td>IP per G</td>
+                <td>GB%</td>
+                <td>K%</td>
+                <td>BB%</td>
+                <td>K-BB%</td>
+                <td>SwStr%</td>
+                <td>Velo</td>
+                <td>IP per G Rank</td>
+                <td>K% Rank</td>
+                <td>xERA Rank</td>
+                <td style="font-weight: bold">Average Rank</td>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($stats as $key => $stat)
+                <tr>
+                    <td>{{$key+1}}</td>
+                    <td style="text-align: left"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
+                    <td>{{$stat['age']}}</td>
+                    <td>{{$stat['g']}}</td>
+                    <td>{{$stat['ip']}}</td>
+                    <td>{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                    <td>{{number_format($stat['gb_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['k_percentage'],1)}}</td>
+                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td>{{number_format($stat['velo'], 1)}}</td>
+                    <td>{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
+                    <td>{{ $stat['k_rank'] ?? ''}}</td>
+                    <td>{{ $stat['xwoba_rank'] ?? ''}}</td>
+
+                    @if ($position == 'sp')
+                        <td style="font-weight: bold">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
+                    @else
+                        <td style="font-weight: bold">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
+                    @endif
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection
 
 @section('javascript')
