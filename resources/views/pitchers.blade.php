@@ -2,6 +2,7 @@
 
 @section('css')
     <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="canonical" href="{{route('pitcher_ranks', [$year, $position])}}" />
 @endsection
 
 @section('content')
