@@ -6,11 +6,13 @@
 
 @section('content')
 
-    <h1>
-        {{$post['title']}}
-    </h1>
+    <div class="article">
+        <h1>
+            {{$post['title']}}
+        </h1>
 
-    {!! $post['content'] !!}
+        {!! $post['content'] !!}
+    </div>
 
 @endsection
 
