@@ -266,28 +266,28 @@ class Stat extends Model
 
         if ($second_half == false) {
             usort($xwoba_sorted, function($a, $b) {
-                return $a['adjusted_xwoba'] < $b['adjusted_xwoba'];
+                return $a['adjusted_xwoba'] > $b['adjusted_xwoba'];
             });
 
             usort($k_sorted, function($a, $b) {
-                return $a['k_percentage'] > $b['k_percentage'];
+                return $a['k_percentage'] < $b['k_percentage'];
             });
 
             usort($ipg_sorted, function ($a, $b) {
-                return $a['innings_per_game'] > $b['innings_per_game'];
+                return $a['innings_per_game'] < $b['innings_per_game'];
             });
         } else {
             usort($xwoba_sorted, function($a, $b) {
-                return $a['xwoba'] < $b['xwoba'];
+                return $a['xwoba'] > $b['xwoba'];
             });
 
             $k_sorted = $all_data;
             usort($k_sorted, function($a, $b) {
-                return $a['k_percentage'] > $b['k_percentage'];
+                return $a['k_percentage'] < $b['k_percentage'];
             });
 
             usort($ipg_sorted, function ($a, $b) {
-                return $a['innings_per_game'] > $b['innings_per_game'];
+                return $a['innings_per_game'] < $b['innings_per_game'];
             });
         }
 
@@ -323,7 +323,7 @@ class Stat extends Model
             if ($a['tru'] == $b['tru']) {
                 return $a['k_percentage'] < $b['k_percentage'];
             }
-            return $a['tru'] < $b['tru'];
+            return $a['tru'] > $b['tru'];
         });
 
         $ret = [];

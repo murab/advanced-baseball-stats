@@ -17,72 +17,63 @@
                 <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
             </select>
         </div>
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
         <div class="col-sm-2">
-                <label for="yearSelect">Year</label>
-                <select class="form-control" id="yearSelect" name="yearSelect">
-                    @foreach ($years as $oneYear)
-                        <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
-                    @endforeach
-                </select>
+            <label for="yearSelect">Year</label>
+            <select class="form-control" id="yearSelect" name="yearSelect">
+                @foreach ($years as $oneYear)
+                    <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 
-    <table id="tru" class="table table-bordered table-hover table-sm" style="font-size: 12px">
+    <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
         <thead>
-            <tr>
-                <td class="text-center">Rank</td>
-                <td class="text-center">Name</td>
-                <td class="text-center">Age</td>
-                <td class="text-center">G</td>
-                <td class="text-center">IP</td>
-                <td class="text-center">IP per G</td>
-                <td>K%</td>
-                <td>BB%</td>
-                <td class="text-center">K-BB%</td>
-                <td class="text-center">SwStr%</td>
-                <td class="text-center">Velo</td>
-{{--                <td>xWOBA</td>--}}
-                <td class="text-center">GB%</td>
-                <td class="text-center">IP per G Rank</td>
-                <td class="text-center">K% Rank</td>
-                <td class="text-center">xERA Rank</td>
-                <td class="text-center" style="font-weight: bold">Average Rank</td>
-{{--                <td>OppOPS</td>--}}
-{{--                <td>True Score</td>--}}
-            </tr>
+        <tr>
+            <td>Rank</td>
+            <td style="width: 100px">Name</td>
+            <td>Age</td>
+            <td>G</td>
+            <td>IP</td>
+            <td>IP per G</td>
+            <td>GB%</td>
+            <td>K%</td>
+            <td>BB%</td>
+            <td>K-BB%</td>
+            <td>SwStr%</td>
+            <td>Velo</td>
+            <td>IP per G Rank</td>
+            <td>K% Rank</td>
+            <td>xERA Rank</td>
+            <td style="font-weight: bold">Average Rank</td>
+        </tr>
         </thead>
         <tbody>
-            @foreach($stats as $key => $stat)
-                <tr>
-                    <td class="text-center">{{$key+1}}</td>
-                    <td>{{$stat->player['name']}}</td>
-                    <td class="text-center">{{$stat['age']}}</td>
-                    <td>{{$stat['g']}}</td>
-                    <td class="text-center">{{$stat['ip']}}</td>
-                    <td class="text-center">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
-                    <td>{{number_format($stat['k_percentage'],1)}}</td>
-                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td class="text-center">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
-                    <td class="text-center">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td class="text-center">{{number_format($stat['velo'], 1)}}</td>
-{{--                    <td>{{number_format($stat['xwoba'], 3)}}</td>--}}
-                    <td class="text-center">{{number_format($stat['gb_percentage'], 1)}}</td>
-                    <td class="text-center">{{ $position != 'rp' ? abs($stat['ip_per_g_rank'] - $num) + 1 : ''}}</td>
-                    <td class="text-center">{{abs($stat['k_rank'] - $num) + 1 ?? ''}}</td>
-                    <td class="text-center">{{abs($stat['xwoba_rank'] - $num) + 1 ?? ''}}</td>
+        @foreach($stats as $key => $stat)
+            <tr>
+                <td>{{$key+1}}</td>
+                <td style="text-align: left"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
+                <td>{{$stat['age']}}</td>
+                <td>{{$stat['g']}}</td>
+                <td>{{$stat['ip']}}</td>
+                <td>{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                <td>{{number_format($stat['gb_percentage'], 1)}}</td>
+                <td>{{number_format($stat['k_percentage'],1)}}</td>
+                <td>{{number_format($stat['bb_percentage'], 1)}}</td>
+                <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
+                <td>{{number_format($stat['velo'], 1)}}</td>
+                <td>{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
+                <td>{{ $stat['k_rank'] ?? ''}}</td>
+                <td>{{ $stat['xwoba_rank'] ?? ''}}</td>
 
-                    @if ($position == 'sp')
-                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['ip_per_g_rank']-1 + $stat['k_rank']-1 + $stat['xwoba_rank']-1) / 3 - $num)), 1) }}</td>
-                    @else
-                        <td class="text-center" style="font-weight: bold">{{ number_format(abs((($stat['k_rank']-1 + $stat['xwoba_rank']-1) / 2 - $num)), 1) }}</td>
-                    @endif
-
-{{--                    <td>{{number_format($stat['oppops'], 3)}}</td>--}}
-{{--                    <td>{{number_format($stat['tru'], 2)}}</td>--}}
-                </tr>
-            @endforeach
+                @if ($position == 'sp')
+                    <td style="font-weight: bold">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
+                @else
+                    <td style="font-weight: bold">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
+                @endif
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection
@@ -92,7 +83,7 @@
     <script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var t = $('#tru').DataTable({
+            var t = $('#pitchers').DataTable({
                 paging: false
             });
 

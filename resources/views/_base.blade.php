@@ -19,7 +19,7 @@
 
         gtag('config', 'UA-178664100-1');
     </script>
-    
+
     <script data-ad-client="ca-pub-9421705552575420" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     @yield('css')
