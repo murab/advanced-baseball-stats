@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ isset($page_title) ? $page_title . ' | ' .  getenv('APP_NAME') : getenv('APP_NAME') }}</title>
+    <title>{{ isset($page_title) ? $page_title . ' | ' .  getenv('APP_NAME') : getenv('APP_NAME') . " | Baseball stats and automated fantasy rankings" }}</title>
 
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" type="text/css">
