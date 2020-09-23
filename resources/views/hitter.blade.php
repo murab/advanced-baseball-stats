@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1>
+    <h1 style="margin-bottom: 25px">
         {{$player['name']}} Stats
     </h1>
 
@@ -32,7 +32,7 @@
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td>{{$stat['year']}}</td>
+                    <td><a href="{{route('hitter_ranks', [$stat['year'], strtolower($stat['position'])])}}">{{$stat['year']}}</a></td>
                     <td>{{$stat['age']}}</td>
                     <td>{{$stat['pa']}}</td>
                     <td>{{$stat['r']}}</td>
