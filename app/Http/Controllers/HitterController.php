@@ -42,7 +42,7 @@ class HitterController extends Controller
         $stats = Hitter::where('player_id', $hitter->id)->orderBy('year', 'asc')->get();
 
         return view('hitter', [
-            'page_title' => "{$hitter->name}",
+            'page_title' => "{$hitter->name} Stats",
             'stats' => $stats,
             'player' => $hitter,
         ]);

@@ -50,7 +50,7 @@ class PitcherController extends Controller
         $stats = Stat::where('player_id', $pitcher->id)->orderBy('year', 'asc')->get();
 
         return view('pitcher', [
-            'page_title' => "{$pitcher->name}",
+            'page_title' => "{$pitcher->name} Stats",
             'stats' => $stats,
             'player' => $pitcher,
         ]);
