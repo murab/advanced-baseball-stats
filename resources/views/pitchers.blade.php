@@ -32,7 +32,7 @@
             <thead>
             <tr>
                 <td>Rank</td>
-                <td style="width: 100px">Name</td>
+                <td style="width: 125px">Name</td>
                 <td>Age</td>
                 <td>G</td>
                 <td>IP</td>
@@ -52,8 +52,8 @@
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td>{{$key+1}}</td>
-                    <td style="text-align: left"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
+                    <td style="font-size: 1.25em;">{{$key+1}}</td>
+                    <td style="text-align: left; font-size: 1.25em;"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
                     <td>{{$stat['age']}}</td>
                     <td>{{$stat['g']}}</td>
                     <td>{{$stat['ip']}}</td>
@@ -69,9 +69,9 @@
                     <td>{{ $stat['xwoba_rank'] ?? ''}}</td>
 
                     @if ($position == 'sp')
-                        <td style="font-weight: bold">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
+                        <td style="font-weight: bold; font-size: 1.25em;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
                     @else
-                        <td style="font-weight: bold">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
+                        <td style="font-weight: bold; font-size: 1.25em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
                     @endif
                 </tr>
             @endforeach

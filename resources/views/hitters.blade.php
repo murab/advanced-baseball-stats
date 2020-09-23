@@ -25,7 +25,7 @@
             <thead>
             <tr>
                 <td>Rank</td>
-                <td style="width: 100px">Name</td>
+                <td style="width: 125px">Name</td>
                 <td>Age</td>
                 <td>PA</td>
                 <td>R</td>
@@ -44,8 +44,8 @@
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td>{{$key+1}}</td>
-                    <td style="text-align: left"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
+                    <td style="font-size: 1.25em;">{{$key+1}}</td>
+                    <td style="text-align: left; font-size: 1.25em;"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
                     <td>{{$stat['age']}}</td>
                     <td>{{$stat['pa']}}</td>
                     <td>{{$stat['r']}}</td>
@@ -58,7 +58,7 @@
                     <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td>{{number_format($stat['hardhit_percentage'], 1)}}</td>
                     <td>{{$stat['wrc_plus']}}</td>
-                    <td style="font-weight: bold">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
+                    <td style="font-weight: bold; font-size: 1.25em;">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
                 </tr>
             @endforeach
             </tbody>
