@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Player;
+use App\Stat;
 use Illuminate\Http\Request;
 use App\Hitter;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +32,19 @@ class HitterController extends Controller
             'years' => $years,
             'year' => $year,
             'num' => count($stats),
+        ]);
+    }
+
+    public function individual(Request $request, string $slug)
+    {
+        $hitter = Player::where('slug', $slug)->first();
+
+        $stats = Hitter::where('player_id', $hitter->id)->orderBy('year', 'asc')->get();
+
+        return view('hitter', [
+            'page_title' => "{$hitter->name} Stats",
+            'stats' => $stats,
+            'player' => $hitter,
         ]);
     }
 }

@@ -29,9 +29,12 @@ Route::get('/pitchers/{year?}/{position?}', 'PitcherController@index')->where([
     'position' => 'sp|rp',
 ])->name('pitcher_ranks');
 
+Route::get('/pitcher/{slug}', 'PitcherController@individual')->name('pitcher');
+
 Route::get('/hitters/{year?}', 'HitterController@index')->where([
     'year' => '2[0-9]{3}',
 ])->name('hitter_ranks');
+Route::get('/hitter/{slug}', 'HitterController@individual')->name('hitter');
 
 Route::get('/articles', 'ArticleController@index')->name('articles');
 

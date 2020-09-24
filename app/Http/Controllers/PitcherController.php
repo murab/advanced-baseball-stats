@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Stat;
+use App\Player;
 use Illuminate\Support\Facades\DB;
 
 class PitcherController extends Controller
@@ -39,6 +40,19 @@ class PitcherController extends Controller
             'year' => $year,
             'position' => $position,
             'num' => count($stats),
+        ]);
+    }
+
+    public function individual(Request $request, string $slug)
+    {
+        $pitcher = Player::where('slug', $slug)->first();
+
+        $stats = Stat::where('player_id', $pitcher->id)->orderBy('year', 'asc')->get();
+
+        return view('pitcher', [
+            'page_title' => "{$pitcher->name} Stats",
+            'stats' => $stats,
+            'player' => $pitcher,
         ]);
     }
 }
