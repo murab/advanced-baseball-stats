@@ -11,14 +11,14 @@
     </h1>
 
     <div class="row">
-        <div class="col-md-1">
+        <div class="col-xl-1">
             <label for="positionSelect">Position</label>
             <select class="form-control" id="positionSelect" name="positionSelect">
                 <option value="sp">SP</option>
                 <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
             </select>
         </div>
-        <div class="col-sm-8">
+        <div class="col-xl-8">
             <label for="yearSelect">Year</label>
             <select class="form-control" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
@@ -26,7 +26,7 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-sm-3" style="text-align: right">Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
+        <div class="col-xl-3" style="text-align: right">Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
     </div>
 
     <div class="table-responsive-md">

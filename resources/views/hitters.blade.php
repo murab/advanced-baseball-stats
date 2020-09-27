@@ -11,7 +11,7 @@
     </h1>
 
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-xl-2">
             <label for="yearSelect">Year</label>
             <select class="form-control" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
@@ -19,7 +19,7 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-sm-10" style="text-align: right">Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
+        <div class="col-xl-10" style="text-align: right">Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
     </div>
 
     <div class="table-responsive-md">
