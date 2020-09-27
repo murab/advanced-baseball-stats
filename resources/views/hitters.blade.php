@@ -19,6 +19,7 @@
                 @endforeach
             </select>
         </div>
+        <div class="col-sm-10" style="text-align: right">Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
     </div>
 
     <div class="table-responsive-md">
