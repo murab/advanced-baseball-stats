@@ -38,14 +38,14 @@
                 <td>Age</td>
                 <td>G</td>
                 <td>IP</td>
-                <td>IP per G</td>
+                <td>IPpG</td>
                 <td>GB%</td>
                 <td>K%</td>
                 <td>BB%</td>
                 <td>K-BB%</td>
                 <td>SwStr%</td>
                 <td>Velo</td>
-                <td>IP per G Rank</td>
+                <td>IPpG Rank</td>
                 <td>K% Rank</td>
                 <td>xERA Rank</td>
                 <td style="font-weight: bold">Average Rank</td>
