@@ -35,47 +35,47 @@
             <tr>
                 <td>Rank</td>
                 <td style="width: 125px">Name</td>
-                <td>Age</td>
-                <td>G</td>
+                <td style="border-right: 1px solid black;">Age</td>
+{{--                <td>G</td>--}}
                 <td>IP</td>
-                <td>IPpG</td>
-                <td>GB%</td>
+                <td style="border-right: 1px solid black;">IPpG</td>
                 <td>K%</td>
                 <td>BB%</td>
-                <td>K-BB%</td>
-                <td>SwStr%</td>
-                <td>Velo</td>
-                <td><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></td>
+                <td style="border-right: 1px solid black;">K-BB%</td>
+                <td style="border-right: 1px solid black;">SwStr%</td>
+                <td style="border-right: 1px solid black;">GB%</td>
+                <td style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></td>
+                <td style="border-right: 1px solid black;">Velo</td>
                 <td>IPpG Rank</td>
                 <td>K% Rank</td>
                 <td>xERA Rank</td>
-                <td style="font-weight: bold">Average Rank</td>
+                <td style="font-weight: bold">Avg</td>
             </tr>
             </thead>
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td style="font-size: 1.25em;">{{$key+1}}</td>
-                    <td style="text-align: left; font-size: 1.25em;"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
-                    <td>{{$stat['age']}}</td>
-                    <td>{{$stat['g']}}</td>
+                    <td style>{{$key+1}}</td>
+                    <td style="text-align: left;"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
+                    <td style="border-right: 1px solid black;">{{$stat['age']}}</td>
+{{--                    <td>{{$stat['g']}}</td>--}}
                     <td>{{$stat['ip']}}</td>
-                    <td>{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
-                    <td>{{number_format($stat['gb_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
                     <td>{{number_format($stat['k_percentage'],1)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['velo'], 1)}}</td>
-                    <td>{{number_format($stat['csw'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
                     <td>{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
                     <td>{{ $stat['k_rank'] ?? ''}}</td>
                     <td>{{ $stat['xwoba_rank'] ?? ''}}</td>
 
                     @if ($position == 'sp')
-                        <td style="font-weight: bold; font-size: 1.25em;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
+                        <td style="font-weight: bold;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
                     @else
-                        <td style="font-weight: bold; font-size: 1.25em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
+                        <td style="font-weight: bold;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
                     @endif
                 </tr>
             @endforeach

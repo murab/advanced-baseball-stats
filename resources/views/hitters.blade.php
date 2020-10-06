@@ -28,39 +28,39 @@
             <tr>
                 <td>Rank</td>
                 <td style="width: 125px">Name</td>
-                <td>Age</td>
-                <td>PA</td>
+                <td style="border-right: 1px solid black;">Age</td>
+                <td style="border-right: 1px solid black;">PA</td>
                 <td>R</td>
                 <td>AVG</td>
                 <td>HR</td>
                 <td>RBI</td>
-                <td>SB</td>
+                <td style="border-right: 1px solid black;">SB</td>
                 <td>BB%</td>
-                <td>K%</td>
-                <td>SwStr%</td>
-                <td>Hard Hit%</td>
-                <td>wRC+</td>
+                <td style="border-right: 1px solid black;">K%</td>
+                <td style="border-right: 1px solid black;">SwStr%</td>
+                <td style="border-right: 1px solid black;">Hard Hit%</td>
+                <td style="border-right: 1px solid black;">wRC+</td>
                 <td style="font-weight: bold">Hard Hit% - K%</td>
             </tr>
             </thead>
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td style="font-size: 1.25em;">{{$key+1}}</td>
-                    <td style="text-align: left; font-size: 1.25em;"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
-                    <td>{{$stat['age']}}</td>
-                    <td>{{$stat['pa']}}</td>
+                    <td>{{$key+1}}</td>
+                    <td style="text-align: left;"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
+                    <td style="border-right: 1px solid black;">{{$stat['age']}}</td>
+                    <td style="border-right: 1px solid black;">{{$stat['pa']}}</td>
                     <td>{{$stat['r']}}</td>
                     <td>{{number_format($stat['avg'], 3)}}</td>
                     <td>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
-                    <td>{{$stat['sb']}}</td>
+                    <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['k_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td>{{number_format($stat['hardhit_percentage'], 1)}}</td>
-                    <td>{{$stat['wrc_plus']}}</td>
-                    <td style="font-weight: bold; font-size: 1.25em;">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['hardhit_percentage'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
+                    <td style="font-weight: bold;">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
                 </tr>
             @endforeach
             </tbody>

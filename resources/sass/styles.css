@@ -15,4 +15,8 @@ table.dataTable tbody td {
   padding: 3px !important;
 }
 
+table.dataTable thead th, table.dataTable thead td {
+  padding: 3px 8px 3px 0 !important;
+}
+
 /*# sourceMappingURL=styles.css.map */
