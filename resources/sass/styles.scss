@@ -16,5 +16,9 @@ table.dataTable tbody td {
 }
 
 table.dataTable thead th, table.dataTable thead td {
-    padding: 3px 8px 3px 0 !important;
+    padding: 3px 12px 3px 0 !important;
+}
+
+table.dataTable td a {
+    margin-left: 3px;
 }

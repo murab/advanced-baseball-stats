@@ -40,7 +40,7 @@
                 <td style="border-right: 1px solid black;">SwStr%</td>
                 <td style="border-right: 1px solid black;">Hard Hit%</td>
                 <td style="border-right: 1px solid black;">wRC+</td>
-                <td style="font-weight: bold">Hard Hit% - K%</td>
+                <td style="font-weight: bold">HH%-K%</td>
             </tr>
             </thead>
             <tbody>
@@ -75,7 +75,10 @@
         $(document).ready(function() {
             var t = $('#hitters').DataTable({
                 paging: false,
-                order: [[ 14, "desc" ]]
+                order: [[ 14, "desc" ]],
+                columnDefs: [
+                    { "width": "6%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14] }
+                ]
             });
 
             // manage index column

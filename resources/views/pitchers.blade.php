@@ -10,6 +10,12 @@
         Pitcher Rankings
     </h1>
 
+    @if ($position == 'sp')
+        <p>Minimum 3.0 IP per appearance, 10 total IP</p>
+    @else
+        <p>Less than 3.0 IP per appearance, at least 10 total IP</p>
+    @endif
+
     <div class="row">
         <div class="col-xl-1 col-lg-2 col-md-3">
             <label for="positionSelect">Position</label>
