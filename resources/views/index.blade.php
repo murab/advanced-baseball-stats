@@ -8,12 +8,12 @@
     <div class="jumbotron">
         <div class="container">
             <h1 class="display-4">RotoRanker</h1>
-            <p style="font-size: 1rem;">Automated MLB pitcher and hitter rankings using unique blends of statistics and Statcast data. Updated daily.</p>
+            <p style="font-size: 1rem;">Quick leaderboards with automated MLB pitcher and hitter rankings using unique blends of statistics and Statcast data. Updated daily.</p>
             <p>
                 <a class="btn btn-primary btn-lg" href="/pitchers" role="button">View Pitcher Rankings »</a>
             </p>
             <p>
-                <a class="btn btn-primary btn-lg" href="/hitters" role="button">View Hitter Rankings »</a>
+                <a class="btn btn-primary btn-lg" href="/hitters" role="button">View Hitter Rankings »</a> <span style="margin-left: 5px;font-size: 1.2em;color: red; font-style: italic">Beta!</span>
             </p>
         </div>
     </div>

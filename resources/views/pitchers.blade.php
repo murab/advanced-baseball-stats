@@ -45,6 +45,7 @@
                 <td>K-BB%</td>
                 <td>SwStr%</td>
                 <td>Velo</td>
+                <td><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></td>
                 <td>IPpG Rank</td>
                 <td>K% Rank</td>
                 <td>xERA Rank</td>
@@ -66,6 +67,7 @@
                     <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
                     <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td>{{number_format($stat['velo'], 1)}}</td>
+                    <td>{{number_format($stat['csw'], 1)}}</td>
                     <td>{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
                     <td>{{ $stat['k_rank'] ?? ''}}</td>
                     <td>{{ $stat['xwoba_rank'] ?? ''}}</td>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Baseball stats and automated fantasy rankings for hitters and pitchers using unique mixes of statistics and Statcast data.">
+    <meta name="description" content="Baseball stats with quick leaderboards and automated fantasy rankings for hitters and pitchers using unique mixes of statistics and Statcast data.">
 
     <title>{{ isset($page_title) ? $page_title . ' | ' .  getenv('APP_NAME') : getenv('APP_NAME') . " | Baseball stats and automated fantasy rankings" }}</title>
 
