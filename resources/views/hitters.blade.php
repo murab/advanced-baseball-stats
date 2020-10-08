@@ -46,21 +46,21 @@
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td>{{$key+1}}</td>
-                    <td style="text-align: left;"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
-                    <td style="border-right: 1px solid black;">{{$stat['age']}}</td>
-                    <td style="border-right: 1px solid black;">{{$stat['pa']}}</td>
-                    <td>{{$stat['r']}}</td>
-                    <td>{{number_format($stat['avg'], 3)}}</td>
-                    <td>{{$stat['hr']}}</td>
-                    <td>{{$stat['rbi']}}</td>
-                    <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
-                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['hardhit_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
-                    <td style="font-weight: bold;">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
+                    <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>
+                    <td class="align-middle" style="text-align: left; font-size: 1.2em;"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['pa']}}</td>
+                    <td class="align-middle">{{$stat['r']}}</td>
+                    <td class="align-middle">{{number_format($stat['avg'], 3)}}</td>
+                    <td class="align-middle">{{$stat['hr']}}</td>
+                    <td class="align-middle">{{$stat['rbi']}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['sb']}}</td>
+                    <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['hardhit_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
+                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
                 </tr>
             @endforeach
             </tbody>

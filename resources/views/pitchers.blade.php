@@ -61,27 +61,27 @@
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td style>{{$key+1}}</td>
-                    <td style="text-align: left;"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
-                    <td style="border-right: 1px solid black;">{{$stat['age']}}</td>
+                    <td style="font-size: 1.2em;" class="align-middle">{{$key+1}}</td>
+                    <td class="align-middle" style="text-align: left;font-size: 1.2em;"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
 {{--                    <td>{{$stat['g']}}</td>--}}
-                    <td>{{$stat['ip']}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
-                    <td>{{number_format($stat['k_percentage'],1)}}</td>
-                    <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
-                    <td>{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
-                    <td>{{ $stat['k_rank'] ?? ''}}</td>
-                    <td>{{ $stat['xwoba_rank'] ?? ''}}</td>
+                    <td class="align-middle">{{$stat['ip']}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                    <td class="align-middle">{{number_format($stat['k_percentage'],1)}}</td>
+                    <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
+                    <td class="align-middle">{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
+                    <td class="align-middle">{{ $stat['k_rank'] ?? ''}}</td>
+                    <td class="align-middle">{{ $stat['xwoba_rank'] ?? ''}}</td>
 
                     @if ($position == 'sp')
-                        <td style="font-weight: bold;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
+                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
                     @else
-                        <td style="font-weight: bold;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
+                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
                     @endif
                 </tr>
             @endforeach
