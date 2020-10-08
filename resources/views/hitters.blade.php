@@ -38,9 +38,9 @@
                 <td>BB%</td>
                 <td style="border-right: 1px solid black;">K%</td>
                 <td style="border-right: 1px solid black;">SwStr%</td>
-                <td style="border-right: 1px solid black;">Hard Hit%</td>
+                <td style="border-right: 1px solid black;">Hard%</td>
                 <td style="border-right: 1px solid black;">wRC+</td>
-                <td style="font-weight: bold">HH%-K%</td>
+                <td style="font-weight: bold">Hard-K%</td>
             </tr>
             </thead>
             <tbody>
