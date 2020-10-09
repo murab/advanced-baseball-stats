@@ -24,4 +24,14 @@ table.dataTable td a {
   color: blue;
 }
 
+.article {
+  line-height: 2em;
+}
+
+.article h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 3em;
+}
+
 /*# sourceMappingURL=styles.css.map */
