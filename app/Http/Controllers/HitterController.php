@@ -19,6 +19,14 @@ class HitterController extends Controller
             ['pa', '>=', 100],
         ])->orderBy('hardhit_percentage', 'desc')->get();
 
+        if (count($stats) == 0) {
+            $year = $year - 1;
+            $stats = Hitter::where([
+                'year' => $year,
+                ['pa', '>=', 100],
+            ])->orderBy('hardhit_percentage', 'desc')->get();
+        }
+
         $years = DB::table('stats')->groupBy('year')->orderBy('year', 'desc')->pluck('year')->toArray();
 
         if (!in_array(date('Y'),$years)) {

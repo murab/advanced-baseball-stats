@@ -19,6 +19,15 @@ class PitcherController extends Controller
             ['tru', '<>', null],
         ])->orderBy('tru_rank', 'asc')->get();
 
+        if (count($stats) == 0) {
+            $year = $year - 1;
+            $stats = Stat::where([
+                'year' => $year,
+                'position' => strtoupper($position),
+                ['tru', '<>', null],
+            ])->orderBy('tru_rank', 'asc')->get();
+        }
+
         $years = DB::table('stats')->groupBy('year')->orderBy('year', 'desc')->pluck('year')->toArray();
 
         if (!in_array(date('Y'),$years)) {
