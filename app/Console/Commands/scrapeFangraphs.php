@@ -316,7 +316,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->hitterDataSource, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $stats = $doc->find('.grid_line_regular');
@@ -329,7 +329,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->hitterDataSource2ndHalf, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         if ($doc) {
@@ -345,7 +345,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitcherDataSource, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $stats = $doc->find('.grid_line_regular');
@@ -358,7 +358,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitcherDataSourceLast30Days, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $stats = $doc->find('.grid_line_regular');
@@ -371,7 +371,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitcherDataSource1stHalf, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $stats = $doc->find('.grid_line_regular');
@@ -384,7 +384,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitcherDataSource2ndHalf, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         if ($doc) {
@@ -400,7 +400,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->leaguePitchersDataSource, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         try {
@@ -449,7 +449,7 @@ class scrapeFangraphs extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->leagueBattersDataSource, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         try {

@@ -126,14 +126,15 @@ class scrapeSavant extends Command
                     $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
                 } elseif ($i == 6) {
                     // PAs
-                    $player_data['pa'] = (int)($val->innerHTML);
+                    $player_data['pa'] = (int)(str_replace(['<span>','</span>'],'',$val->innerHTML));
                 } elseif ($i == 7) {
                     // xWOBA
-                    $player_data['xwoba'] = floatval($val->innerHTML);
+                    $player_data['xwoba'] = floatval(str_replace(['<span>','</span>'],'',$val->innerHTML));
                 }
 
                 $i++;
             }
+
             if (!empty($player_data['pa'])) {
                 $data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
@@ -161,7 +162,7 @@ class scrapeSavant extends Command
                     $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
                 } elseif ($i == 6) {
                     // Velo
-                    $player_data['velo'] = ($val->innerHTML);
+                    $player_data['velo'] = (str_replace(['<span>','</span>'],'',$val->innerHTML));
                 }
 
                 $i++;
@@ -192,7 +193,7 @@ class scrapeSavant extends Command
                     $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
                 } elseif ($i == 5) {
                     // CSW
-                    $player_data['csw'] = ($val->innerHTML);
+                    $player_data['csw'] = (str_replace(['<span>','</span>'],'',$val->innerHTML));
                 }
 
                 $i++;
@@ -213,7 +214,7 @@ class scrapeSavant extends Command
 
         $doc = hQuery::fromUrl($this->pitchersXwobaURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $players = $doc->find('#search_results tbody tr');
@@ -231,7 +232,7 @@ class scrapeSavant extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitchersXwoba2ndHalfURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $players = $doc->find('#search_results tbody tr');
@@ -245,7 +246,7 @@ class scrapeSavant extends Command
 
         $doc = hQuery::fromUrl($this->pitchersVeloURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $players = $doc->find('#search_results tbody tr');
@@ -263,7 +264,7 @@ class scrapeSavant extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitchersVelo2ndHalfURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $players = $doc->find('#search_results tbody tr');
@@ -276,7 +277,7 @@ class scrapeSavant extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitchersCswURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $players = $doc->find('#search_results tbody tr');
@@ -289,7 +290,7 @@ class scrapeSavant extends Command
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitchersCsw2ndHalfURL, [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
         $players = $doc->find('#search_results tbody tr');

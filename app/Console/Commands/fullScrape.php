@@ -52,8 +52,8 @@ class fullScrape extends Command
         $this->info('Scraping Savant');
         $this->call('scrape:savant', ['year' => $year]);
 
-        $this->info('Scraping Prospectus');
-        $this->call('scrape:prospectus', ['year' => $year]);
+//        $this->info('Scraping Prospectus');
+//        $this->call('scrape:prospectus', ['year' => $year]);
 
         $this->info('Computing and storing true skill ratings');
         $this->call('z:tru', ['year' => $year]);
