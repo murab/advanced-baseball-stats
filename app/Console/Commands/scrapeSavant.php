@@ -123,7 +123,9 @@ class scrapeSavant extends Command
 
                 if ($i == 2) {
                     // Name
-                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
+                    $name = explode(', ', $val->innerHTML);
+                    $player_data['name'] = trim($name[1]) . ' ' . trim($name[0]);
+                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
                 } elseif ($i == 6) {
                     // PAs
                     $player_data['pa'] = (int)(str_replace(['<span>','</span>'],'',$val->innerHTML));
@@ -159,7 +161,9 @@ class scrapeSavant extends Command
 
                 if ($i == 2) {
                     // Name
-                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
+                    $name = explode(', ', $val->innerHTML);
+                    $player_data['name'] = trim($name[1]) . ' ' . trim($name[0]);
+                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
                 } elseif ($i == 6) {
                     // Velo
                     $player_data['velo'] = (str_replace(['<span>','</span>'],'',$val->innerHTML));
@@ -190,7 +194,9 @@ class scrapeSavant extends Command
 
                 if ($i == 2) {
                     // Name
-                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $val->innerHTML));
+                    $name = explode(', ', $val->innerHTML);
+                    $player_data['name'] = trim($name[1]) . ' ' . trim($name[0]);
+                    $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
                 } elseif ($i == 5) {
                     // CSW
                     $player_data['csw'] = (str_replace(['<span>','</span>'],'',$val->innerHTML));
@@ -217,7 +223,7 @@ class scrapeSavant extends Command
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $players = $doc->find('#search_results tbody tr');
+        $players = $doc->find('#search_results tbody tr.search_row');
 
         $data = [];
         if ($players) {
@@ -235,7 +241,7 @@ class scrapeSavant extends Command
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $players = $doc->find('#search_results tbody tr');
+        $players = $doc->find('#search_results tbody tr.search_row');
         $data = $this->parseXwobaData($players);
         return $data;
     }
@@ -249,7 +255,7 @@ class scrapeSavant extends Command
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $players = $doc->find('#search_results tbody tr');
+        $players = $doc->find('#search_results tbody tr.search_row');
 
         $data = [];
         if ($players) {
@@ -267,7 +273,7 @@ class scrapeSavant extends Command
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $players = $doc->find('#search_results tbody tr');
+        $players = $doc->find('#search_results tbody tr.search_row');
         $data = $this->parseVeloData($players);
         return $data;
     }
@@ -280,7 +286,7 @@ class scrapeSavant extends Command
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $players = $doc->find('#search_results tbody tr');
+        $players = $doc->find('#search_results tbody tr.search_row');
         $data = $this->parseCswData($players);
         return $data;
     }
@@ -293,7 +299,7 @@ class scrapeSavant extends Command
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
 
-        $players = $doc->find('#search_results tbody tr');
+        $players = $doc->find('#search_results tbody tr.search_row');
         $data = $this->parseCswData($players);
         return $data;
     }
