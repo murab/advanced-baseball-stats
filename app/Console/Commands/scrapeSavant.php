@@ -113,7 +113,7 @@ class scrapeSavant extends Command
     private function parseXwobaData($players) {
         $data = [];
 
-        foreach ($players as $player) {
+        if (is_array($players)) foreach ($players as $player) {
 
             $vals = $player->find('td');
 
@@ -151,7 +151,7 @@ class scrapeSavant extends Command
     private function parseVeloData($players) {
         $data = [];
 
-        foreach ($players as $player) {
+        if (is_array($players)) foreach ($players as $player) {
 
             $vals = $player->find('td');
 
@@ -184,7 +184,7 @@ class scrapeSavant extends Command
     private function parseCswData($players) {
         $data = [];
 
-        foreach ($players as $player) {
+        if (is_array($players)) foreach ($players as $player) {
 
             $vals = $player->find('td');
 
