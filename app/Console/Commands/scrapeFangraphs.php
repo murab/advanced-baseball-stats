@@ -126,8 +126,8 @@ class scrapeFangraphs extends Command
             $stats->ip = $player['ip'];
             $stats->pa = $player['pa'];
             //$stats->xwoba = $player['xera'];
-            $stats->velo = isset($player[$lowername]) ? $player[$lowername]['velo'] : 0;
-            $stats->csw = isset($player[$lowername]) ? $player[$lowername]['csw'] : 0;
+            $stats->velo = $player['velo'] ?? 0;
+            $stats->csw = $player['csw'] ?? 0;
 
             //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
             $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? null;
