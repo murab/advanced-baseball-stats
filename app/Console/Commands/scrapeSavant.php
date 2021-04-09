@@ -103,6 +103,7 @@ class scrapeSavant extends Command
                     // Name
                     $name = explode(', ', $val->innerHTML);
                     $player_data['name'] = trim($name[1]) . ' ' . trim($name[0]);
+                    $player_data['name'] = iconv('UTF-8','ASCII//TRANSLIT',$player_data['name']);
                     $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
                 } elseif ($i == 6) {
                     // PAs
