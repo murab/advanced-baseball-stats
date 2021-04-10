@@ -338,7 +338,7 @@ class Stat extends Model
 
     public static function calculateMinPlateAppearances(int $year)
     {
-        return floor(DB::select('select avg(pa) from hitters where year = ?', [$year])[0]->avg);
+        return floor(current(DB::select('select avg(pa) from hitters where year = ?', [$year])[0]));
     }
 
     public static function computeHitterRanks(int $year)
