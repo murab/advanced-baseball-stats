@@ -10,6 +10,8 @@
         Hitter Rankings
     </h1>
 
+    <p>Minimum PA: {{ $min_pa }}</p>
+
     <div class="row">
         <div class="col-xl-2 col-md-3">
             <label for="yearSelect">Year</label>
@@ -38,9 +40,15 @@
                 <td>BB%</td>
                 <td style="border-right: 1px solid black;">K%</td>
                 <td style="border-right: 1px solid black;">SwStr%</td>
-                <td style="border-right: 1px solid black;">Hard%</td>
+
+                <td>K% Rank</td>
+                <td>Hard% Rank</td>
+                <td>Sprint Rank</td>
+                <td style="border-right: 1px solid black;">Brls Rank</td>
+
                 <td style="border-right: 1px solid black;">wRC+</td>
-                <td style="font-weight: bold">Hard-K%</td>
+
+                <td style="font-weight: bold">Avg Rank</td>
             </tr>
             </thead>
             <tbody>
@@ -58,9 +66,15 @@
                     <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['hardhit_percentage'], 1)}}</td>
+
+                    <td class="align-middle">{{number_format($stat['k_percentage_rank'])}}</td>
+                    <td class="align-middle">{{number_format($stat['hardhit_rank'])}}</td>
+                    <td class="align-middle">{{number_format($stat['sprint_speed_rank'])}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['brls_bbe_rank'])}}</td>
+
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
-                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{number_format($stat['hardhit_percentage'] - $stat['k_percentage'], 1)}}</td>
+
+                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{number_format($stat['rank_avg'], 1)}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -75,9 +89,9 @@
         $(document).ready(function() {
             var t = $('#hitters').DataTable({
                 paging: false,
-                order: [[ 14, "desc" ]],
+                order: [[ 17, "asc" ]],
                 columnDefs: [
-                    { "width": "6%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14] }
+                    { "width": "6%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] }
                 ]
             });
 

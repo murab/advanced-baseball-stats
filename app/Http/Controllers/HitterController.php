@@ -14,17 +14,22 @@ class HitterController extends Controller
     {
         if (empty($year)) { $year = date('Y'); }
 
+        $min_pa = Stat::calculateMinPlateAppearances($year);
+
         $stats = Hitter::where([
             'year' => $year,
-            ['pa', '>=', 100],
-        ])->orderBy('hardhit_percentage', 'desc')->get();
+            ['brls_bbe', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['pa', '>=', $min_pa],
+        ])->orderBy('rank_avg', 'asc')->get();
 
         if (count($stats) == 0) {
             $year = $year - 1;
+            $min_pa = Stat::calculateMinPlateAppearances($year);
             $stats = Hitter::where([
                 'year' => $year,
-                ['pa', '>=', 100],
-            ])->orderBy('hardhit_percentage', 'desc')->get();
+                ['pa', '>=', $min_pa],
+            ])->orderBy('rank_avg', 'asc')->get();
         }
 
         $years = DB::table('stats')->groupBy('year')->orderBy('year', 'desc')->pluck('year')->toArray();
@@ -40,6 +45,7 @@ class HitterController extends Controller
             'years' => $years,
             'year' => $year,
             'num' => count($stats),
+            'min_pa' => $min_pa,
         ]);
     }
 

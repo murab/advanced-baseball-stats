@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Stat extends Model
 {
@@ -333,5 +334,80 @@ class Stat extends Model
         }
 
         return $ret;
+    }
+
+    public static function calculateMinPlateAppearances(int $year)
+    {
+        return floor(DB::select('select avg(pa) from hitters where year = ?', [$year])[0]->avg);
+    }
+
+    public static function computeHitterRanks(int $year)
+    {
+        $min_pa = self::calculateMinPlateAppearances($year);
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['hardhit_percentage', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_bbe', '<>', null],
+            ['pa', '>', $min_pa],
+        ])->orderBy('hardhit_percentage', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->hardhit_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['hardhit_percentage', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_bbe', '<>', null],
+            ['pa', '>', $min_pa],
+        ])->orderBy('k_percentage', 'asc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->k_percentage_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['hardhit_percentage', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_bbe', '<>', null],
+            ['pa', '>', $min_pa],
+        ])->orderBy('sprint_speed', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->sprint_speed_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['hardhit_percentage', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_bbe', '<>', null],
+            ['pa', '>', $min_pa],
+        ])->orderBy('brls_bbe', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->brls_bbe_rank = $i;
+            $player->rank_avg = ($player->brls_bbe_rank + $player->sprint_speed_rank + $player->k_percentage_rank + $player->hardhit_rank) / 4;
+            $i++;
+            $player->save();
+        }
     }
 }

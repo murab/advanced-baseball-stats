@@ -86,6 +86,9 @@ class calculateTru extends Command
             $Stat->secondhalf_xwoba_rank = $relievers2ndHalf[$reliever['id']]['xwoba_rank'] ?? null;
             $Stat->save();
         }
+
+        Stat::computeHitterRanks($year);
+
         return 1;
     }
 }

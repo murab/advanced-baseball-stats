@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Player;
+use App\Hitter;
 use App\Stat;
 use Illuminate\Console\Command;
 use duzun\hQuery;
@@ -13,8 +14,12 @@ class scrapeSavant extends Command
     const RAWpitchersXwobaURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=xwoba&player_event_sort=h_launch_speed&sort_order=asc&min_pas=0&chk_stats_pa=on&chk_stats_xwoba=on#results';
     const RAWpitchersXwoba2ndHalfURL = 'https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=pitcher&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=2019-07-09&game_date_lt=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=xwoba&player_event_sort=h_launch_speed&sort_order=asc&min_pas=0&chk_stats_pa=on&chk_stats_xwoba=on#results';
 
+    const RAWhittersSprintSpeedURL = 'https://baseballsavant.mlb.com/leaderboard/sprint_speed?year=2019&position=&team=&min=0&csv=true';
+
     private $pitchersXwobaURL;
     private $pitchersXwoba2ndHalfURL;
+
+    private $hittersSprintSpeedURL;
 
     /**
      * The name and signature of the console command.
@@ -28,7 +33,7 @@ class scrapeSavant extends Command
      *
      * @var string
      */
-    protected $description = 'Scrape Baseball Savant Pitchers';
+    protected $description = 'Scrape Baseball Savant';
 
     /**
      * Create a new command instance.
@@ -79,6 +84,25 @@ class scrapeSavant extends Command
             $stats->save();
         }
 
+        $hitters = $this->getHittersSprintSpeedData();
+
+        foreach ($hitters as $player) {
+            $Player = Player::firstOrCreate([
+                'slug' => Str::slug($player['name'])
+            ], [
+                'name' => $player['name'],
+            ]);
+            $lowername = strtolower($player['name']);
+
+            $stats = Hitter::firstOrNew([
+                'player_id' => $Player->id,
+                'year' => $year,
+            ]);
+
+            $stats->sprint_speed = $player['sprint_speed'] ?? null;
+            $stats->save();
+        }
+
         return 1;
     }
 
@@ -86,6 +110,7 @@ class scrapeSavant extends Command
     {
         $this->pitchersXwobaURL = str_replace('2019',$year,self::RAWpitchersXwobaURL);
         $this->pitchersXwoba2ndHalfURL = str_replace('2019', $year, self::RAWpitchersXwoba2ndHalfURL);
+        $this->hittersSprintSpeedURL = str_replace('2019', $year, self::RAWhittersSprintSpeedURL);
     }
 
     private function parseXwobaData($players) {
@@ -124,6 +149,47 @@ class scrapeSavant extends Command
                 ];
             }
         }
+        return $data;
+    }
+
+    public function parseSprintSpeedData($players)
+    {
+        $data = [];
+
+        if (is_iterable($players)) foreach ($players as $key => $player) {
+
+            if ($key == 0) {
+                continue;
+            }
+
+            $player_data = [];
+
+                $player_data['name'] = trim($player[1]) . " " . trim($player[0]);
+                $player_data['sprint_speed'] = floatval(trim($player['9']));
+
+            if (!empty($player_data)) {
+                $data[strtolower($player_data['name'])] = [
+                    'name' => $player_data['name'],
+                    'sprint_speed' => $player_data['sprint_speed']
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function getHittersSprintSpeedData()
+    {
+        $data = file_get_contents($this->hittersSprintSpeedURL);
+
+        $rows = explode("\n", $data);
+        $data_parsed = [];
+        foreach($rows as $row){
+            $data_parsed[] = ( str_getcsv( $row, ",", "'") );
+        }
+
+        $data = $this->parseSprintSpeedData($data_parsed);
+
         return $data;
     }
 
