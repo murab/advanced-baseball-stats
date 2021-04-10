@@ -19,7 +19,9 @@ class HitterController extends Controller
         $stats = Hitter::where([
             'year' => $year,
             ['brls_bbe', '<>', null],
+            ['brls_bbe_rank', '<>', 0],
             ['sprint_speed', '<>', null],
+            ['rank_avg', '<>', null],
             ['pa', '>=', $min_pa],
         ])->orderBy('rank_avg', 'asc')->get();
 
@@ -28,6 +30,10 @@ class HitterController extends Controller
             $min_pa = Stat::calculateMinPlateAppearances($year);
             $stats = Hitter::where([
                 'year' => $year,
+                ['brls_bbe', '<>', null],
+                ['brls_bbe_rank', '<>', 0],
+                ['sprint_speed', '<>', null],
+                ['rank_avg', '<>', null],
                 ['pa', '>=', $min_pa],
             ])->orderBy('rank_avg', 'asc')->get();
         }
