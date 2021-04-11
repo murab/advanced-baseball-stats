@@ -4,6 +4,7 @@ a:hover {
 
 #hitters td, #pitchers td {
   text-align: center;
+  letter-spacing: -.05em;
 }
 
 .article {
@@ -17,6 +18,10 @@ table.dataTable tbody td {
 
 table.dataTable thead th, table.dataTable thead td {
   padding: 3px 12px 3px 0 !important;
+}
+
+table thead td {
+  letter-spacing: -.05em;
 }
 
 table.dataTable td a {

@@ -55,7 +55,7 @@
             @foreach($stats as $key => $stat)
                 <tr>
                     <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>
-                    <td class="align-middle" style="text-align: left; font-size: 1.2em;"><a href="{{route('hitter', $stat->player['slug'])}}">{{$stat->player['name']}}</a></td>
+                    <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['pa']}}</td>
                     <td class="align-middle">{{$stat['r']}}</td>
