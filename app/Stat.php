@@ -403,11 +403,28 @@ class Stat extends Model
         ])->orderBy('brls_bbe', 'desc')->get();
 
         $i = 1;
+        $all = [];
         foreach ($players as $player) {
             $player->brls_bbe_rank = $i;
             $player->rank_avg = ($player->brls_bbe_rank + $player->sprint_speed_rank + $player->k_percentage_rank + $player->hardhit_rank) / 4;
+
+            $all[] = [
+                'id' => $player->id,
+                'avg' => $player->rank_avg]
+            ;
             $i++;
+
             $player->save();
+        }
+
+        usort($all, function($a,$b) {
+            return $a['avg'] < $b['avg'] ? -1 : 1;
+        });
+
+        $i = 1;
+        foreach ($all as $player) {
+            Hitter::where('id', $player['id'])->update(['rank_avg_rank' => $i]);
+            $i++;
         }
     }
 }

@@ -30,7 +30,7 @@
                 <td>K% Rank</td>
                 <td>Brls/BBE Rank</td>
                 <td>wRC+</td>
-                <td style="font-weight: bold">Avg Rank</td>
+                <td style="font-weight: bold">Rank</td>
             </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@
                     <td>{{number_format($stat['brls_bbe_rank'])}}</td>
 
                     <td>{{$stat['wrc_plus']}}</td>
-                    <td style="font-weight: bold">{{ $stat['rank_avg'] }}</td>
+                    <td style="font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
                 </tr>
             @endforeach
             </tbody>
