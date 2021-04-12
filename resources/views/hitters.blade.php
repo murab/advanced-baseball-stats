@@ -1,7 +1,7 @@
 @extends('_base')
 
 @section('css')
-    <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.css"/>
     <link rel="canonical" href="{{route('hitter_ranks', [$year])}}" />
 @endsection
 
@@ -83,11 +83,11 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             var t = $('#hitters').DataTable({
+                fixedHeader: true,
                 paging: false,
                 order: [[ 17, "asc" ]],
                 columnDefs: [

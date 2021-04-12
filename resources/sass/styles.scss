@@ -2,7 +2,7 @@ a:hover {
     text-decoration: none;
 }
 
-#hitters td, #pitchers td {
+#hitters td, #pitchers td, .dataTable thead td {
     text-align: center;
     letter-spacing: -.05em;
 }
@@ -23,10 +23,6 @@ table.dataTable thead th, table.dataTable thead td {
 table.dataTable td a {
     margin-left: 3px;
     color: blue;
-}
-
-.hitterNameLink {
-    
 }
 
 .article {
