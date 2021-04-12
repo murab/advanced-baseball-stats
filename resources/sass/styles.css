@@ -5,6 +5,7 @@ a:hover {
 #hitters td, #pitchers td, .dataTable thead th {
   text-align: center;
   letter-spacing: -0.07em;
+  vertical-align: middle;
 }
 
 .article {
@@ -33,10 +34,6 @@ table.dataTable td a {
   text-align: center;
   margin-bottom: 20px;
   font-size: 3em;
-}
-
-#hitters [class^=col-] {
-  flex-shrink: 1;
 }
 
 /*# sourceMappingURL=styles.css.map */
