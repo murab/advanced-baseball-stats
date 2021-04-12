@@ -98,13 +98,6 @@
                 ]
             });
 
-            // manage index column
-            t.on( 'order.dt ', function () {
-                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).draw();
-
             $('#positionSelect, #yearSelect').change(function() {
                 var year = $('#yearSelect').val();
                 var position = $('#positionSelect').val();
