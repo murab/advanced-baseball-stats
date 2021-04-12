@@ -110,6 +110,21 @@
                 var position = $('#positionSelect').val();
                 window.location.href = '/hitters/'+year;
             });
+
+            $('.dataTables_filter input', t.table().container())
+                .off('.DT')
+                .on('keyup.DT cut.DT paste.DT input.DT search.DT', function (e) {
+                    // If the length is 3 or more characters, or the user pressed ENTER, search
+                    if(this.value.length >= 3 || e.keyCode == 13) {
+                        // Call the API search function
+                        t.search(this.value, true, false).draw();
+                    }
+
+                    // Ensure we clear the search if they backspace far enough
+                    if(this.value === "") {
+                        t.search("").draw();
+                    }
+                });
         });
     </script>
 @endsection
