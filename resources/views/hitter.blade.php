@@ -1,7 +1,7 @@
 @extends('_base')
 
 @section('css')
-    <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.css"/>
 @endsection
 
 @section('content')
@@ -13,24 +13,24 @@
         <table id="hitters" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <td>Year</td>
-                <td>Age</td>
-                <td>PA</td>
-                <td>R</td>
-                <td>AVG</td>
-                <td>HR</td>
-                <td>RBI</td>
-                <td>SB</td>
-                <td>BB%</td>
-                <td>K%</td>
-                <td>SwStr%</td>
-                <td>Hard Hit%</td>
-                <td>Hard Hit% Rank</td>
-                <td>Sprint Speed Rank</td>
-                <td>K% Rank</td>
-                <td>Brls/BBE Rank</td>
-                <td>wRC+</td>
-                <td style="font-weight: bold">Rank</td>
+                <th>Year</th>
+                <th>Age</th>
+                <th>PA</th>
+                <th>R</th>
+                <th>AVG</th>
+                <th>HR</th>
+                <th>RBI</th>
+                <th>SB</th>
+                <th>BB%</th>
+                <th>K%</th>
+                <th>SwStr%</th>
+                <th>Hard%</th>
+                <th>Hard% Rank</th>
+                <th>Sprint Rank</th>
+                <th>K% Rank</th>
+                <th>Brls Rank</th>
+                <th>wRC+</th>
+                <th style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                     <td>{{$stat['age']}}</td>
                     <td>{{$stat['pa']}}</td>
                     <td>{{$stat['r']}}</td>
-                    <td>{{number_format($stat['avg'], 3)}}</td>
+                    <td>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td>{{$stat['sb']}}</td>
@@ -64,11 +64,20 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
+            var t = $('#hitters').DataTable({
+                fixedHeader: true,
+                responsive: {
+                    details: false
+                },
+                searching: false,
+                paging: false,
+                columnDefs: [
+                    { width: "6%", targets: "_all" }
+                ]
+            });
         });
     </script>
 @endsection

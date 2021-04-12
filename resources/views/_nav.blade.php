@@ -15,7 +15,7 @@
             <li class="nav-item @if (!empty($page) && $page == 'articles') active @endif">
                 <a class="nav-link navbar-brand" href="/articles">Articles</a>
             </li>
-            <li class="nav-item @if (!empty($page) && $page == 'about') active @endif"">
+            <li class="nav-item @if (!empty($page) && $page == 'about') active @endif">
                 <a class="nav-link navbar-brand" href="/about">About</a>
             </li>
         </ul>

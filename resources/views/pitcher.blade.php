@@ -1,7 +1,7 @@
 @extends('_base')
 
 @section('css')
-    <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.css"/>
 @endsection
 
 @section('content')
@@ -10,25 +10,25 @@
     </h1>
 
     <div class="table-responsive-md">
-        <table id="tru" class="table table-bordered table-hover table-sm" style="font-size: 12px">
+        <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <td>Year</td>
-                <td>Age</td>
-                <td>Position</td>
-                <td>G</td>
-                <td>IP</td>
-                <td>IP per G</td>
-                <td>K%</td>
-                <td>BB%</td>
-                <td>K-BB%</td>
-                <td>SwStr%</td>
-                <td>Velo</td>
-                <td>GB%</td>
-                <td>IP per G Rank</td>
-                <td>K% Rank</td>
-                <td>xERA Rank</td>
-                <td style="font-weight: bold">Positional Rank</td>
+                <th>Year</th>
+                <th>Age</th>
+                <th>Position</th>
+                <th>G</th>
+                <th>IP</th>
+                <th>IP per G</th>
+                <th>K%</th>
+                <th>BB%</th>
+                <th>K-BB%</th>
+                <th>SwStr%</th>
+                <th>Velo</th>
+                <th>GB%</th>
+                <th>IP per G Rank</th>
+                <th>K% Rank</th>
+                <th>xERA Rank</th>
+                <th style="font-weight: bold">Positional Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -59,11 +59,20 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
+            var t = $('#pitchers').DataTable({
+                fixedHeader: true,
+                responsive: {
+                    details: false
+                },
+                searching: false,
+                paging: false,
+                columnDefs: [
+                    { width: "6%", targets: "_all" }
+                ]
+            });
         });
     </script>
 @endsection

@@ -2,9 +2,9 @@ a:hover {
   text-decoration: none;
 }
 
-#hitters td, #pitchers td {
+#hitters td, #pitchers td, .dataTable thead th {
   text-align: center;
-  letter-spacing: -.05em;
+  letter-spacing: -0.07em;
 }
 
 .article {
@@ -16,12 +16,8 @@ table.dataTable tbody td {
   padding: 3px !important;
 }
 
-table.dataTable thead th, table.dataTable thead td {
+table.dataTable thead th, table.dataTable thead th {
   padding: 3px 12px 3px 0 !important;
-}
-
-table thead td {
-  letter-spacing: -.05em;
 }
 
 table.dataTable td a {
@@ -37,6 +33,10 @@ table.dataTable td a {
   text-align: center;
   margin-bottom: 20px;
   font-size: 3em;
+}
+
+#hitters [class^=col-] {
+  flex-shrink: 1;
 }
 
 /*# sourceMappingURL=styles.css.map */

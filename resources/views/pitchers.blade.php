@@ -39,30 +39,30 @@
         <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <td>Rank</td>
-                <td style="width: 125px">Name</td>
-                <td style="border-right: 1px solid black;">Age</td>
+                <th>Rank</th>
+                <th style="width: 125px">Name</th>
+                <th style="border-right: 1px solid black;">Age</th>
 {{--                <td>G</td>--}}
-                <td>IP</td>
-                <td style="border-right: 1px solid black;">IPpG</td>
-                <td>K%</td>
-                <td>BB%</td>
-                <td style="border-right: 1px solid black;">K-BB%</td>
-                <td style="border-right: 1px solid black;">SwStr%</td>
-                <td style="border-right: 1px solid black;">GB%</td>
-                <td style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></td>
-                <td style="border-right: 1px solid black;">Velo</td>
-                <td>IPpG Rank</td>
-                <td>K% Rank</td>
-                <td>xERA Rank</td>
-                <td style="font-weight: bold">Avg</td>
+                <th>IP</th>
+                <th style="border-right: 1px solid black;">IPpG</th>
+                <th>K%</th>
+                <th>BB%</th>
+                <th style="border-right: 1px solid black;">K-BB%</th>
+                <th style="border-right: 1px solid black;">SwStr%</th>
+                <th style="border-right: 1px solid black;">GB%</th>
+                <th style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></th>
+                <th style="border-right: 1px solid black;">Velo</th>
+                <th>IPpG Rank</th>
+                <th>K% Rank</th>
+                <th>xERA Rank</th>
+                <th style="font-weight: bold">Avg</th>
             </tr>
             </thead>
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
                     <td style="font-size: 1.2em;" class="align-middle">{{$key+1}}</td>
-                    <td class="align-middle" style="text-align: left;font-size: 1.2em;"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
+                    <td class="align-middle" style="text-align: left;font-size: 1.2em; letter-spacing: 0"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
 {{--                    <td>{{$stat['g']}}</td>--}}
                     <td class="align-middle">{{$stat['ip']}}</td>
@@ -96,6 +96,9 @@
         $(document).ready(function() {
             var t = $('#pitchers').DataTable({
                 fixedHeader: true,
+                responsive: {
+                    details: false
+                },
                 paging: false,
                 columnDefs: [
                     { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }

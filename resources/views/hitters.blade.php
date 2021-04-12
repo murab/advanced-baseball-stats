@@ -28,38 +28,38 @@
         <table id="hitters" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <td>Rank</td>
-                <td style="width: 125px">Name</td>
-                <td style="border-right: 1px solid black;">Age</td>
-                <td style="border-right: 1px solid black;">PA</td>
-                <td>R</td>
-                <td>AVG</td>
-                <td>HR</td>
-                <td>RBI</td>
-                <td style="border-right: 1px solid black;">SB</td>
-                <td>BB%</td>
-                <td style="border-right: 1px solid black;">K%</td>
-                <td style="border-right: 1px solid black;">SwStr%</td>
+                <th>Rank</th>
+                <th style="width: 125px">Name</th>
+                <th style="border-right: 1px solid black;">Age</th>
+                <th style="border-right: 1px solid black;">PA</th>
+                <th>R</th>
+                <th>AVG</th>
+                <th>HR</th>
+                <th>RBI</th>
+                <th style="border-right: 1px solid black;">SB</th>
+                <th>BB%</th>
+                <th style="border-right: 1px solid black;">K%</th>
+                <th style="border-right: 1px solid black;">SwStr%</th>
 
-                <td>K% Rank</td>
-                <td>Hard% Rank</td>
-                <td>Sprint Rank</td>
-                <td style="border-right: 1px solid black;">Brls Rank</td>
+                <th>K% Rank</th>
+                <th>Hard% Rank</th>
+                <th>Sprint Rank</th>
+                <th style="border-right: 1px solid black;">Brls Rank</th>
 
-                <td style="border-right: 1px solid black;">wRC+</td>
+                <th style="border-right: 1px solid black;">wRC+</th>
 
-                <td style="font-weight: bold">Avg Rank</td>
+                <th style="font-weight: bold">Avg Rank</th>
             </tr>
             </thead>
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
                     <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>
-                    <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
+                    <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['pa']}}</td>
                     <td class="align-middle">{{$stat['r']}}</td>
-                    <td class="align-middle">{{number_format($stat['avg'], 3)}}</td>
+                    <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td class="align-middle">{{$stat['hr']}}</td>
                     <td class="align-middle">{{$stat['rbi']}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['sb']}}</td>
@@ -88,10 +88,13 @@
         $(document).ready(function() {
             var t = $('#hitters').DataTable({
                 fixedHeader: true,
+                responsive: {
+                    details: false
+                },
                 paging: false,
                 order: [[ 17, "asc" ]],
                 columnDefs: [
-                    { "width": "6%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] }
+                    { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
                 ]
             });
 
