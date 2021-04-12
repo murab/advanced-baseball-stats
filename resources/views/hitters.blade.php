@@ -41,14 +41,14 @@
                 <th style="border-right: 1px solid black;">K%</th>
                 <th style="border-right: 1px solid black;">SwStr%</th>
 
+                <th style="border-right: 1px solid black;">wRC+</th>
+
                 <th>K% Rank</th>
                 <th>Hard% Rank</th>
                 <th>Sprint Rank</th>
-                <th style="border-right: 1px solid black;">Brls Rank</th>
+                <th>Brls Rank</th>
 
-                <th style="border-right: 1px solid black;">wRC+</th>
-
-                <th style="font-weight: bold">Avg Rank</th>
+                <th style="font-weight: bold">Avg</th>
             </tr>
             </thead>
             <tbody>
@@ -67,12 +67,12 @@
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
 
+                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
+
                     <td class="align-middle">{{number_format($stat['k_percentage_rank'])}}</td>
                     <td class="align-middle">{{number_format($stat['hardhit_rank'])}}</td>
                     <td class="align-middle">{{number_format($stat['sprint_speed_rank'])}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['brls_bbe_rank'])}}</td>
-
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
+                    <td class="align-middle">{{number_format($stat['brls_bbe_rank'])}}</td>
 
                     <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{number_format($stat['rank_avg'], 1)}}</td>
                 </tr>
