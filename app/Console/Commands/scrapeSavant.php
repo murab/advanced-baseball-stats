@@ -16,6 +16,10 @@ class scrapeSavant extends Command
 
     const RAWhittersSprintSpeedURL = 'https://baseballsavant.mlb.com/leaderboard/sprint_speed?year=2019&position=&team=&min=0&csv=true';
 
+    const namesFangraphsToSavant = [
+        'Cedric Mullins' => 'Cedric Mullins II',
+    ];
+
     private $pitchersXwobaURL;
     private $pitchersXwoba2ndHalfURL;
 
@@ -67,6 +71,11 @@ class scrapeSavant extends Command
         $data_2nd = $this->getPitchersXwobaData2ndHalf();
 
         foreach ($data as $player) {
+
+            if (isset(self::namesFangraphsToSavant[$player['name']])) {
+                $player['name'] = self::namesFangraphsToSavant[$player['name']];
+            }
+
             $Player = Player::firstOrCreate([
                 'slug' => Str::slug($player['name'])
             ], [
@@ -87,12 +96,16 @@ class scrapeSavant extends Command
         $hitters = $this->getHittersSprintSpeedData();
 
         foreach ($hitters as $player) {
+
+            if (isset(self::namesFangraphsToSavant[$player['name']])) {
+                $player['name'] = self::namesFangraphsToSavant[$player['name']];
+            }
+
             $Player = Player::firstOrCreate([
                 'slug' => Str::slug($player['name'])
             ], [
                 'name' => $player['name'],
             ]);
-            $lowername = strtolower($player['name']);
 
             $stats = Hitter::firstOrNew([
                 'player_id' => $Player->id,
