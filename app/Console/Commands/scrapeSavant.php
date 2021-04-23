@@ -16,9 +16,9 @@ class scrapeSavant extends Command
 
     const RAWhittersSprintSpeedURL = 'https://baseballsavant.mlb.com/leaderboard/sprint_speed?year=2019&position=&team=&min=0&csv=true';
 
-    const namesFangraphsToSavant = [
+    const namesSavantToFangraphs = [
         'Cedric Mullins' => 'Cedric Mullins II',
-        'Jazz Chisholm' => 'Jazz Chisholm Jr',
+        'Jazz Chisholm Jr' => 'Jazz Chisholm',
     ];
 
     private $pitchersXwobaURL;
@@ -73,8 +73,8 @@ class scrapeSavant extends Command
 
         foreach ($data as $player) {
 
-            if (isset(self::namesFangraphsToSavant[$player['name']])) {
-                $player['name'] = self::namesFangraphsToSavant[$player['name']];
+            if (isset(self::namesSavantToFangraphs[$player['name']])) {
+                $player['name'] = self::namesSavantToFangraphs[$player['name']];
             }
 
             $Player = Player::firstOrCreate([
@@ -98,8 +98,8 @@ class scrapeSavant extends Command
 
         foreach ($hitters as $player) {
 
-            if (isset(self::namesFangraphsToSavant[$player['name']])) {
-                $player['name'] = self::namesFangraphsToSavant[$player['name']];
+            if (isset(self::namesSavantToFangraphs[$player['name']])) {
+                $player['name'] = self::namesSavantToFangraphs[$player['name']];
             }
 
             $Player = Player::firstOrCreate([
@@ -178,8 +178,11 @@ class scrapeSavant extends Command
 
             $player_data = [];
 
-                $player_data['name'] = trim($player[1]) . " " . trim($player[0]);
-                $player_data['sprint_speed'] = floatval(trim($player['9']));
+            $player_data['name'] = trim($player[1]) . ' ' . trim($player[0]);
+            $player_data['name'] = iconv('UTF-8','ASCII//TRANSLIT',$player_data['name']);
+            $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
+
+            $player_data['sprint_speed'] = floatval(trim($player['9']));
 
             if (!empty($player_data)) {
                 $data[strtolower($player_data['name'])] = [
