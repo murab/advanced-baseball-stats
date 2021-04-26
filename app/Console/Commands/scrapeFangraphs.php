@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 use duzun\hQuery;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 
 class scrapeFangraphs extends Command
 {
@@ -37,6 +38,9 @@ class scrapeFangraphs extends Command
      */
     protected $description = 'Scrape Fangraphs';
 
+    /** @var Client */
+    private $httpClient;
+
     /**
      * Create a new command instance.
      *
@@ -45,6 +49,7 @@ class scrapeFangraphs extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->httpClient = new Client();
     }
 
     /**
@@ -183,7 +188,7 @@ class scrapeFangraphs extends Command
         $i = 0;
         $player_data = [];
         $data = [];
-        if (is_array($stats)) foreach ($stats as $stat)
+        if (is_iterable($stats)) foreach ($stats as $stat)
         {
             $col = $i%17;
             switch ($col) {
@@ -263,7 +268,8 @@ class scrapeFangraphs extends Command
         $i = 0;
         $player_data = [];
         $data = [];
-        if (is_array($stats)) foreach ($stats as $stat) {
+
+        if (is_iterable($stats)) foreach ($stats as $stat) {
 
             if ($i%33 == 1) {
                 $player_data = [];
@@ -351,11 +357,9 @@ class scrapeFangraphs extends Command
 
     public function getHitterData()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->hitterDataSource, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->hitterDataSource);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         $stats = $doc->find('.grid_line_regular');
 
@@ -364,11 +368,9 @@ class scrapeFangraphs extends Command
 
     public function getHitterData2ndHalf()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->hitterDataSource2ndHalf, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->hitterDataSource2ndHalf);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         if ($doc) {
             $stats = $doc->find('.grid_line_regular');
@@ -380,11 +382,10 @@ class scrapeFangraphs extends Command
 
     public function getPitcherData()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->pitcherDataSource, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->pitcherDataSource);
+        $responseBody = (string) $response->getBody();
+
+        $doc = hQuery::fromHTML($responseBody);
 
         $stats = $doc->find('.grid_line_regular');
 
@@ -393,11 +394,9 @@ class scrapeFangraphs extends Command
 
     public function getPitcherDataLast30Days()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->pitcherDataSourceLast30Days, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->pitcherDataSourceLast30Days);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         $stats = $doc->find('.grid_line_regular');
 
@@ -406,11 +405,9 @@ class scrapeFangraphs extends Command
 
     public function getPitcherData1stHalf()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->pitcherDataSource1stHalf, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->pitcherDataSource1stHalf);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         $stats = $doc->find('.grid_line_regular');
 
@@ -419,11 +416,9 @@ class scrapeFangraphs extends Command
 
     public function getPitcherData2ndHalf()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->pitcherDataSource2ndHalf, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->pitcherDataSource2ndHalf);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         if ($doc) {
             $stats = $doc->find('.grid_line_regular');
@@ -435,11 +430,9 @@ class scrapeFangraphs extends Command
 
     public function getLeaguePitcherData()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->leaguePitchersDataSource, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->leaguePitchersDataSource);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         try {
             $stats = $doc->find('.grid_line_regular');
@@ -484,11 +477,9 @@ class scrapeFangraphs extends Command
 
     public function getLeagueBatterData()
     {
-        hQuery::$cache_expires = 0;
-        $doc = hQuery::fromUrl($this->leagueBattersDataSource, [
-            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-        ]);
+        $response = $this->httpClient->get($this->leagueBattersDataSource);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
 
         try {
             $stats = $doc->find('.grid_line_regular');
