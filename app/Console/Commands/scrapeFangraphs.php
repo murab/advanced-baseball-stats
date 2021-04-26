@@ -182,7 +182,8 @@ class scrapeFangraphs extends Command
     {
         $i = 0;
         $player_data = [];
-        foreach ($stats as $stat)
+        $data = [];
+        if (is_array($stats)) foreach ($stats as $stat)
         {
             $col = $i%17;
             switch ($col) {
@@ -261,7 +262,8 @@ class scrapeFangraphs extends Command
     {
         $i = 0;
         $player_data = [];
-        foreach ($stats as $stat) {
+        $data = [];
+        if (is_array($stats)) foreach ($stats as $stat) {
 
             if ($i%33 == 1) {
                 $player_data = [];
