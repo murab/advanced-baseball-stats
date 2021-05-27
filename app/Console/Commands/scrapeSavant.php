@@ -92,11 +92,11 @@ class scrapeSavant extends Command
                 'year' => $year,
             ]);
 
-            if ($Player->position == 'RP' && !empty($rp_data[$lowername])) {
+            if ($stats->position == 'RP' && !empty($rp_data[$lowername])) {
                 $player = $rp_data[$lowername];
             }
 
-            if ($Player->position == 'RP' && !empty($rp_data_2nd[$lowername])) {
+            if ($stats->position == 'RP' && !empty($rp_data_2nd[$lowername])) {
                 $data_2nd[$lowername] = $rp_data_2nd[$lowername];
             }
 
