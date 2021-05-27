@@ -102,6 +102,9 @@ class scrapeFangraphs extends Command
         $data = $this->getPitcherData();
         $data_2nd = $this->getPitcherData2ndHalf();
 
+        $rp_data = $this->getReliefPitcherData();
+        $rp_data_2nd = $this->getReliefPitcherData2ndHalf();
+
         foreach ($data as $player) {
             $Player = Player::firstOrCreate([
                 'slug' => Str::slug($player['name'])
@@ -117,6 +120,14 @@ class scrapeFangraphs extends Command
 
             $stats->age = $player['age'];
             $stats->position = $player['ip'] / $player['g'] > 3.0 ? 'SP' : 'RP';
+
+            if ($stats->position == 'RP' && !empty($rp_data[$lowername])) {
+                $player = $rp_data[$lowername];
+            }
+
+            if ($stats->position == 'RP' && !empty($rp_data_2nd[$lowername])) {
+                $data_2nd[$lowername] = $rp_data_2nd[$lowername];
+            }
 
             //$stats->velo = $player['velo'];
             $stats->k_percentage = $player['k_percentage'];
@@ -392,6 +403,18 @@ class scrapeFangraphs extends Command
         return $this->parsePitcherData($stats);
     }
 
+    public function getReliefPitcherData()
+    {
+        $response = $this->httpClient->get(str_replace('stats=pit','stats=rel',$this->pitcherDataSource));
+        $responseBody = (string) $response->getBody();
+
+        $doc = hQuery::fromHTML($responseBody);
+
+        $stats = $doc->find('.grid_line_regular');
+
+        return $this->parsePitcherData($stats);
+    }
+
     public function getPitcherDataLast30Days()
     {
         $response = $this->httpClient->get($this->pitcherDataSourceLast30Days);
@@ -417,6 +440,20 @@ class scrapeFangraphs extends Command
     public function getPitcherData2ndHalf()
     {
         $response = $this->httpClient->get($this->pitcherDataSource2ndHalf);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
+
+        if ($doc) {
+            $stats = $doc->find('.grid_line_regular');
+
+            return $this->parsePitcherData($stats);
+        }
+        return [];
+    }
+
+    public function getReliefPitcherData2ndHalf()
+    {
+        $response = $this->httpClient->get(str_replace('stats=pit','stats=rel',$this->pitcherDataSource2ndHalf));
         $responseBody = (string) $response->getBody();
         $doc = hQuery::fromHTML($responseBody);
 
