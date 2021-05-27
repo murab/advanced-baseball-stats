@@ -71,6 +71,9 @@ class scrapeSavant extends Command
         $data = $this->getpitchersXwobaData();
         $data_2nd = $this->getPitchersXwobaData2ndHalf();
 
+        $rp_data = $this->getreliefpitchersXwobaData();
+        $rp_data_2nd = $this->getreliefpitchersXwobaData2ndHalf();
+
         foreach ($data as $player) {
 
             if (isset(self::namesSavantToFangraphs[$player['name']])) {
@@ -88,6 +91,14 @@ class scrapeSavant extends Command
                 'player_id' => $Player->id,
                 'year' => $year,
             ]);
+
+            if ($Player->position == 'RP' && !empty($rp_data[$lowername])) {
+                $player = $rp_data[$lowername];
+            }
+
+            if ($Player->position == 'RP' && !empty($rp_data_2nd[$lowername])) {
+                $data_2nd[$lowername] = $rp_data_2nd[$lowername];
+            }
 
             $stats->xwoba = $player['xwoba'];
             $stats->secondhalf_xwoba = $data_2nd[$lowername]['xwoba'] ?? null;
@@ -229,10 +240,42 @@ class scrapeSavant extends Command
         return $data;
     }
 
+    public function getreliefpitchersXwobaData()
+    {
+        hQuery::$cache_expires = 0;
+
+        $doc = hQuery::fromUrl(str_replace('position=', 'position=RP', $this->pitchersXwobaURL), [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            //'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        $players = $doc->find('#search_results tbody tr.search_row');
+
+        $data = [];
+        if ($players) {
+            $data = $this->parseXwobaData($players);
+        }
+
+        return $data;
+    }
+
     public function getPitchersXwobaData2ndHalf()
     {
         hQuery::$cache_expires = 0;
         $doc = hQuery::fromUrl($this->pitchersXwoba2ndHalfURL, [
+            'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        ]);
+
+        $players = $doc->find('#search_results tbody tr.search_row');
+        $data = $this->parseXwobaData($players);
+        return $data;
+    }
+
+    public function getReliefPitchersXwobaData2ndHalf()
+    {
+        hQuery::$cache_expires = 0;
+        $doc = hQuery::fromUrl(str_replace('position=', 'position=RP',$this->pitchersXwoba2ndHalfURL), [
             'Accept'     => 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
             'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
         ]);
