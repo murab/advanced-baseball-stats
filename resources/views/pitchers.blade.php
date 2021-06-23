@@ -32,7 +32,12 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-xl-9 col-lg-7 col-md-5" style="text-align: right">Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
+        <div class="col-xl-9 col-lg-7 col-md-5" style="text-align: right">
+            <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
+            <div id="playerSets" style="margin-bottom: 5px"></div>
+            <div id="saveSet" style="margin-bottom: 5px">Save current filter as <input type="text" id="saveSetName"><button type="submit" id="saveSetBtn">Save</button></div>
+            <br />
+        </div>
     </div>
 
     <div class="table-responsive-md">
@@ -94,6 +99,46 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+
+            var data = localStorage.getItem('data');
+
+            if (!data) {
+                data = {};
+            } else {
+                data = JSON.parse(data);
+            }
+
+            $('#saveSetBtn').on('click', function(e) {
+                var name = $('#saveSetName').val();
+                var string = $('.dataTables_filter input').val();
+                if (string !== '') {
+                    data.pitchers[name] = {
+                        "name": name,
+                        "players": string
+                    };
+                    drawPlayerSetButtons(data.pitchers);
+                    localStorage.setItem('data', JSON.stringify(data));
+                }
+            });
+
+            function drawPlayerSetButtons(players)
+            {
+                $("#playerSets").empty();
+                $.each(players, function(key, pitcher) {
+                    $("#playerSets").append(
+                        "<button id='"+pitcher.name+"' class='playerSetBtn'>"+pitcher.name+"</button>"
+                    );
+                    $("#"+pitcher.name).on('click', function() {
+                        $("#pitchers_filter input").val(pitcher.players);
+                        $('#saveSetName').val(pitcher.name);
+                        t.search(pitcher.players, true, false).draw();
+                    });
+                    $("#saveSetName").val($("#playerSets button:first").html());
+                });
+            }
+
+            drawPlayerSetButtons(data.pitchers);
+
             var t = $('#pitchers').DataTable({
                 fixedHeader: true,
                 responsive: {
@@ -104,6 +149,8 @@
                     { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
                 ]
             });
+
+            $('.playerSetBtn').eq(0).click();
 
             $('#positionSelect, #yearSelect').change(function() {
                 var year = $('#yearSelect').val();
