@@ -24,7 +24,7 @@
         <div class="col-xl-10 col-lg-8 col-md-6" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
-            <div id="saveSet" style="margin-bottom: 5px">Save current filter as <input type="text" id="saveSetName"><button type="submit" id="saveSetBtn">Save</button></div>
+            <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
             <br />
         </div>
     </div>
@@ -111,6 +111,13 @@
                     drawPlayerSetButtons(data.hitters);
                     localStorage.setItem('data', JSON.stringify(data));
                 }
+            });
+
+            $('#deleteSetBtn').on('click', function() {
+                var name = $('#saveSetName').val();
+                delete data.hitters[name];
+                localStorage.setItem('data', JSON.stringify(data));
+                drawPlayerSetButtons(data.hitters);
             });
 
             function drawPlayerSetButtons(players)
