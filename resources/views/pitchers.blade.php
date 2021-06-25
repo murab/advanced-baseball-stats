@@ -103,7 +103,10 @@
             var data = localStorage.getItem('data');
 
             if (!data) {
-                data = {};
+                data = {
+                    "hitters": {},
+                    "pitchers": {}
+                };
             } else {
                 data = JSON.parse(data);
             }
