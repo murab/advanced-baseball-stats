@@ -19,6 +19,7 @@ class scrapeSavant extends Command
     const namesSavantToFangraphs = [
         'Cedric Mullins' => 'Cedric Mullins II',
         'Jazz Chisholm Jr' => 'Jazz Chisholm',
+        'JC Mejia' => 'Jean Carlos Mejia',
     ];
 
     private $pitchersXwobaURL;
