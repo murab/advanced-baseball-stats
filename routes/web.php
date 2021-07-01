@@ -24,9 +24,9 @@ Route::get('/ranks', function(Request $request) {
     return redirect()->route('ranks', ['year' => $year, 'position' => $position]);
 });
 
-Route::get('/pitchers/{year?}/{position?}', 'PitcherController@index')->where([
+Route::get('/pitchers/{year?}/{position?}/{vue?}', 'PitcherController@index')->where([
     'year' => '2[0-9]{3}',
-    'position' => 'sp|rp',
+    'position' => 'sp|rp'
 ])->name('pitcher_ranks');
 
 Route::get('/pitcher/{slug}', 'PitcherController@individual')->name('pitcher');

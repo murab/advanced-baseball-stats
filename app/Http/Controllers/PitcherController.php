@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class PitcherController extends Controller
 {
-    public function index(Request $request, $year = null, ?string $position = 'sp')
+    public function index(Request $request, $year = null, ?string $position = 'sp', ?string $vue = null)
     {
         if (empty($year)) { $year = date('Y'); }
 
-        $stats = Stat::where([
+        $stats = Stat::with('player')->where([
             'year' => $year,
             'position' => strtoupper($position),
             ['tru', '<>', null],
@@ -21,7 +21,7 @@ class PitcherController extends Controller
 
         if (count($stats) == 0) {
             $year = $year - 1;
-            $stats = Stat::where([
+            $stats = Stat::with('player')->where([
                 'year' => $year,
                 'position' => strtoupper($position),
                 ['tru', '<>', null],
@@ -41,15 +41,27 @@ class PitcherController extends Controller
             $long_position = 'Relief';
         }
 
-        return view('pitchers', [
-            'page' => 'pitchers',
-            'page_title' => "{$year} " . strtoupper($position) . " - {$long_position} Pitcher Rankings",
-            'stats' => $stats,
-            'years' => $years,
-            'year' => $year,
-            'position' => $position,
-            'num' => count($stats),
-        ]);
+        if (empty($vue)) {
+            return view('pitchers', [
+                'page' => 'pitchers',
+                'page_title' => "{$year} " . strtoupper($position) . " - {$long_position} Pitcher Rankings",
+                'stats' => $stats,
+                'years' => $years,
+                'year' => $year,
+                'position' => $position,
+                'num' => count($stats),
+            ]);
+        } else {
+            return view('pitchers_vue', [
+                'page' => 'pitchers',
+                'page_title' => "{$year} " . strtoupper($position) . " - {$long_position} Pitcher Rankings",
+                'stats' => $stats,
+                'years' => $years,
+                'year' => $year,
+                'position' => $position,
+                'num' => count($stats),
+            ]);
+        }
     }
 
     public function individual(Request $request, string $slug)
