@@ -21,6 +21,10 @@ class scrapeSavant extends Command
         'Jazz Chisholm Jr' => 'Jazz Chisholm',
     ];
 
+    const playersToSkip = [
+        'Luis Garcia' => ['id_472610']
+    ];
+
     private $pitchersXwobaURL;
     private $pitchersXwoba2ndHalfURL;
 
@@ -150,6 +154,8 @@ class scrapeSavant extends Command
             foreach ($vals as $val) {
 
                 if ($i == 2) {
+                    // Team
+                    $player_data['savant_id'] = $val->attr('id');
                     // Name
                     $name = explode(', ', $val->innerHTML);
                     $player_data['name'] = trim($name[1]) . ' ' . trim($name[0]);
@@ -164,6 +170,10 @@ class scrapeSavant extends Command
                 }
 
                 $i++;
+            }
+
+            if (isset(self::playersToSkip[$player_data['name']]) && in_array($player_data['savant_id'], self::playersToSkip[$player_data['name']])) {
+                continue;
             }
 
             if (!empty($player_data['pa'])) {

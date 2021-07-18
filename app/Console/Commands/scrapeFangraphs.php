@@ -23,6 +23,10 @@ class scrapeFangraphs extends Command
     const RAWhitterDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
     const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_3000';
 
+    const DUPLICATES_TO_SKIP = [
+        'Luis Garcia' => ['STL', 'TEX'],
+    ];
+
     /**
      * The name and signature of the console command.
      *
@@ -286,6 +290,13 @@ class scrapeFangraphs extends Command
                 // Name
                 $player_data['name'] = hQuery::fromHTML($stat->innerHTML)->find('a')->innerHTML;
                 $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
+            } elseif ($i%33 == 2) {
+                // Team
+                $team = hQuery::fromHTML($stat->innerHTML)->find('a');
+                if ($team != null) {
+                    $player_data['team'] = trim($team->innerHTML);
+                    $player_data['team'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['team']);
+                }
             } elseif ($i%33 == 7) {
                 // K%
                 $player_data['k_percentage'] = floatval($stat->innerHTML);
@@ -339,6 +350,12 @@ class scrapeFangraphs extends Command
                     $velo = (float)$stat->innerHTML;
                     $player_data['velo'] = max($velo, ($player_data['velo'] ?? 0));
                 }
+
+                // skip certain players that have the same name that we don't care about (e.g. Luis Garcia TEX vs. Luis Garcia HOU)
+                if (isset(self::DUPLICATES_TO_SKIP[$player_data['name']]) && in_array($player_data['team'], self::DUPLICATES_TO_SKIP[$player_data['name']])) {
+                    continue;
+                }
+
                 $data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
                     'k_percentage' => $player_data['k_percentage'],
