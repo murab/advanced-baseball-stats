@@ -15,7 +15,6 @@ use GuzzleHttp\Client;
 class scrapeFangraphs extends Command
 {
     const RAWpitcherDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48,332,331,14,139,140,144&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
-    const RAWpitcherDataSourceLast30Days = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48,332,331,14,139,140,144&season=2019&month=3&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const RAWpitcherDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48,332,331,14,139,140,144&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const RAWpitcherDataSource1stHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=c,36,37,38,40,120,121,217,113,42,43,117,118,6,45,62,122,3,7,8,24,13,310,76,48,332,331,14,139,140,144&season=2019&month=30&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=&enddate=&page=1_1500';
     const RAWleagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
@@ -146,17 +145,17 @@ class scrapeFangraphs extends Command
             $stats->csw = $player['csw'] ?? 0;
 
             //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
-            $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? null;
-            $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? null;
-            $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? null;
-            $stats->secondhalf_gb_percentage = $data_2nd[$lowername]['gb_percentage'] ?? null;
-            $stats->secondhalf_k_percentage_plus = $data_2nd[$lowername]['k_percentage_plus'] ?? null;
-            $stats->secondhalf_g = $data_2nd[$lowername]['g'] ?? null;
-            $stats->secondhalf_gs = $data_2nd[$lowername]['gs'] ?? null;
-            $stats->secondhalf_k = $data_2nd[$lowername]['k'] ?? null;
-            $stats->secondhalf_k_per_game = $data_2nd[$lowername]['k_per_game'] ?? null;
-            $stats->secondhalf_ip = $data_2nd[$lowername]['ip'] ?? null;
-            $stats->secondhalf_pa = $data_2nd[$lowername]['pa'] ?? null;
+            $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? 0;
+            $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? 0;
+            $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? 0;
+            $stats->secondhalf_gb_percentage = $data_2nd[$lowername]['gb_percentage'] ?? 0;
+            $stats->secondhalf_k_percentage_plus = $data_2nd[$lowername]['k_percentage_plus'] ?? 0;
+            $stats->secondhalf_g = $data_2nd[$lowername]['g'] ?? 0;
+            $stats->secondhalf_gs = $data_2nd[$lowername]['gs'] ?? 0;
+            $stats->secondhalf_k = $data_2nd[$lowername]['k'] ?? 0;
+            $stats->secondhalf_k_per_game = $data_2nd[$lowername]['k_per_game'] ?? 0;
+            $stats->secondhalf_ip = $data_2nd[$lowername]['ip'] ?? 0;
+            $stats->secondhalf_pa = $data_2nd[$lowername]['pa'] ?? 0;
             //$stats->secondhalf_xwoba = $data_2nd[$lowername]['xera'] ?? null;
             $stats->secondhalf_velo = isset($velo_2nd[$lowername]) ? $data_2nd[$lowername]['velo'] : 0;
             $stats->secondhalf_csw = isset($data_2nd[$lowername]) ? $data_2nd[$lowername]['csw'] : 0;
@@ -312,9 +311,9 @@ class scrapeFangraphs extends Command
                 // Games
                 $player_data['k'] = (int) $stat->innerHTML;
             } elseif ($i%33 == 23) {
-                $player_data['ip'] = $stat->innerHTML;
+                $player_data['ip'] = (float) $stat->innerHTML;
             } elseif ($i%33 == 24) {
-                $player_data['k_percentage_plus'] = $stat->innerHTML;
+                $player_data['k_percentage_plus'] = (float) $stat->innerHTML;
             } elseif ($i%33 == 25) {
                 $player_data['velo'] = (float) $stat->innerHTML;
             } elseif ($i%33 == 26) {
