@@ -13,7 +13,7 @@
                 <a class="btn btn-primary btn-lg" href="/pitchers" role="button">View Pitcher Rankings »</a>
             </p>
             <p>
-                <a class="btn btn-primary btn-lg" href="/hitters" role="button">View Hitter Rankings »</a> <span style="margin-left: 5px;font-size: 1.2em;color: red; font-style: italic">Beta!</span>
+                <a class="btn btn-primary btn-lg" href="/hitters" role="button">View Hitter Rankings »</a>
             </p>
         </div>
     </div>
