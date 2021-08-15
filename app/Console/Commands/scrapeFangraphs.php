@@ -353,6 +353,7 @@ class scrapeFangraphs extends Command
 
                 // skip certain players that have the same name that we don't care about (e.g. Luis Garcia TEX vs. Luis Garcia HOU)
                 if (isset(self::DUPLICATES_TO_SKIP[$player_data['name']]) && in_array($player_data['team'], self::DUPLICATES_TO_SKIP[$player_data['name']])) {
+                    $i++;
                     continue;
                 }
 
