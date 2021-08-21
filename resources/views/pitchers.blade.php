@@ -143,7 +143,6 @@
                         $('#saveSetName').val(pitcher.name);
                         t.search(pitcher.players, true, false).draw();
                     });
-                    $("#saveSetName").val($("#playerSets button:first").html());
                 });
             }
 
