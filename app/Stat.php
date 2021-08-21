@@ -347,26 +347,26 @@ class Stat extends Model
 
         $players = Hitter::where([
             'year' => $year,
-            ['hardhit_percentage', '<>', null],
+            ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
-            ['brls_bbe', '<>', null],
+            ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
-        ])->orderBy('hardhit_percentage', 'desc')->get();
+        ])->orderBy('wrc_plus', 'desc')->get();
 
         $i = 1;
         foreach ($players as $player) {
-            $player->hardhit_rank = $i;
+            $player->wrcplus_rank = $i;
             $i++;
             $player->save();
         }
 
         $players = Hitter::where([
             'year' => $year,
-            ['hardhit_percentage', '<>', null],
+            ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
-            ['brls_bbe', '<>', null],
+            ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
         ])->orderBy('k_percentage', 'asc')->get();
 
@@ -379,10 +379,10 @@ class Stat extends Model
 
         $players = Hitter::where([
             'year' => $year,
-            ['hardhit_percentage', '<>', null],
+            ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
-            ['brls_bbe', '<>', null],
+            ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
         ])->orderBy('sprint_speed', 'desc')->get();
 
@@ -395,18 +395,18 @@ class Stat extends Model
 
         $players = Hitter::where([
             'year' => $year,
-            ['hardhit_percentage', '<>', null],
+            ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
-            ['brls_bbe', '<>', null],
+            ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
-        ])->orderBy('brls_bbe', 'desc')->get();
+        ])->orderBy('brls_per_pa', 'desc')->get();
 
         $i = 1;
         $all = [];
         foreach ($players as $player) {
-            $player->brls_bbe_rank = $i;
-            $player->rank_avg = ($player->brls_bbe_rank + $player->sprint_speed_rank + $player->k_percentage_rank + $player->hardhit_rank) / 4;
+            $player->brls_rank = $i;
+            $player->rank_avg = ($player->brls_rank + $player->sprint_speed_rank + $player->k_percentage_rank + $player->wrcplus_rank) / 4;
 
             $all[] = [
                 'id' => $player->id,

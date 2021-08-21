@@ -36,22 +36,22 @@
                 <th>Rank</th>
                 <th style="width: 125px">Name</th>
                 <th style="border-right: 1px solid black;">Age</th>
-                <th style="border-right: 1px solid black;">PA</th>
+                <th class="desktop" style="border-right: 1px solid black;">PA</th>
                 <th>R</th>
-                <th>AVG</th>
-                <th>HR</th>
-                <th>RBI</th>
-                <th style="border-right: 1px solid black;">SB</th>
+                <th class="all" >AVG</th>
+                <th class="all" >HR</th>
+                <th class="all" >RBI</th>
+                <th class="all"  style="border-right: 1px solid black;">SB</th>
                 <th>BB%</th>
                 <th style="border-right: 1px solid black;">K%</th>
                 <th style="border-right: 1px solid black;">SwStr%</th>
 
-                <th style="border-right: 1px solid black;">wRC+</th>
+                <th class="all" style="border-right: 1px solid black;">wRC+</th>
 
                 <th>K% Rank</th>
-                <th>Hard% Rank</th>
                 <th>Sprint Rank</th>
                 <th>Brls Rank</th>
+                <th>wRC+ Rank</th>
 
                 <th style="font-weight: bold">Avg</th>
             </tr>
@@ -75,9 +75,9 @@
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
 
                     <td class="align-middle">{{number_format($stat['k_percentage_rank'])}}</td>
-                    <td class="align-middle">{{number_format($stat['hardhit_rank'])}}</td>
                     <td class="align-middle">{{number_format($stat['sprint_speed_rank'])}}</td>
-                    <td class="align-middle">{{number_format($stat['brls_bbe_rank'])}}</td>
+                    <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>
+                    <td class="align-middle">{{number_format($stat['wrcplus_rank'])}}</td>
 
                     <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{number_format($stat['rank_avg'], 1)}}</td>
                 </tr>
@@ -146,10 +146,10 @@
                     details: false
                 },
                 paging: false,
-                order: [[ 17, "asc" ]],
-                columnDefs: [
-                    { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
-                ]
+                order: [[ 17, "asc" ]]
+                // columnDefs: [
+                //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
+                // ]
             });
 
             $('.playerSetBtn').eq(0).click();

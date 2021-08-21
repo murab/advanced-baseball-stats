@@ -15,7 +15,7 @@
             <tr>
                 <th>Year</th>
                 <th>Age</th>
-                <th>PA</th>
+                <th class="desktop">PA</th>
                 <th>R</th>
                 <th>AVG</th>
                 <th>HR</th>
@@ -25,12 +25,13 @@
                 <th>K%</th>
                 <th>SwStr%</th>
                 <th>Hard%</th>
-                <th>Hard% Rank</th>
+{{--                <th>Hard% Rank</th>--}}
                 <th>Sprint Rank</th>
                 <th>K% Rank</th>
                 <th>Brls Rank</th>
-                <th>wRC+</th>
-                <th style="font-weight: bold">Rank</th>
+                <th>wRC+ Rank</th>
+                <th class="all">wRC+</th>
+                <th class="all" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -49,10 +50,11 @@
                     <td>{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td>{{number_format($stat['hardhit_percentage'], 1)}}</td>
 
-                    <td>{{number_format($stat['hardhit_rank'])}}</td>
+{{--                    <td>{{number_format($stat['hardhit_rank'])}}</td>--}}
                     <td>{{number_format($stat['sprint_speed_rank'])}}</td>
                     <td>{{number_format($stat['k_percentage_rank'])}}</td>
-                    <td>{{number_format($stat['brls_bbe_rank'])}}</td>
+                    <td>{{number_format($stat['brls_rank'])}}</td>
+                    <td>{{number_format($stat['wrcplus_rank'])}}</td>
 
                     <td>{{$stat['wrc_plus']}}</td>
                     <td style="font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
@@ -73,10 +75,10 @@
                     details: false
                 },
                 searching: false,
-                paging: false,
-                columnDefs: [
-                    { width: "6%", targets: "_all" }
-                ]
+                paging: false
+                // columnDefs: [
+                //     { width: "6%", targets: "_all" }
+                // ]
             });
         });
     </script>
