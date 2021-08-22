@@ -12,9 +12,9 @@
             <li class="nav-item @if (!empty($page) && $page == 'hitters') active @endif">
                 <a class="nav-link navbar-brand" href="/hitters">Hitters</a>
             </li>
-            <li class="nav-item @if (!empty($page) && $page == 'articles') active @endif">
-                <a class="nav-link navbar-brand" href="/articles">Articles</a>
-            </li>
+{{--            <li class="nav-item @if (!empty($page) && $page == 'articles') active @endif">--}}
+{{--                <a class="nav-link navbar-brand" href="/articles">Articles</a>--}}
+{{--            </li>--}}
             <li class="nav-item @if (!empty($page) && $page == 'about') active @endif">
                 <a class="nav-link navbar-brand" href="/about">About</a>
             </li>
