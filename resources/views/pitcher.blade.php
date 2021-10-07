@@ -13,22 +13,22 @@
         <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <th>Year</th>
-                <th>Age</th>
-                <th>Position</th>
-                <th>G</th>
-                <th>IP</th>
-                <th>IP per G</th>
-                <th>K%</th>
-                <th>BB%</th>
-                <th>K-BB%</th>
-                <th>SwStr%</th>
-                <th>Velo</th>
-                <th>GB%</th>
-                <th>IP per G Rank</th>
-                <th>K% Rank</th>
-                <th>xERA Rank</th>
-                <th style="font-weight: bold">Positional Rank</th>
+                <th class="all">Year</th>
+                <th class="all">Age</th>
+                <th class="desktop">Position</th>
+                <th class="desktop">G</th>
+                <th class="all">IP</th>
+                <th class="desktop">IP per G</th>
+                <th class="desktop">K%</th>
+                <th class="desktop">BB%</th>
+                <th class="all">K-BB%</th>
+                <th class="all">SwStr%</th>
+                <th class="all">Velo</th>
+                <th class="all">GB%</th>
+                <th class="desktop">IP per G Rank</th>
+                <th class="desktop">K% Rank</th>
+                <th class="desktop">xERA Rank</th>
+                <th class="all" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -68,10 +68,10 @@
                     details: false
                 },
                 searching: false,
-                paging: false,
-                columnDefs: [
-                    { width: "6%", targets: "_all" }
-                ]
+                paging: false
+                // columnDefs: [
+                //     { width: "6%", targets: "_all" }
+                // ]
             });
         });
     </script>

@@ -44,23 +44,22 @@
         <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <th>Rank</th>
-                <th style="width: 125px">Name</th>
-                <th style="border-right: 1px solid black;">Age</th>
-{{--                <td>G</td>--}}
-                <th>IP</th>
-                <th style="border-right: 1px solid black;">IPpG</th>
-                <th>K%</th>
-                <th>BB%</th>
-                <th style="border-right: 1px solid black;">K-BB%</th>
-                <th style="border-right: 1px solid black;">SwStr%</th>
-                <th style="border-right: 1px solid black;">GB%</th>
-                <th style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></th>
-                <th style="border-right: 1px solid black;">Velo</th>
-                <th>IPpG Rank</th>
-                <th>K% Rank</th>
-                <th>xERA Rank</th>
-                <th style="font-weight: bold">Avg</th>
+                <th class="all">Rank</th>
+                <th class="all" style="width: 125px">Name</th>
+                <th class="desktop" style="border-right: 1px solid black;">Age</th>
+                <th class="desktop">IP</th>
+                <th class="desktop" style="border-right: 1px solid black;">IPpG</th>
+                <th class="all">K%</th>
+                <th class="desktop">BB%</th>
+                <th class="desktop" style="border-right: 1px solid black;">K-BB%</th>
+                <th class="desktop" style="border-right: 1px solid black;">SwStr%</th>
+                <th class="all" style="border-right: 1px solid black;">GB%</th>
+                <th class="desktop" style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></th>
+                <th class="all" style="border-right: 1px solid black;">Velo</th>
+                <th class="desktop">IPpG Rank</th>
+                <th class="desktop">K% Rank</th>
+                <th class="desktop">xERA Rank</th>
+                <th class="all" style="font-weight: bold">Avg</th>
             </tr>
             </thead>
             <tbody>
@@ -153,10 +152,10 @@
                 responsive: {
                     details: false
                 },
-                paging: false,
-                columnDefs: [
-                    { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
-                ]
+                paging: false
+                // columnDefs: [
+                //     { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
+                // ]
             });
 
             $('.playerSetBtn').eq(0).click();
