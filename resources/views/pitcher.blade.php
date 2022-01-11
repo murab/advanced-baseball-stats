@@ -15,19 +15,19 @@
             <tr>
                 <th class="all">Year</th>
                 <th class="all">Age</th>
-                <th class="desktop">Position</th>
-                <th class="desktop">G</th>
+                <th class="all">Position</th>
+                <th class="all">G</th>
                 <th class="all">IP</th>
-                <th class="desktop">IP per G</th>
-                <th class="desktop">K%</th>
-                <th class="desktop">BB%</th>
+                <th class="all">IP per G</th>
+                <th class="all">K%</th>
+                <th class="all">BB%</th>
                 <th class="all">K-BB%</th>
                 <th class="all">SwStr%</th>
                 <th class="all">Velo</th>
                 <th class="all">GB%</th>
-                <th class="desktop">IP per G Rank</th>
-                <th class="desktop">K% Rank</th>
-                <th class="desktop">xERA Rank</th>
+                <th class="all">IP per G Rank</th>
+                <th class="all">K% Rank</th>
+                <th class="all">xERA Rank</th>
                 <th class="all" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
