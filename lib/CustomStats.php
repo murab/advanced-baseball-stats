@@ -2,10 +2,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__ . '/FangraphsScraper.php';
-require_once __DIR__ . '/BaseballSavantScraper.php';
-require_once __DIR__ . '/BaseballProspectusScraper.php';
-
 class CustomStats
 {
     const BEST_K_PER_GAME = 9.45;
@@ -29,28 +25,6 @@ class CustomStats
     public function __construct()
     {
 
-    }
-
-    public function setFangraphsScraper(FangraphsScraper $fgScraper)
-    {
-        $this->fgScraper = $fgScraper;
-        $this->fgPitcherData = $this->fgScraper->getPitcherData();
-        $this->fgPitcherDataLast30Days = $this->fgScraper->getPitcherData2ndHalf();
-        $this->fgLeagueBatterData = $this->fgScraper->getLeagueBatterData();
-        $this->fgLeaguePitcherData = $this->fgScraper->getLeaguePitcherData();
-    }
-
-    public function setBaseballSavantScraper(BaseballSavantScraper $bsScraper)
-    {
-        $this->bsScraper = $bsScraper;
-        $this->bsData = $this->bsScraper->getpitchersXwobaData();
-        $this->bsDataLast30Days = $this->bsScraper->getPitchersXwobaData2ndHalf();
-    }
-
-    public function setBaseballProspectusScraper(BaseballProspectusScraper $prospectusScraper)
-    {
-        $this->prospectusScraper = $prospectusScraper;
-        $this->prospectusData = $this->prospectusScraper->getData();
     }
 
     public function mergeSourceData($fgData, $bsData, $prospectusData) : array
