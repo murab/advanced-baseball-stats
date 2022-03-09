@@ -270,9 +270,15 @@ class Stat extends Model
                 return $a['adjusted_xwoba'] > $b['adjusted_xwoba'];
             });
 
-            usort($k_sorted, function($a, $b) {
-                return $a['k_percentage'] < $b['k_percentage'];
-            });
+            if ($position == 'SP') {
+                usort($k_sorted, function($a, $b) {
+                    return $a['k_per_game'] < $b['k_per_game'];
+                });
+            } else {
+                usort($k_sorted, function($a, $b) {
+                    return $a['k_percentage'] < $b['k_percentage'];
+                });
+            }
 
             usort($ipg_sorted, function ($a, $b) {
                 return $a['innings_per_game'] < $b['innings_per_game'];
@@ -283,9 +289,15 @@ class Stat extends Model
             });
 
             $k_sorted = $all_data;
-            usort($k_sorted, function($a, $b) {
-                return $a['k_percentage'] < $b['k_percentage'];
-            });
+            if ($position == 'SP') {
+                usort($k_sorted, function($a, $b) {
+                    return $a['k_per_game'] < $b['k_per_game'];
+                });
+            } else {
+                usort($k_sorted, function($a, $b) {
+                    return $a['k_percentage'] < $b['k_percentage'];
+                });
+            }
 
             usort($ipg_sorted, function ($a, $b) {
                 return $a['innings_per_game'] < $b['innings_per_game'];

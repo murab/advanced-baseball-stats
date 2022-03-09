@@ -49,6 +49,7 @@
                 <th class="desktop" style="border-right: 1px solid black;">Age</th>
                 <th class="desktop">IP</th>
                 <th class="desktop" style="border-right: 1px solid black;">IPpG</th>
+                <th class="desktop" style="border-right: 1px solid black;">KpG</th>
                 <th class="all">K%</th>
                 <th class="desktop">BB%</th>
                 <th class="desktop" style="border-right: 1px solid black;">K-BB%</th>
@@ -56,8 +57,14 @@
                 <th class="all" style="border-right: 1px solid black;">GB%</th>
                 <th class="desktop" style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></th>
                 <th class="all" style="border-right: 1px solid black;">Velo</th>
-                <th class="desktop">IPpG Rank</th>
-                <th class="desktop">K% Rank</th>
+{{--                <th class="desktop">IPpG Rank</th>--}}
+
+                @if ($position == 'sp')
+                    <th class="desktop">KpG Rank</th>
+                @else
+                    <th class="desktop">K% Rank</th>
+                @endif
+
                 <th class="desktop">xERA Rank</th>
                 <th class="all" style="font-weight: bold">Avg</th>
             </tr>
@@ -71,6 +78,7 @@
 {{--                    <td>{{$stat['g']}}</td>--}}
                     <td class="align-middle">{{$stat['ip']}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td class="align-middle">{{number_format($stat['k_percentage'],1)}}</td>
                     <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
@@ -78,12 +86,13 @@
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
-                    <td class="align-middle">{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>
+{{--                    <td class="align-middle">{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>--}}
                     <td class="align-middle">{{ $stat['k_rank'] ?? ''}}</td>
                     <td class="align-middle">{{ $stat['xwoba_rank'] ?? ''}}</td>
 
                     @if ($position == 'sp')
-                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>
+{{--                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>--}}
+                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
                     @else
                         <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
                     @endif
