@@ -312,7 +312,8 @@ class Stat extends Model
 
             if (strtoupper($position) == 'SP') {
                 $all_data[$key]['tru'] = (
-                    $k_rank + $xwoba_rank + $ipg_rank
+                    $k_rank + $xwoba_rank
+//                    $k_rank + $xwoba_rank + $ipg_rank
 //                    (($data['k_per_game'] - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
 //                    +
 //                    (($data['xwoba'] - $worst_xwoba) / ($best_xwoba - $worst_xwoba))

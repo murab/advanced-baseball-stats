@@ -19,6 +19,7 @@
                 <th class="all">G</th>
                 <th class="all">IP</th>
                 <th class="all">IP per G</th>
+                <th class="all">K per G</th>
                 <th class="all">K%</th>
                 <th class="all">BB%</th>
                 <th class="all">K-BB%</th>
@@ -26,7 +27,7 @@
                 <th class="all">Velo</th>
                 <th class="all">GB%</th>
                 <th class="all">IP per G Rank</th>
-                <th class="all">K% Rank</th>
+                <th class="all">K% or KpS Rank</th>
                 <th class="all">xERA Rank</th>
                 <th class="all" style="font-weight: bold">Rank</th>
             </tr>
@@ -40,6 +41,7 @@
                     <td>{{$stat['g']}}</td>
                     <td>{{$stat['ip']}}</td>
                     <td>{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                    <td>{{number_format($stat['k_per_game'], 1)}}</td>
                     <td>{{number_format($stat['k_percentage'],1)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td>{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
