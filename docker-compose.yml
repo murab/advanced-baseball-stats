@@ -13,9 +13,8 @@ services:
       # files generated inside docker container will be used instead of files on host volume
       - /var/www/html/vendor
       - /var/www/html/node_modules
-      - /var/www/html/storage
-      - /var/www/html/node_modules
-      - /var/www/html/resources
+      - /var/www/html/resources/sass
+      - /var/www/html/resources/js
     depends_on:
       - db
     environment:
