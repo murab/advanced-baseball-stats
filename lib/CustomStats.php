@@ -4,11 +4,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class CustomStats
 {
-    const BEST_K_PER_GAME = 9.45;
-    const WORST_K_PER_GAME = 3.75;
-    const BEST_XWOBA = 0.249;
-    const WORST_XWOBA = 0.350;
-
     public $fgScraper;
     public $bsScraper;
     public $prospectusScraper;

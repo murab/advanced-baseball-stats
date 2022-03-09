@@ -1,0 +1,46 @@
+version: "3.5"
+
+services:
+  public:
+    build:
+      context: ./
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    volumes:
+      - ./:/var/www/html
+      # data volumes, these will be excluded by the above mount and
+      # files generated inside docker container will be used instead of files on host volume
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+      - /var/www/html/storage
+      - /var/www/html/node_modules
+      - /var/www/html/resources
+    depends_on:
+      - db
+    environment:
+      - APP_ENV=${APP_ENV}
+    links:
+      - db
+
+  db:
+    image: postgres:11
+    restart: always
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRES_USER=xstats
+      - POSTGRES_PASSWORD=xstats123
+      - POSTGRES_DB=xstats
+    volumes:
+      # any scripts mounted to /docker-entrypoint-initdb.d/ will be automatically run when the container builds
+      - ./db-users.sh:/docker-entrypoint-initdb.d/docker-db-users.sh
+
+  dbmigrations:
+    build:
+      context: ./
+    command: ["./wait-for-it.sh", "db:5432", "--", "./migrate.sh"]
+    links:
+      - db
+    depends_on:
+      - db
