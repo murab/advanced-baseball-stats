@@ -6,7 +6,7 @@
     RewriteEngine On
 
     <If "%{HTTPS} == 'off'">
-        <If "! %{HTTP_HOST} =~ /.*dev.rotoranker.com/">
+        <If "%{HTTP_HOST} =~ /.*rotoranker\.com/">
             RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
         </If>
     </If>

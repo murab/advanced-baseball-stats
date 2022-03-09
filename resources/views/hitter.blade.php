@@ -13,23 +13,23 @@
         <table id="hitters" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
-                <th>Year</th>
-                <th>Age</th>
+                <th class="all">Year</th>
+                <th class="all">Age</th>
                 <th class="desktop">PA</th>
-                <th>R</th>
-                <th>AVG</th>
-                <th>HR</th>
-                <th>RBI</th>
-                <th>SB</th>
-                <th>BB%</th>
-                <th>K%</th>
-                <th>SwStr%</th>
-                <th>Hard%</th>
-{{--                <th>Hard% Rank</th>--}}
-                <th>Sprint Rank</th>
-                <th>K% Rank</th>
-                <th>Brls Rank</th>
-                <th>wRC+ Rank</th>
+                <th class="all">R</th>
+                <th class="all">AVG</th>
+                <th class="all">HR</th>
+                <th class="all">RBI</th>
+                <th class="all">SB</th>
+                <th class="all">BB%</th>
+                <th class="all">K%</th>
+                <th class="all">SwStr%</th>
+                <th class="all">Hard%</th>
+                {{--                <th class="all">Hard% Rank</th>--}}
+                <th class="all">Sprint Rank</th>
+                <th class="all">K% Rank</th>
+                <th class="all">Brls Rank</th>
+                <th class="all">wRC+ Rank</th>
                 <th class="all">wRC+</th>
                 <th class="all" style="font-weight: bold">Rank</th>
             </tr>
