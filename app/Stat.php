@@ -365,6 +365,51 @@ class Stat extends Model
             ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
+            ['avg', '<>', null],
+            ['sb', '<>', null],
+        ])->orderBy('sb', 'desc')->get();
+
+        foreach ($players as &$player) {
+            $player->sb_per_pa = $player->sb / $player->pa ?? 0;
+        }
+        $players = $players->sort(function ($a, $b) {
+            if ($a->sb_per_pa == $b->sb_per_pa) {
+                return $a->pa > $b->pa;
+            }
+            return $a->sb_per_pa < $b->sb_per_pa;
+        });
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->sb_per_pa_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['wrc_plus', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_per_pa', '<>', null],
+            ['pa', '>', $min_pa],
+            ['avg', '<>', null],
+        ])->orderBy('avg', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->avg_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['wrc_plus', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_per_pa', '<>', null],
+            ['pa', '>', $min_pa],
         ])->orderBy('wrc_plus', 'desc')->get();
 
         $i = 1;
@@ -419,7 +464,7 @@ class Stat extends Model
         $all = [];
         foreach ($players as $player) {
             $player->brls_rank = $i;
-            $player->rank_avg = ($player->brls_rank + $player->sprint_speed_rank + $player->k_percentage_rank + $player->wrcplus_rank) / 4;
+            $player->rank_avg = ($player->brls_rank + $player->avg_rank + $player->sb_per_pa_rank + $player->wrcplus_rank) / 4;
 
             $all[] = [
                 'id' => $player->id,
