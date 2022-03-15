@@ -148,9 +148,8 @@
 
             var t = $('#hitters').DataTable({
                 fixedHeader: true,
-
                 paging: false,
-                order: [[ 18, "asc" ]]
+                order: [[ 17, "asc" ]]
                 // columnDefs: [
                 //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
                 // ]
@@ -178,8 +177,6 @@
                         t.search("").draw();
                     }
                 });
-
-            $('.container').css('maxWidth', 9999)
         });
     </script>
 @endsection
