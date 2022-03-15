@@ -36,7 +36,8 @@
                 <th>Rank</th>
                 <th style="width: 125px">Name</th>
                 <th style="border-right: 1px solid black;">Age</th>
-                <th class="desktop" style="border-right: 1px solid black;">PA</th>
+                <th class="desktop">PA</th>
+                <th class="desktop" style="border-right: 1px solid black;">PA/G</th>
                 <th>R</th>
                 <th class="all" >AVG</th>
                 <th class="all" >HR</th>
@@ -49,9 +50,9 @@
                 <th class="all" style="border-right: 1px solid black;">wRC+</th>
 
 {{--                <th>K% Rank</th>--}}
-{{--                <th>Sprint Rank</th>--}}
-                <th>BA Rank</th>
-                <th>SB/PA Rank</th>
+                <th>Sprint Rank</th>
+{{--                <th>BA Rank</th>--}}
+{{--                <th>SB/PA Rank</th>--}}
                 <th>Brls Rank</th>
                 <th>wRC+ Rank</th>
 
@@ -64,7 +65,8 @@
                     <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>
                     <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['pa']}}</td>
+                    <td class="align-middle">{{$stat['pa']}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td class="align-middle">{{$stat['r']}}</td>
                     <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td class="align-middle">{{$stat['hr']}}</td>
@@ -77,9 +79,9 @@
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
 
 {{--                    <td class="align-middle">{{number_format($stat['k_percentage_rank'])}}</td>--}}
-{{--                    <td class="align-middle">{{number_format($stat['sprint_speed_rank'])}}</td>--}}
-                    <td class="align-middle">{{number_format($stat['avg_rank'])}}</td>
-                    <td class="align-middle">{{number_format($stat['sb_per_pa_rank'])}}</td>
+                    <td class="align-middle">{{number_format($stat['sprint_speed_rank'])}}</td>
+{{--                    <td class="align-middle">{{number_format($stat['avg_rank'])}}</td>--}}
+{{--                    <td class="align-middle">{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
                     <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>
                     <td class="align-middle">{{number_format($stat['wrcplus_rank'])}}</td>
 
@@ -146,11 +148,9 @@
 
             var t = $('#hitters').DataTable({
                 fixedHeader: true,
-                responsive: {
-                    details: false
-                },
+
                 paging: false,
-                order: [[ 17, "asc" ]]
+                order: [[ 18, "asc" ]]
                 // columnDefs: [
                 //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
                 // ]
@@ -178,6 +178,8 @@
                         t.search("").draw();
                     }
                 });
+
+            $('.container').css('maxWidth', 9999)
         });
     </script>
 @endsection

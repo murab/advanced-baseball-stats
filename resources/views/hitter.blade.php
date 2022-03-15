@@ -15,7 +15,8 @@
             <tr>
                 <th class="all">Year</th>
                 <th class="all" style="border-right: 1px solid black;">Age</th>
-                <th class="all" style="border-right: 1px solid black;">PA</th>
+                <th class="all">PA</th>
+                <th class="all" style="border-right: 1px solid black;">PA/G</th>
 
                 <th class="all">R</th>
                 <th class="all">AVG</th>
@@ -30,8 +31,9 @@
                 <th class="all" style="border-right: 1px solid black;">wRC+</th>
 
                 {{--                <th class="all">Hard% Rank</th>--}}
-                <th class="all">BA Rank</th>
-                <th class="all">SB/PA Rank</th>
+{{--                <th class="all">BA Rank</th>--}}
+{{--                <th class="all">SB/PA Rank</th>--}}
+                <th class="all">Sprint Rank</th>
                 <th class="all">Brls Rank</th>
                 <th class="all">wRC+ Rank</th>
 
@@ -43,7 +45,8 @@
                 <tr>
                     <td><a href="{{route('hitter_ranks', [$stat['year'], strtolower($stat['position'])])}}">{{$stat['year']}}</a></td>
                     <td style="border-right: 1px solid black;">{{$stat['age']}}</td>
-                    <td style="border-right: 1px solid black;">{{$stat['pa']}}</td>
+                    <td>{{$stat['pa']}}</td>
+                    <td style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td>{{$stat['r']}}</td>
                     <td>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td>{{$stat['hr']}}</td>
@@ -57,10 +60,10 @@
 
                     <td style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
 {{--                    <td>{{number_format($stat['hardhit_rank'])}}</td>--}}
-{{--                    <td>{{number_format($stat['sprint_speed_rank'])}}</td>--}}
+                    <td>{{number_format($stat['sprint_speed_rank'])}}</td>
 {{--                    <td>{{number_format($stat['k_percentage_rank'])}}</td>--}}
-                    <td>{{number_format($stat['avg_rank'])}}</td>
-                    <td>{{number_format($stat['sb_per_pa_rank'])}}</td>
+{{--                    <td>{{number_format($stat['avg_rank'])}}</td>--}}
+{{--                    <td>{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
                     <td>{{number_format($stat['brls_rank'])}}</td>
                     <td>{{number_format($stat['wrcplus_rank'])}}</td>
 
@@ -87,6 +90,8 @@
                 //     { width: "6%", targets: "_all" }
                 // ]
             });
+
+            $('.container').css('maxWidth', 9999);
         });
     </script>
 @endsection
