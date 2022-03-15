@@ -50,7 +50,7 @@
                 <th class="all" style="border-right: 1px solid black;">wRC+</th>
 
 {{--                <th>K% Rank</th>--}}
-                <th>Sprint Rank</th>
+                <th style="border-right: 1px solid black;">Sprint Rank</th>
 {{--                <th>BA Rank</th>--}}
 {{--                <th>SB/PA Rank</th>--}}
                 <th>Brls Rank</th>
@@ -79,7 +79,7 @@
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
 
 {{--                    <td class="align-middle">{{number_format($stat['k_percentage_rank'])}}</td>--}}
-                    <td class="align-middle">{{number_format($stat['sprint_speed_rank'])}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed_rank'])}}</td>
 {{--                    <td class="align-middle">{{number_format($stat['avg_rank'])}}</td>--}}
 {{--                    <td class="align-middle">{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
                     <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>

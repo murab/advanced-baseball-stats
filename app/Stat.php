@@ -497,7 +497,7 @@ class Stat extends Model
         $all = [];
         foreach ($players as $player) {
             $player->brls_rank = $i;
-            $player->rank_avg = ($player->brls_rank + $player->sprint_speed_rank + $player->wrcplus_rank) / 4;
+            $player->rank_avg = ($player->brls_rank + $player->wrcplus_rank) / 2;
 
             $all[] = [
                 'id' => $player->id,
