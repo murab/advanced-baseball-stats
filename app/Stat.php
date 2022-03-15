@@ -356,8 +356,41 @@ class Stat extends Model
 
     public static function computeHitterRanks(int $year)
     {
+        DB::statement('update hitters set rank_avg_rank = null, rank_avg = null where year = ?',[$year]);
+
         $min_pa = self::calculateMinPlateAppearances($year);
 
+        // pa per game played
+        $players = Hitter::where([
+            'year' => $year,
+            ['wrc_plus', '<>', null],
+            ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_per_pa', '<>', null],
+            ['pa', '>', $min_pa],
+            ['avg', '<>', null],
+            ['sb', '<>', null],
+            ['g', '<>', null],
+        ])->orderBy('pa', 'desc')->get();
+
+        foreach ($players as &$player) {
+            $player->pa_per_g = $player->pa / $player->g ?? 0;
+        }
+        $players = $players->sort(function ($a, $b) {
+            if ($a->pa_per_g == $b->pa_per_g) {
+                return $a->pa < $b->pa;
+            }
+            return $a->pa_per_g < $b->pa_per_g;
+        });
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->pa_per_g_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        // sb per pa
         $players = Hitter::where([
             'year' => $year,
             ['wrc_plus', '<>', null],
@@ -464,7 +497,7 @@ class Stat extends Model
         $all = [];
         foreach ($players as $player) {
             $player->brls_rank = $i;
-            $player->rank_avg = ($player->brls_rank + $player->avg_rank + $player->sb_per_pa_rank + $player->wrcplus_rank) / 4;
+            $player->rank_avg = ($player->brls_rank + $player->sprint_speed_rank + $player->wrcplus_rank) / 4;
 
             $all[] = [
                 'id' => $player->id,
