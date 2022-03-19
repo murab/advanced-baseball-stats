@@ -11,7 +11,7 @@
 
     <div class="table-responsive-md">
         <table id="hitters" class="table table-bordered table-hover table-sm" style="font-size: 12px">
-            <thead>
+            <thead style="text-align: center">
             <tr>
                 <th class="all">Year</th>
                 <th class="all" style="border-right: 1px solid black;">Age</th>
@@ -79,6 +79,7 @@
     <script type="text/javascript" src="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.container').css('maxWidth', 9999);
         });
     </script>
 @endsection
