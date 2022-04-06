@@ -31,7 +31,7 @@
 
 <main role="main">
     @yield('jumbotron')
-    <div class="container" style="margin-top: 25px">
+    <div class="container" style="margin-top: 25px; @if (!empty($max_width)) max-width: 9999px; @endif ">
         <div class="row">
             <div class="col">
                 @yield('content')

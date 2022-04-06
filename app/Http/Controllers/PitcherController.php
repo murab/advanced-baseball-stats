@@ -49,6 +49,7 @@ class PitcherController extends Controller
             'year' => $year,
             'position' => $position,
             'num' => count($stats),
+            'max_width' => true,
         ]);
     }
 
@@ -62,6 +63,7 @@ class PitcherController extends Controller
             'page_title' => "{$pitcher->name} Stats",
             'stats' => $stats,
             'player' => $pitcher,
+            'max_width' => true,
         ]);
     }
 }

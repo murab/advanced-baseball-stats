@@ -52,6 +52,7 @@ class HitterController extends Controller
             'year' => $year,
             'num' => count($stats),
             'min_pa' => $min_pa,
+            'max_width' => true,
         ]);
     }
 
@@ -65,6 +66,7 @@ class HitterController extends Controller
             'page_title' => "{$hitter->name} Stats",
             'stats' => $stats,
             'player' => $hitter,
+            'max_width' => true,
         ]);
     }
 }

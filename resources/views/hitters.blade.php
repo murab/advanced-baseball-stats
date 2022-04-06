@@ -177,8 +177,6 @@
                         t.search("").draw();
                     }
                 });
-
-            $('.container').css('maxWidth', 9999);
         });
     </script>
 @endsection
