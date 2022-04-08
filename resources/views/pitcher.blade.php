@@ -18,7 +18,7 @@
                 <th class="all">Position</th>
                 <th class="all">G</th>
                 <th class="all">IP</th>
-                @if ($stat['position'] != 'RP')
+                @if ($position != 'RP')
                     <th class="all">IP per G</th>
                 @endif
                 <th class="all">K per G</th>
