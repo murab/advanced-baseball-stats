@@ -18,9 +18,7 @@
                 <th class="all">Position</th>
                 <th class="all">G</th>
                 <th class="all">IP</th>
-                @if ($position != 'RP')
-                    <th class="all">IP per G</th>
-                @endif
+                <th class="all">IP per G</th>
                 <th class="all">K per G</th>
                 <th class="all">K%</th>
                 <th class="all">BB%</th>
@@ -42,7 +40,9 @@
                     <td>{{$stat['position']}}</td>
                     <td>{{$stat['g']}}</td>
                     <td>{{$stat['ip']}}</td>
-                    @if ($stat['position'] != 'RP')
+                    @if (empty($stat['g']))
+                        <td>N/A</td>
+                    @else
                         <td>{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
                     @endif
                     <td>{{number_format($stat['k_per_game'], 1)}}</td>
