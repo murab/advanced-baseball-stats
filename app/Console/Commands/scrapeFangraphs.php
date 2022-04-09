@@ -422,7 +422,7 @@ class scrapeFangraphs extends Command
 
     public function getReliefPitcherData()
     {
-        $response = $this->httpClient->get(str_replace('stats=pit','stats=rel',$this->pitcherDataSource));
+        $response = $this->httpClient->get(str_replace('stats=sta','stats=rel',$this->pitcherDataSource));
         $responseBody = (string) $response->getBody();
 
         $doc = hQuery::fromHTML($responseBody);
@@ -470,7 +470,7 @@ class scrapeFangraphs extends Command
 
     public function getReliefPitcherData2ndHalf()
     {
-        $response = $this->httpClient->get(str_replace('stats=pit','stats=rel',$this->pitcherDataSource2ndHalf));
+        $response = $this->httpClient->get(str_replace('stats=sta','stats=rel',$this->pitcherDataSource2ndHalf));
         $responseBody = (string) $response->getBody();
         $doc = hQuery::fromHTML($responseBody);
 
