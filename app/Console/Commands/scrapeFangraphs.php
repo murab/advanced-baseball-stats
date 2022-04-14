@@ -180,7 +180,7 @@ class scrapeFangraphs extends Command
                 'year' => $year,
             ]);
 
-            if (!empty($data[$lowername]) && $data['ip'] / $data['g'] > 3.0) {
+            if (!empty($data[$lowername]) && $player['ip'] / $player['g'] > 3.0) {
                 continue;
             }
 
