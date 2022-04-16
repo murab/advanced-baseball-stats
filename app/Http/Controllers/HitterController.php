@@ -20,7 +20,6 @@ class HitterController extends Controller
             'year' => $year,
             ['brls_per_pa', '<>', null],
             ['brls_rank', '<>', 0],
-            ['sprint_speed', '<>', null],
             ['rank_avg', '<>', null],
             ['pa', '>=', $min_pa],
         ])->orderBy('rank_avg', 'asc')->get();
@@ -32,7 +31,6 @@ class HitterController extends Controller
                 'year' => $year,
                 ['brls_per_pa', '<>', null],
                 ['brls_rank', '<>', 0],
-                ['sprint_speed', '<>', null],
                 ['rank_avg', '<>', null],
                 ['pa', '>=', $min_pa],
             ])->orderBy('rank_avg', 'asc')->get();
