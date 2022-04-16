@@ -365,7 +365,6 @@ class Stat extends Model
             'year' => $year,
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
-            ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
             ['avg', '<>', null],
@@ -395,7 +394,6 @@ class Stat extends Model
             'year' => $year,
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
-            ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
             ['avg', '<>', null],
@@ -488,7 +486,6 @@ class Stat extends Model
             'year' => $year,
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
-            ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
             ['pa', '>', $min_pa],
         ])->orderBy('brls_per_pa', 'desc')->get();
