@@ -111,8 +111,8 @@ class scrapeSavant extends Command
             $stats->save();
         }
 
-        $hitters = $this->getHittersSprintSpeedData();
-        $this->getHittersBrlPAData($hitters);
+        $hitters = $this->getHittersBrlPAData();
+        $this->getHittersSprintSpeedData($hitters);
 
         foreach ($hitters as $player) {
 
@@ -197,7 +197,34 @@ class scrapeSavant extends Command
         return $data;
     }
 
-    public function parseSprintSpeedData($players)
+    public function parseSprintSpeedData(&$hitters, $players)
+    {
+        if (is_iterable($players)) foreach ($players as $key => $player) {
+
+            if ($key == 0) {
+                continue;
+            }
+
+            $player_data = [];
+
+            $player_data['name'] = trim($player[1]) . ' ' . trim($player[0]);
+            $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+            $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
+            $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
+
+            $player_data['sprint_speed'] = floatval(trim($player['9']));
+
+            if (!empty($player_data) && !empty($hitters[strtolower($player_data['name'])])) {
+                $hitters[strtolower($player_data['name'])]['sprint_speed'] = $player_data['sprint_speed'];
+            }
+        }
+    }
+
+    public function parseBrlsPerPaData($players)
     {
         $data = [];
 
@@ -218,12 +245,12 @@ class scrapeSavant extends Command
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
             $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
 
-            $player_data['sprint_speed'] = floatval(trim($player['9']));
+            $player_data['brls_per_pa'] = floatval(trim($player['18']));
 
             if (!empty($player_data)) {
                 $data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
-                    'sprint_speed' => $player_data['sprint_speed']
+                    'brls_per_pa' => $player_data['brls_per_pa']
                 ];
             }
         }
@@ -231,34 +258,7 @@ class scrapeSavant extends Command
         return $data;
     }
 
-    public function parseBrlsPerPaData(&$hitters, $players)
-    {
-        if (is_iterable($players)) foreach ($players as $key => $player) {
-
-            if ($key == 0) {
-                continue;
-            }
-
-            $player_data = [];
-
-            $player_data['name'] = trim($player[1]) . ' ' . trim($player[0]);
-            $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-                'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-                'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-                'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-                'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
-            $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
-            $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
-
-            $player_data['brls_per_pa'] = floatval(trim($player['18']));
-
-            if (!empty($player_data) && !empty($hitters[strtolower($player_data['name'])])) {
-                $hitters[strtolower($player_data['name'])]['brls_per_pa'] = $player_data['brls_per_pa'];
-            }
-        }
-    }
-
-    public function getHittersSprintSpeedData()
+    public function getHittersSprintSpeedData(&$hitters)
     {
         $data = file_get_contents($this->hittersSprintSpeedURL);
 
@@ -268,9 +268,7 @@ class scrapeSavant extends Command
             $data_parsed[] = ( str_getcsv( $row, ",", "'") );
         }
 
-        $data = $this->parseSprintSpeedData($data_parsed);
-
-        return $data;
+        $this->parseSprintSpeedData($hitters, $data_parsed);
     }
 
     public function getpitchersXwobaData()
@@ -324,7 +322,7 @@ class scrapeSavant extends Command
         return $data;
     }
 
-    public function getHittersBrlPAData(&$hitters)
+    public function getHittersBrlPAData()
     {
         $data = file_get_contents($this->hittersBrlsPerPaURL);
 
@@ -334,7 +332,7 @@ class scrapeSavant extends Command
             $data_parsed[] = ( str_getcsv( $row, ",", "'") );
         }
 
-        $this->parseBrlsPerPaData($hitters, $data_parsed);
+        return $this->parseBrlsPerPaData($data_parsed);
     }
 
     public function getReliefPitchersXwobaData2ndHalf()
