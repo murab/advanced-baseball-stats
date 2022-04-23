@@ -427,7 +427,7 @@ class scrapeFangraphs extends Command
                     'age' => $player_data['age'],
                     'g' => $player_data['g'],
                     'k' => $player_data['k'],
-                    'k_per_game' => $player_data['k'] / $player_data['g'],
+                    'k_per_game' => $player_data['g'] ? $player_data['k'] / $player_data['g'] : 0,
                     'gs' => $player_data['gs'],
                     'ip' => $player_data['ip'],
                     'csw' => $player_data['csw'],
