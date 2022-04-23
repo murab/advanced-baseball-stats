@@ -35,7 +35,7 @@
 {{--                <th class="all">SB/PA Rank</th>--}}
                 <th class="all" style="border-right: 1px solid black;">Sprint Rank</th>
                 <th class="all">Brls Rank</th>
-                <th class="all">wRC+ Rank</th>
+                <th class="all">xwOBA Rank</th>
 
                 <th class="all" style="font-weight: bold">Rank</th>
             </tr>
@@ -65,7 +65,7 @@
 {{--                    <td>{{number_format($stat['avg_rank'])}}</td>--}}
 {{--                    <td>{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
                     <td>{{number_format($stat['brls_rank'])}}</td>
-                    <td>{{number_format($stat['wrcplus_rank'])}}</td>
+                    <td>{{number_format($stat['xwoba_rank'])}}</td>
 
                     <td style="font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
                 </tr>

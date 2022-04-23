@@ -20,8 +20,8 @@ class scrapeFangraphs extends Command
     const RAWleagueBattersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,6,39&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
     const RAWleaguePitchersDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=sta&lg=all&qual=0&type=c,76,113,217,6,42,48&season=2019&month=0&season1=2019&ind=0&team=0,ss&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31';
 
-    const RAWhitterDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
-    const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_3000';
+    const RAWhitterDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308,317&season=2019&month=0&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
+    const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308,317&season=2019&month=31&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_3000';
 
     const DUPLICATES_TO_SKIP = [
         'Luis Garcia' => ['STL', 'TEX'],
@@ -259,7 +259,7 @@ class scrapeFangraphs extends Command
         $data = [];
         if (is_iterable($stats)) foreach ($stats as $stat)
         {
-            $col = $i%17;
+            $col = $i%18;
             switch ($col) {
                 case 1:
                     $player_data = [];
@@ -322,6 +322,10 @@ class scrapeFangraphs extends Command
                 case 16:
                     // Barrels/BBE
                     $player_data['brls_bbe'] = floatval($stat->innerHTML);
+                    break;
+                case 17:
+                    // xWOBA
+                    $player_data['xwoba'] = floatval($stat->innerHTML);
                     foreach ($player_data as $stat => $val) {
                         $data[strtolower($player_data['name'])][$stat] = $val;
                     }

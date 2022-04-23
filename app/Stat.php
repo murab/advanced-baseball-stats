@@ -467,6 +467,19 @@ class Stat extends Model
 
         $players = Hitter::where([
             'year' => $year,
+            ['xwoba', '<>', null],
+            ['pa', '>', $min_pa],
+        ])->orderBy('xwoba', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->xwoba_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
@@ -493,7 +506,7 @@ class Stat extends Model
         $all = [];
         foreach ($players as $player) {
             $player->brls_rank = $i;
-            $player->rank_avg = ($player->brls_rank + $player->wrcplus_rank) / 2;
+            $player->rank_avg = ($player->brls_rank + $player->xwoba_rank) / 2;
 
             $all[] = [
                 'id' => $player->id,
