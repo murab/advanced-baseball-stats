@@ -33,7 +33,7 @@
                 {{--                <th class="all">Hard% Rank</th>--}}
 {{--                <th class="all">BA Rank</th>--}}
 {{--                <th class="all">SB/PA Rank</th>--}}
-                <th class="all" style="border-right: 1px solid black;">Sprint Rank</th>
+                <th class="all" style="border-right: 1px solid black;">Sprint Spd</th>
                 <th class="all">Brls Rank</th>
                 <th class="all">xwOBA Rank</th>
 
@@ -60,7 +60,7 @@
 
                     <td style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
 {{--                    <td>{{number_format($stat['hardhit_rank'])}}</td>--}}
-                    <td style="border-right: 1px solid black;">{{number_format($stat['sprint_speed_rank'])}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['sprint_speed'], 1)}}</td>
 {{--                    <td>{{number_format($stat['k_percentage_rank'])}}</td>--}}
 {{--                    <td>{{number_format($stat['avg_rank'])}}</td>--}}
 {{--                    <td>{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
