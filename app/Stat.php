@@ -98,8 +98,11 @@ class Stat extends Model
         return $data;
     }
 
-    public static function startingPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 10, ?float $min_ip_per_g = 3.0)
+    public static function startingPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = null, ?float $min_ip_per_g = 3.0)
     {
+        if (is_null($min_ip)) {
+            $min_ip = self::calculateMinInningsPitched($year);
+        }
         if (empty($year)) {
             if (date('m-d') > '03-25') {
                 $year = date('Y');
@@ -347,6 +350,11 @@ class Stat extends Model
         }
 
         return $ret;
+    }
+
+    public static function calculateMinInningsPitched(int $year)
+    {
+        return max(10, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = 'SP'", [$year])[0])));
     }
 
     public static function calculateMinPlateAppearances(int $year)

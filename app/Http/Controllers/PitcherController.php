@@ -47,6 +47,7 @@ class PitcherController extends Controller
             'stats' => $stats,
             'years' => $years,
             'year' => $year,
+            'min_ip' => Stat::calculateMinInningsPitched($year),
             'position' => $position,
             'num' => count($stats),
             'max_width' => true,
