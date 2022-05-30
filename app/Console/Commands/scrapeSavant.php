@@ -245,7 +245,7 @@ class scrapeSavant extends Command
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
             $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
 
-            $player_data['brls_per_pa'] = floatval(trim($player['18']));
+            $player_data['brls_per_pa'] = floatval(trim($player['17']));
 
             if (!empty($player_data)) {
                 $data[strtolower($player_data['name'])] = [
