@@ -57,8 +57,8 @@ class generateTextFile extends Command
         $custom_lists = array_keys($players_of_interest);
         $custom_players = [];
 
-        $starters = Stat::where(['year' => $year, 'position' => 'SP', ['tru_rank', '<>', null]])->with('player')->orderBy('tru_rank', 'asc')->get()->toArray();
-        $relievers = Stat::where(['year' => $year, 'position' => 'RP', ['tru_rank', '<>', null]])->with('player')->orderBy('tru_rank', 'asc')->get()->toArray();
+        $starters = Stat::where(['year' => $year, 'position' => 'SP', ['tru', '<>', null]])->with('player')->orderBy('tru_rank', 'asc')->get()->toArray();
+        $relievers = Stat::where(['year' => $year, 'position' => 'RP', ['tru', '<>', null]])->with('player')->orderBy('tru_rank', 'asc')->get()->toArray();
 
         $league = Stat::leagueAverageStats($year);
 
