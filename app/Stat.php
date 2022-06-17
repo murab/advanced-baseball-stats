@@ -374,7 +374,7 @@ class Stat extends Model
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
             ['avg', '<>', null],
             ['sb', '<>', null],
             ['g', '<>', null],
@@ -403,7 +403,7 @@ class Stat extends Model
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
             ['avg', '<>', null],
             ['sb', '<>', null],
         ])->orderBy('sb', 'desc')->get();
@@ -431,7 +431,7 @@ class Stat extends Model
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
             ['avg', '<>', null],
         ])->orderBy('avg', 'desc')->get();
 
@@ -447,7 +447,7 @@ class Stat extends Model
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
         ])->orderBy('wrc_plus', 'desc')->get();
 
         $i = 1;
@@ -463,7 +463,7 @@ class Stat extends Model
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
         ])->orderBy('k_percentage', 'asc')->get();
 
         $i = 1;
@@ -476,7 +476,7 @@ class Stat extends Model
         $players = Hitter::where([
             'year' => $year,
             ['xwoba', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
         ])->orderBy('xwoba', 'desc')->get();
 
         $i = 1;
@@ -492,7 +492,7 @@ class Stat extends Model
             ['k_percentage', '<>', null],
             ['sprint_speed', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
         ])->orderBy('sprint_speed', 'desc')->get();
 
         $i = 1;
@@ -507,7 +507,7 @@ class Stat extends Model
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>', $min_pa],
+            ['pa', '>=', $min_pa],
         ])->orderBy('brls_per_pa', 'desc')->get();
 
         $i = 1;
