@@ -241,7 +241,11 @@ class Stat extends Model
         $enable_opp_quality_adjustment = ($second_half == false);
 
         if (strtoupper($position) == 'SP') {
-            $all_data = Stat::startingPitcherStats($year,$second_half);
+            if (!$second_half) {
+                $all_data = Stat::startingPitcherStats($year,$second_half);
+            } else {
+                $all_data = Stat::startingPitcherStats($year,$second_half,10);
+            }
         } else {
             $all_data = Stat::reliefPitcherStats($year,$second_half);
         }
