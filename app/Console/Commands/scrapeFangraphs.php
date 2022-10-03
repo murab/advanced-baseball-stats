@@ -193,6 +193,8 @@ class scrapeFangraphs extends Command
 
             //$stats->velo = $player['velo'];
             $stats->k_percentage = $player['k_percentage'];
+            $stats->era = $player['era'];
+            $stats->whip = $player['whip'];
             $stats->bb_percentage = $player['bb_percentage'];
             $stats->swstr_percentage = $player['swstr_percentage'];
             $stats->gb_percentage = $player['gb_percentage'];
@@ -209,6 +211,8 @@ class scrapeFangraphs extends Command
 
             //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
             $stats->secondhalf_k_percentage = $rp_data_2nd[$lowername]['k_percentage'] ?? 0;
+            $stats->secondhalf_era = $rp_data_2nd[$lowername]['era'] ?? 0;
+            $stats->secondhalf_whip = $rp_data_2nd[$lowername]['whip'] ?? 0;
             $stats->secondhalf_bb_percentage = $rp_data_2nd[$lowername]['bb_percentage'] ?? 0;
             $stats->secondhalf_swstr_percentage = $rp_data_2nd[$lowername]['swstr_percentage'] ?? 0;
             $stats->secondhalf_gb_percentage = $rp_data_2nd[$lowername]['gb_percentage'] ?? 0;
