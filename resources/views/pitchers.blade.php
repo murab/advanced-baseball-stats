@@ -80,8 +80,8 @@
 {{--                    <td>{{$stat['g']}}</td>--}}
                     <td class="align-middle">{{$stat['ip']}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
-                    <td class="align-middle">{{$stat['era']}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['whip']}}</td>
+                    <td class="align-middle">{{number_format($stat['era'], 2)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td class="align-middle">{{number_format($stat['k_percentage'],1)}}</td>
                     <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>

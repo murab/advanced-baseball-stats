@@ -47,8 +47,8 @@
                     @else
                         <td style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
                     @endif
-                    <td>{{$stat['era']}}</td>
-                    <td style="border-right: 1px solid black;">{{$stat['whip']}}</td>
+                    <td>{{number_format($stat['era'], 2)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td>{{number_format($stat['k_percentage'],1)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
