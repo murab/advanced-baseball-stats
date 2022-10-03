@@ -134,6 +134,8 @@ class scrapeFangraphs extends Command
 
             //$stats->velo = $player['velo'];
             $stats->k_percentage = $player['k_percentage'];
+            $stats->era = $player['era'];
+            $stats->whip = $player['whip'];
             $stats->bb_percentage = $player['bb_percentage'];
             $stats->swstr_percentage = $player['swstr_percentage'];
             $stats->gb_percentage = $player['gb_percentage'];
@@ -150,6 +152,8 @@ class scrapeFangraphs extends Command
 
             //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
             $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? 0;
+            $stats->secondhalf_era = $data_2nd[$lowername]['era'] ?? 0;
+            $stats->secondhalf_whip = $data_2nd[$lowername]['whip'] ?? 0;
             $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? 0;
             $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? 0;
             $stats->secondhalf_gb_percentage = $data_2nd[$lowername]['gb_percentage'] ?? 0;
@@ -368,6 +372,10 @@ class scrapeFangraphs extends Command
             } elseif ($i%33 == 10) {
                 // SwStr%
                 $player_data['swstr_percentage'] = floatval($stat->innerHTML);
+            } elseif ($i%33 == 11) {
+                $player_data['whip'] = (float)$stat->innerHTML;
+            } elseif ($i%33 == 15) {
+                $player_data['era'] = (float)$stat->innerHTML;
             } elseif ($i%33 == 19) {
                 // Age
                 $player_data['age'] = (int) $stat->innerHTML;
@@ -418,6 +426,8 @@ class scrapeFangraphs extends Command
 
                 $data[strtolower($player_data['name'])] = [
                     'name' => $player_data['name'],
+                    'era' => $player_data['era'],
+                    'whip' => $player_data['whip'],
                     'k_percentage' => $player_data['k_percentage'],
                     'bb_percentage' => $player_data['bb_percentage'],
                     'kbb_percentage' => $player_data['kbb_percentage'],

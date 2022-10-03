@@ -18,6 +18,8 @@
                 <th class="all">Position</th>
                 <th class="all">G</th>
                 <th class="all">IP</th>
+                <th class="all">ERA</th>
+                <th class="all">WHIP</th>
                 <th class="all">IP per G</th>
                 <th class="all">K per G</th>
                 <th class="all">K%</th>
@@ -40,6 +42,8 @@
                     <td>{{$stat['position']}}</td>
                     <td>{{$stat['g']}}</td>
                     <td>{{$stat['ip']}}</td>
+                    <td>{{$stat['era']}}</td>
+                    <td>{{$stat['whip']}}</td>
                     @if (empty($stat['g']))
                         <td>N/A</td>
                     @else
