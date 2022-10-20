@@ -13,15 +13,26 @@
     <p>Minimum PA: {{ $min_pa }}</p>
 
     <div class="row">
-        <div class="col-xl-2 col-md-3">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
             <label for="yearSelect">Year</label>
-            <select class="form-control" id="yearSelect" name="yearSelect">
+            <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
                     <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
                 @endforeach
             </select>
         </div>
-        <div class="col-xl-10 col-lg-8 col-md-6" style="text-align: right">
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+            <label for="pa_per_g_minimum">PA/G Min</label>
+            <input type="text" id="pa_per_g_minimum" class="form-control form-control-sm">
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+            <label for="sb_minimum">SB Min</label>
+            <input type="text" id="sb_minimum" class="form-control form-control-sm">
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
             <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
@@ -66,7 +77,7 @@
                     <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
                     <td class="align-middle">{{$stat['pa']}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
+                    <td class="align-middle pa-per-g" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td class="align-middle">{{$stat['r']}}</td>
                     <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td class="align-middle">{{$stat['hr']}}</td>
@@ -153,6 +164,34 @@
                 // columnDefs: [
                 //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
                 // ]
+            });
+
+            $('#pa_per_g_minimum, #sb_minimum').on('keyup', function(e) {
+                t.draw();
+            });
+
+            t.on('order.dt search.dt', function () {
+                let i = 1;
+
+                t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                    this.data(i++);
+                });
+            }).draw();
+
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                var min = parseFloat($('#pa_per_g_minimum').val());
+                if (parseFloat(data[4]) < min) {
+                    return false;
+                }
+                return true;
+            });
+
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                var min = parseFloat($('#sb_minimum').val());
+                if (parseFloat(data[9]) < min) {
+                    return false;
+                }
+                return true;
             });
 
             $('.playerSetBtn').eq(0).click();
