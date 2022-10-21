@@ -197,8 +197,12 @@
                 return true;
             });
 
-            $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
-            $('#sb_minimum').val($.cookie('sb_minimum'));
+            if ($.cookie('pa_per_g_minimum') !== 'NaN') {
+                $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
+            }
+            if ($.cookie('sb_minimum') !== 'NaN') {
+                $('#sb_minimum').val($.cookie('sb_minimum'));
+            }
             t.draw();
 
             $('.playerSetBtn').eq(0).click();
