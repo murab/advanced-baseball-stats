@@ -106,6 +106,7 @@
 
 @section('javascript')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -167,6 +168,8 @@
             });
 
             $('#pa_per_g_minimum, #sb_minimum').on('keyup', function(e) {
+                $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
+                $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
                 t.draw();
             });
 
@@ -193,6 +196,10 @@
                 }
                 return true;
             });
+
+            $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
+            $('#sb_minimum').val($.cookie('sb_minimum'));
+            t.draw();
 
             $('.playerSetBtn').eq(0).click();
 
