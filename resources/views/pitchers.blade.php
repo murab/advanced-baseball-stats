@@ -1,7 +1,7 @@
 @extends('_base')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/datatables.min.css"/>
     <link rel="canonical" href="{{route('pitcher_ranks', [$year, $position])}}" />
 @endsection
 
@@ -41,7 +41,7 @@
     </div>
 
     <div class="table-responsive-md">
-        <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
+        <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px; width: 100%">
             <thead>
             <tr>
                 <th class="all">Rank</th>
@@ -108,7 +108,7 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -162,11 +162,18 @@
 
             var t = $('#pitchers').DataTable({
                 fixedHeader: true,
+                fixedColumns: {
+                    left: 2
+                },
                 paging: false
                 // columnDefs: [
                 //     { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
                 // ]
             });
+
+            // $('.table-responsive-md').on("scroll", function() {
+            //     $('#pitchers').DataTable().fixedHeader.adjust();
+            // });
 
             $('.playerSetBtn').eq(0).click();
 
