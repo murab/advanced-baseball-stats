@@ -41,7 +41,7 @@
     </div>
 
     <div class="table-responsive-md">
-        <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px; width: 100%">
+        <table id="pitchers" class="table table-bordered table-hover table-sm" style="font-size: 12px">
             <thead>
             <tr>
                 <th class="all">Rank</th>
@@ -165,6 +165,7 @@
                 fixedColumns: {
                     left: 2
                 },
+                scrollX: true,
                 paging: false
                 // columnDefs: [
                 //     { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }

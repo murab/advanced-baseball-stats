@@ -163,6 +163,7 @@
                 fixedColumns: {
                     left: 2
                 },
+                scrollX: true,
                 paging: false,
                 order: [[ 17, "asc" ]]
                 // columnDefs: [
