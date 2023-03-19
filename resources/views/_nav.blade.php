@@ -6,8 +6,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item @if (!empty($page) && $page == 'pitchers') active @endif">
-                <a class="nav-link navbar-brand" href="/pitchers">Pitchers</a>
+            <li class="nav-item @if (!empty($page) && $page == 'pitchers' && $position == 'sp') active @endif">
+                <a class="nav-link navbar-brand" href="/pitchers">Starting Pitchers</a>
+            </li>
+            <li class="nav-item @if (!empty($page) && $page == 'pitchers' && $position == 'rp') active @endif">
+                <a class="nav-link navbar-brand" href="/pitchers/@php echo date('Y'); @endphp/rp">Relief Pitchers</a>
             </li>
             <li class="nav-item @if (!empty($page) && $page == 'hitters') active @endif">
                 <a class="nav-link navbar-brand" href="/hitters">Hitters</a>

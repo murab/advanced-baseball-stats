@@ -128,6 +128,9 @@ class Stat extends Model
 
     public static function reliefPitcherStats(?int $year = null, ?bool $secondHalf = false, ?int $min_ip = 5, ?float $min_ip_per_g = 3.0)
     {
+        if (is_null($min_ip)) {
+            $min_ip = self::calculateMinInningsPitched($year, 'rp');
+        }
         if (empty($year)) {
             if (date('m-d') > '03-25') {
                 $year = date('Y');
@@ -247,7 +250,7 @@ class Stat extends Model
                 $all_data = Stat::startingPitcherStats($year,$second_half,10);
             }
         } else {
-            $all_data = Stat::reliefPitcherStats($year,$second_half);
+            $all_data = Stat::reliefPitcherStats($year,$second_half,null);
         }
 
         $worst_k_per_game = Stat::worstKperGame($year, $position);
@@ -356,9 +359,10 @@ class Stat extends Model
         return $ret;
     }
 
-    public static function calculateMinInningsPitched(int $year)
+    public static function calculateMinInningsPitched(int $year, string $position = 'sp')
     {
-        return max(10, min(50, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = 'SP'", [$year])[0]))));
+        $position = strtoupper($position);
+        return max(10, min(50, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = '{$position}'", [$year])[0]))));
     }
 
     public static function calculateMinPlateAppearances(int $year)

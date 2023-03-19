@@ -13,7 +13,7 @@
     @if ($position == 'sp')
         <p>Minimum 3.0 IP per appearance, {{ $min_ip }} total IP</p>
     @else
-        <p>Less than 3.0 IP per appearance, at least 5 total IP</p>
+        <p>Less than 3.0 IP per appearance, at least {{ $min_ip }} total IP</p>
     @endif
 
     <div class="row">
