@@ -68,7 +68,7 @@
                 @endif
 
                 <th class="desktop">xERA Rank</th>
-                <th class="all" style="font-weight: bold">Avg</th>
+                <th class="all" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -93,13 +93,7 @@
 {{--                    <td class="align-middle">{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>--}}
                     <td class="align-middle">{{ $stat['k_rank'] ?? ''}}</td>
                     <td class="align-middle">{{ $stat['xwoba_rank'] ?? ''}}</td>
-
-                    @if ($position == 'sp')
-{{--                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['ip_per_g_rank'] + $stat['k_rank'] + $stat['xwoba_rank']) / 3, 1) }}</td>--}}
-                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
-                    @else
-                        <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{ number_format(($stat['k_rank'] + $stat['xwoba_rank']) / 2, 1) }}</td>
-                    @endif
+                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{$key+1}}</td>
                 </tr>
             @endforeach
             </tbody>

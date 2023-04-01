@@ -67,7 +67,7 @@
                 <th>Brls Rank</th>
                 <th>xwOBA Rank</th>
 
-                <th style="font-weight: bold">Avg</th>
+                <th style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -96,7 +96,7 @@
                     <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>
                     <td class="align-middle">{{number_format($stat['xwoba_rank'])}}</td>
 
-                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{number_format($stat['rank_avg'], 1)}}</td>
+                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{$key+1}}</td>
                 </tr>
             @endforeach
             </tbody>
