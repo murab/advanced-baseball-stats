@@ -170,7 +170,7 @@ class scrapeSavant extends Command
                         'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
                     $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
                     $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
-                    $player_data['name'] = str_replace(['span classsearch-labelRHPspan ', 'span classsearch-labelRHPspan '], '', $player_data['name']);
+                    $player_data['name'] = str_replace(['span classsearch-labelRHPspan ', 'span classsearch-labelLHPspan '], '', $player_data['name']);
                 } elseif ($i == 6) {
                     // PAs
                     $player_data['pa'] = (int)(str_replace(['<span>','</span>'],'',$val->innerHTML));
