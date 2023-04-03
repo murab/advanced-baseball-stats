@@ -36,8 +36,10 @@
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
             <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
+            <div style="margin-bottom: 5px">Search: <input type="text" id="search"></div>
             <br />
         </div>
+
     </div>
 
     <div class="table-responsive-md">
@@ -82,7 +84,7 @@
                     <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td class="align-middle">{{$stat['hr']}}</td>
                     <td class="align-middle">{{$stat['rbi']}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['sb']}}</td>
+                    <td class="align-middle sb" style="border-right: 1px solid black;">{{$stat['sb']}}</td>
                     <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
@@ -151,59 +153,74 @@
                     $("#"+hitter.name).on('click', function() {
                         $("#hitters_filter input").val(hitter.players);
                         $('#saveSetName').val(hitter.name);
-                        t.search(hitter.players, true, false).draw();
+                        $('#search').val(hitter.players);
+                        filterCurrentSearch();
+                        // t.search(hitter.players, true, false).draw();
                     });
                 });
             }
 
             drawPlayerSetButtons(data.hitters);
 
-            var t = $('#hitters').DataTable({
-                fixedHeader: true,
-                fixedColumns: {
-                    left: 2
-                },
-                scrollX: true,
-                paging: false,
-                order: [[ 17, "asc" ]]
-                // columnDefs: [
-                //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
-                // ]
-            });
+            // var t = $('#hitters').DataTable({
+            //     fixedHeader: true,
+            //     fixedColumns: {
+            //         left: 2
+            //     },
+            //     scrollX: true,
+            //     paging: false,
+            //     // order: [[ 17, "asc" ]]
+            //     // columnDefs: [
+            //     //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
+            //     // ]
+            // });
 
             // $('.table-responsive-md').on("scroll", function() {
             //     $('#hitters').DataTable().fixedHeader.adjust();
             // });
 
-            $('#pa_per_g_minimum, #sb_minimum').on('keyup', function(e) {
-                $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
-                $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
-                t.draw();
-            });
-
-            t.on('order.dt search.dt', function () {
-                let i = 1;
-
-                t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-                    this.data(i++);
+            function doMins() {
+                var minPaPerGame = parseFloat($('#pa_per_g_minimum').val());
+                $('.pa-per-g').parent().removeClass('exclude').show();
+                $('.pa-per-g').each(function() {
+                    if ($(this).html() < minPaPerGame) {
+                        $(this).parent().addClass('exclude');
+                        $(this).parent().hide();
+                    }
                 });
-            }).draw();
+                var minSb = parseFloat($('#sb_minimum').val());
+                $('.sb').each(function() {
+                    if ($(this).html() < minSb) {
+                        $(this).parent().addClass('exclude');
+                        $(this).parent().hide();
+                    }
+                });
+                filterCurrentSearch();
+            }
 
-            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-                var min = parseFloat($('#pa_per_g_minimum').val());
-                if (parseFloat(data[4]) < min) {
-                    return false;
-                }
-                return true;
-            });
+            // t.on('order.dt search.dt', function () {
+            //     let i = 1;
+            //
+            //     t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            //         this.data(i++);
+            //     });
+            // }).draw();
 
-            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-                var min = parseFloat($('#sb_minimum').val());
-                if (parseFloat(data[9]) < min) {
-                    return false;
-                }
-                return true;
-            });
+            // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            //     var min = parseFloat($('#pa_per_g_minimum').val());
+            //     if (parseFloat(data[4]) < min) {
+            //         return false;
+            //     }
+            //     return true;
+            // });
+            //
+            // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            //     var min = parseFloat($('#sb_minimum').val());
+            //     if (parseFloat(data[9]) < min) {
+            //         return false;
+            //     }
+            //     return true;
+            // });
 
             if ($.cookie('pa_per_g_minimum') !== 'NaN') {
                 $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
@@ -211,7 +228,7 @@
             if ($.cookie('sb_minimum') !== 'NaN') {
                 $('#sb_minimum').val($.cookie('sb_minimum'));
             }
-            t.draw();
+            // t.draw();
 
             $('.playerSetBtn').eq(0).click();
 
@@ -221,20 +238,66 @@
                 window.location.href = '/hitters/'+year;
             });
 
-            $('.dataTables_filter input', t.table().container())
-                .off('.DT')
-                .on('keyup.DT cut.DT paste.DT input.DT search.DT', function (e) {
-                    // If the length is 3 or more characters, or the user pressed ENTER, search
-                    if(this.value.length >= 3 || e.keyCode == 13) {
-                        // Call the API search function
-                        t.search(this.value, true, false).draw();
-                    }
+            // $('.dataTables_filter input', t.table().container())
+            //     .off('.DT')
+            //     .on('keyup.DT cut.DT paste.DT input.DT search.DT', function (e) {
+            //         // If the length is 3 or more characters, or the user pressed ENTER, search
+            //         if(this.value.length >= 3 || e.keyCode == 13) {
+            //             // Call the API search function
+            //             t.search(this.value, true, false).draw();
+            //         }
+            //
+            //         // Ensure we clear the search if they backspace far enough
+            //         if(this.value === "") {
+            //             t.search("").draw();
+            //         }
+            //     });
 
-                    // Ensure we clear the search if they backspace far enough
-                    if(this.value === "") {
-                        t.search("").draw();
-                    }
+            $('#search').on('change keyup', function() {
+                filterCurrentSearch();
+            });
+
+            $('#pa_per_g_minimum, #sb_minimum').on('keyup change', function(e) {
+                $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
+                $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
+                doMins();
+                // t.draw();
+            });
+
+            function filterCurrentSearch() {
+                if ($('#search').val() == '') {
+                    $('#hitters tbody tr').show();
+                    return true;
+                }
+                $('#hitters tbody tr').show()
+                var names = $('#search').val().split('|').map(function(item) {
+                    return item.trim();
                 });
+                var rank = 1;
+                $('#hitters tbody tr').each(function() {
+                    if ($(this).hasClass('exclude')) {
+                        $(this).hide();
+                        return true;
+                    }
+                    var name = $(this).find('td a').eq(0).html();
+                    var wasFound = false;
+                    names.forEach(function(one) {
+                        if (!$(this).hasClass('exclude') && name.toLowerCase().includes(one.toLowerCase())) {
+                            wasFound = true;
+                            return false;
+                        }
+                    });
+                    if (wasFound) {
+                        $(this).find('td').eq(0).html(rank);
+                    } else {
+                        $(this).hide();
+                    }
+                    rank++;
+                });
+            }
+
+            doMins();
+            filterCurrentSearch();
         });
     </script>
 @endsection
