@@ -9,8 +9,8 @@
         {{$player['name']}} Stats
     </h1>
 
-    <div class="table-responsive-md">
-        <table id="hitters" class="table table-bordered table-hover table-sm" style="font-size: 12px">
+    <div class="table-responsive-sm">
+        <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; margin: 0 auto;">
             <thead style="text-align: center">
             <tr>
                 <th class="all">Year</th>
