@@ -36,6 +36,7 @@
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
             <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
+            <div style="margin-bottom: 5px">Search: <input type="text" id="search"></div>
             <br />
         </div>
     </div>
@@ -119,7 +120,7 @@
 
             $('#saveSetBtn').on('click', function(e) {
                 var name = $('#saveSetName').val();
-                var string = $('.dataTables_filter input').val();
+                var string = $('#search').val();
                 if (string !== '') {
                     data.pitchers[name] = {
                         "name": name,
@@ -147,28 +148,13 @@
                     $("#"+pitcher.name).on('click', function() {
                         $("#pitchers_filter input").val(pitcher.players);
                         $('#saveSetName').val(pitcher.name);
-                        t.search(pitcher.players, true, false).draw();
+                        $('#search').val(pitcher.players);
+                        filterCurrentSearch();
                     });
                 });
             }
 
             drawPlayerSetButtons(data.pitchers);
-
-            var t = $('#pitchers').DataTable({
-                fixedHeader: true,
-                fixedColumns: {
-                    left: 2
-                },
-                scrollX: true,
-                paging: false
-                // columnDefs: [
-                //     { "width": "5.5%", "targets": [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
-                // ]
-            });
-
-            // $('.table-responsive-md').on("scroll", function() {
-            //     $('#pitchers').DataTable().fixedHeader.adjust();
-            // });
 
             $('.playerSetBtn').eq(0).click();
 
@@ -178,20 +164,43 @@
                 window.location.href = '/pitchers/'+year+'/'+position;
             });
 
-            $('.dataTables_filter input', t.table().container())
-                .off('.DT')
-                .on('keyup.DT cut.DT paste.DT input.DT search.DT', function (e) {
-                    // If the length is 3 or more characters, or the user pressed ENTER, search
-                    if(this.value.length >= 3 || e.keyCode == 13) {
-                        // Call the API search function
-                        t.search(this.value, true, false).draw();
-                    }
+            $('#search').on('change keyup', function() {
+                filterCurrentSearch();
+            });
 
-                    // Ensure we clear the search if they backspace far enough
-                    if(this.value === "") {
-                        t.search("").draw();
-                    }
+            function filterCurrentSearch() {
+                if ($('#search').val() == '') {
+                    $('#pitchers tbody tr').show();
+                    return true;
+                }
+                $('#pitchers tbody tr').show()
+                var names = $('#search').val().split('|').map(function(item) {
+                    return item.trim();
                 });
+                var rank = 1;
+                $('#pitchers tbody tr').each(function() {
+                    if ($(this).hasClass('exclude')) {
+                        $(this).hide();
+                        return true;
+                    }
+                    var name = $(this).find('td a').eq(0).html();
+                    var wasFound = false;
+                    names.forEach(function(one) {
+                        if (!$(this).hasClass('exclude') && name.toLowerCase().includes(one.toLowerCase())) {
+                            wasFound = true;
+                            return false;
+                        }
+                    });
+                    if (wasFound) {
+                        $(this).find('td').eq(0).html(rank);
+                    } else {
+                        $(this).hide();
+                    }
+                    rank++;
+                });
+            }
+
+            filterCurrentSearch();
         });
     </script>
 @endsection

@@ -125,7 +125,7 @@
 
             $('#saveSetBtn').on('click', function(e) {
                 var name = $('#saveSetName').val();
-                var string = $('.dataTables_filter input').val();
+                var string = $('#search').val();
                 if (string !== '') {
                     data.hitters[name] = {
                         "name": name,
