@@ -103,6 +103,7 @@
             @endforeach
             </tbody>
         </table>
+        <div>Out of <span id="numHitters"></span> eligible hitters</div>
     </div>
 @endsection
 
@@ -293,6 +294,8 @@
                         $(this).hide();
                     }
                     rank++;
+
+                    $('#numHitters').html(rank-1);
                 });
             }
 
