@@ -42,6 +42,7 @@
     </div>
 
     <div class="table-responsive-sm">
+        <div style="text-align: center">Out of <span class="numPitchers"></span> eligible pitchers</div>
         <table id="pitchers" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 16px; margin: 0 auto;">
             <thead>
             <tr>
@@ -99,6 +100,7 @@
             @endforeach
             </tbody>
         </table>
+        <div style="text-align: center">Out of <span class="numPitchers"></span> eligible pitchers</div>
     </div>
 @endsection
 
@@ -197,6 +199,8 @@
                         $(this).hide();
                     }
                     rank++;
+
+                    $('.numPitchers').html(rank-1);
                 });
             }
 
