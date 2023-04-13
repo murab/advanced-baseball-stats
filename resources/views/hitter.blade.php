@@ -17,27 +17,20 @@
                 <th class="all" style="border-right: 1px solid black;">Age</th>
                 <th class="all">PA</th>
                 <th class="all" style="border-right: 1px solid black;">PA/G</th>
-
                 <th class="all">R</th>
                 <th class="all">AVG</th>
                 <th class="all">HR</th>
                 <th class="all">RBI</th>
                 <th class="all" style="border-right: 1px solid black;">SB</th>
-
                 <th class="all">BB%</th>
                 <th class="all" style="border-right: 1px solid black;">K%</th>
                 <th class="all" style="border-right: 1px solid black;">SwStr%</th>
-
-                <th class="all" style="border-right: 1px solid black;">wRC+</th>
-
-                {{--                <th class="all">Hard% Rank</th>--}}
-{{--                <th class="all">BA Rank</th>--}}
-{{--                <th class="all">SB/PA Rank</th>--}}
                 <th class="all" style="border-right: 1px solid black;">Sprint Spd</th>
                 <th class="all">Brls Rank</th>
-                <th class="all">xwOBA Rank</th>
-
-                <th class="all" style="font-weight: bold">Rank</th>
+                <th class="all" style="border-right: 1px solid black;">xwOBA Rank</th>
+                <th class="all" style="border-right: 1px solid black;">Rank</th>
+                <th class="all" style="border-right: 1px solid black;">Def</th>
+                <th class="all">wRC+</th>
             </tr>
             </thead>
             <tbody>
@@ -55,19 +48,12 @@
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-
-{{--                    <td>{{number_format($stat['hardhit_percentage'], 1)}}</td>--}}
-
-                    <td style="border-right: 1px solid black;">{{$stat['wrc_plus']}}</td>
-{{--                    <td>{{number_format($stat['hardhit_rank'])}}</td>--}}
                     <td style="border-right: 1px solid black;">{{number_format($stat['sprint_speed'], 1)}}</td>
-{{--                    <td>{{number_format($stat['k_percentage_rank'])}}</td>--}}
-{{--                    <td>{{number_format($stat['avg_rank'])}}</td>--}}
-{{--                    <td>{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
                     <td>{{number_format($stat['brls_rank'])}}</td>
-                    <td>{{number_format($stat['xwoba_rank'])}}</td>
-
-                    <td style="font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
+                    <td style="border-right: 1px solid black; font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
+                    <td style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-size: 1.2em; font-weight: bold @endif ">{{$stat['def']}}</td>
+                    <td style="@if ($stat['wrc_plus'] > 110) font-weight: bold; font-size: 1.2em; color: green @endif">{{$stat['wrc_plus']}}</td>
                 </tr>
             @endforeach
             </tbody>

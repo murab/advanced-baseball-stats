@@ -60,14 +60,9 @@
                 <th>BB%</th>
                 <th style="border-right: 1px solid black;">K%</th>
                 <th style="border-right: 1px solid black;">SwStr%</th>
-
-{{--                <th>K% Rank</th>--}}
                 <th style="border-right: 1px solid black;">Sprint Rank</th>
-{{--                <th>BA Rank</th>--}}
-{{--                <th>SB/PA Rank</th>--}}
                 <th>Brls Rank</th>
                 <th style="border-right: 1px solid black;">xwOBA Rank</th>
-
                 <th style="font-weight: bold; border-right: 1px solid black;">Def</th>
                 <th class="all">wRC+</th>
             </tr>
@@ -88,17 +83,11 @@
                     <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-
-{{--                    <td class="align-middle">{{number_format($stat['k_percentage_rank'])}}</td>--}}
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed_rank'])}}</td>
-{{--                    <td class="align-middle">{{number_format($stat['avg_rank'])}}</td>--}}
-{{--                    <td class="align-middle">{{number_format($stat['sb_per_pa_rank'])}}</td>--}}
                     <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
-
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['def']}}</td>
-
-                    <td class="align-middle" style="@if ($stat['wrc_plus'] > 110) font-weight: bold; font-size: 1.2em; color: green @endif ">{{$stat['wrc_plus']}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-size: 1.2em; font-weight: bold @endif">{{$stat['def']}}</td>
+                    <td class="align-middle" style="@if ($stat['wrc_plus'] > 110) font-weight: bold; font-size: 1.2em; color: green @endif">{{$stat['wrc_plus']}}</td>
                 </tr>
             @endforeach
             </tbody>
