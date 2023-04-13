@@ -44,7 +44,7 @@
 
     <div class="table-responsive-sm">
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
-        <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 16px; margin: 0 auto;">
+        <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
             <thead>
             <tr>
                 <th>Rank</th>
@@ -285,6 +285,10 @@
                     rank++;
 
                     $('.numHitters').html(rank-1);
+                });
+
+                $("tr:visible").each(function (index) {
+                    $(this).css("background-color", !!(index & 1)? "rgba(0,0,0,.05)" : "rgba(0,0,0,0)");
                 });
             }
 
