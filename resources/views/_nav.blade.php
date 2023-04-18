@@ -15,20 +15,13 @@
             <li class="nav-item @if (!empty($page) && $page == 'hitters') active @endif">
                 <a class="nav-link navbar-brand" href="/hitters">Hitters</a>
             </li>
-{{--            <li class="nav-item @if (!empty($page) && $page == 'articles') active @endif">--}}
-{{--                <a class="nav-link navbar-brand" href="/articles">Articles</a>--}}
-{{--            </li>--}}
             <li class="nav-item @if (!empty($page) && $page == 'about') active @endif">
                 <a class="nav-link navbar-brand" href="/about">About</a>
             </li>
         </ul>
-{{--        <form class="form-inline my-2 my-lg-0">--}}
-{{--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--}}
-{{--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
-{{--        </form>--}}
-                <div class="form-inline my-2 my-lg-0">
-                    <span style="color: darkgray">Suggestions? Tweet me!</span>
-                    <p class="my-sm-0 my-2"><a class="nav-link" href="https://twitter.com/therotoranker">@TheRotoRanker</a></p>
-                </div>
+
+        <div class="form-inline my-2 my-lg-0">
+            <p class="my-sm-0 my-2"><a class="nav-link" href="https://twitter.com/therotoranker">@TheRotoRanker</a></p>
+        </div>
     </div>
 </nav>
