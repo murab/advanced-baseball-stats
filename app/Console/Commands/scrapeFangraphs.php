@@ -23,6 +23,9 @@ class scrapeFangraphs extends Command
     const RAWhitterDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308,199,317&season=2019&month=0&season1=2019&ind=0&team=&rost=&age=&filter=&players=&startdate=&enddate=&page=1_3000';
     const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=c,3,4,6,12,23,11,13,21,35,34,110,311,61,308,199,317&season=2020&month=31&season1=2020&ind=0&team=&rost=&age=0&filter=&players=&page=1_3000';
 
+    const RAWhitterVsLeftDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=1&season=2019&month=13&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
+    const RAWhitterVsLeftDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=1&season=2019&month=13&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
+
     const DUPLICATES_TO_SKIP = [
         'Luis Garcia' => ['STL', 'TEX'],
     ];
@@ -258,6 +261,8 @@ class scrapeFangraphs extends Command
         $this->leaguePitchersDataSource = str_replace('2019',$year,self::RAWleaguePitchersDataSource);
         $this->hitterDataSource = str_replace('2019',$year,self::RAWhitterDataSource);
         $this->hitterDataSource2ndHalf = str_replace('2019',$year,self::RAWhitterDataSource2ndHalf);
+        $this->hitterVsLeftDataSource = str_replace('2019',$year,self::RAWhitterVsLeftDataSource);
+        $this->hitterVsLeftDataSource2ndHalf = str_replace('2019',$year,self::RAWhitterVsLeftDataSource2ndHalf);
     }
 
     public function parseHitterData($stats)
@@ -341,6 +346,30 @@ class scrapeFangraphs extends Command
                     foreach ($player_data as $stat => $val) {
                         $data[strtolower($player_data['name'])][$stat] = $val;
                     }
+                    break;
+            }
+            $i++;
+        }
+        return $data;
+    }
+
+    public function parseHitterVsLeftData($stats, $data = [])
+    {
+        $i = 0;
+        $player_data = [];
+        if (is_iterable($stats)) foreach ($stats as $stat)
+        {
+            $col = $i%18;
+            switch ($col) {
+                case 1:
+                    $player_data = [];
+                    // Name
+                    $player_data['name'] = hQuery::fromHTML($stat->innerHTML)->find('a')->innerHTML;
+                    $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
+                    break;
+                case 17:
+                    // wRC+ vs lefties
+                    $data[strtolower($player_data['name'])]['vsleft_wrc_plus'] = (int) $stat->innerHTML;
                     break;
             }
             $i++;
@@ -468,7 +497,17 @@ class scrapeFangraphs extends Command
 
         $stats = $doc->find('.grid_line_regular');
 
-        return $this->parseHitterData($stats);
+        $data = $this->parseHitterData($stats);
+
+        $response = $this->httpClient->get($this->hitterVsLeftDataSource);
+        $responseBody = (string) $response->getBody();
+        $doc = hQuery::fromHTML($responseBody);
+
+        $stats = $doc->find('.grid_line_regular');
+
+        $data = $this->parseHitterVsLeftData($stats, $data);
+
+        return $data;
     }
 
     public function getHitterData2ndHalf()

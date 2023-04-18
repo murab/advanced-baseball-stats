@@ -28,9 +28,10 @@
                 <th class="all" style="border-right: 1px solid black;">Sprint Spd</th>
                 <th class="all">Brls Rank</th>
                 <th class="all" style="border-right: 1px solid black;">xwOBA Rank</th>
-                <th class="all" style="border-right: 1px solid black;">Rank</th>
                 <th class="all" style="border-right: 1px solid black;">Def</th>
-                <th class="all">wRC+</th>
+                <th class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
+                <th class="all" style="border-right: 1px solid black;">wRC+</th>
+                <th class="all">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -51,9 +52,10 @@
                     <td style="border-right: 1px solid black;">{{number_format($stat['sprint_speed'], 1)}}</td>
                     <td>{{number_format($stat['brls_rank'])}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
-                    <td style="border-right: 1px solid black; font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
                     <td style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-size: 1.2em; font-weight: bold @endif ">{{$stat['def']}}</td>
-                    <td style="@if ($stat['wrc_plus'] > 110) font-weight: bold; font-size: 1.2em; color: green @endif">{{$stat['wrc_plus']}}</td>
+                    <td style="border-right: 1px solid black;">{{ $stat['vsleft_wrc_plus'] }}</td>
+                    <td style="border-right: 1px solid black; @if ($stat['wrc_plus'] > 110) font-weight: bold; font-size: 1.2em; color: green @endif">{{$stat['wrc_plus']}}</td>
+                    <td style="font-weight: bold">{{ $stat['rank_avg_rank'] }}</td>
                 </tr>
             @endforeach
             </tbody>
