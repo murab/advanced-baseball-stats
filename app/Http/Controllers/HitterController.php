@@ -21,7 +21,6 @@ class HitterController extends Controller
             ['brls_per_pa', '<>', null],
             ['brls_rank', '<>', 0],
             ['rank_avg', '<>', null],
-            ['pa', '>=', $min_pa],
         ])->orderBy('rank_avg', 'asc')->get();
 
         if (count($stats) == 0) {
@@ -32,7 +31,6 @@ class HitterController extends Controller
                 ['brls_per_pa', '<>', null],
                 ['brls_rank', '<>', 0],
                 ['rank_avg', '<>', null],
-                ['pa', '>=', $min_pa],
             ])->orderBy('rank_avg', 'asc')->get();
         }
 
