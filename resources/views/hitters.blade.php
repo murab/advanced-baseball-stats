@@ -10,7 +10,7 @@
         Hitter Rankings
     </h1>
 
-    <p>Average PA: {{ $min_pa }}</p>
+    <p>Minimum PA: {{ $min_pa }}</p>
 
     <div class="row">
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
@@ -23,11 +23,6 @@
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-            <label for="pa_minimum">PA Min</label>
-            <input type="text" id="pa_minimum" class="form-control form-control-sm">
-        </div>
-
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
             <label for="pa_per_g_minimum">PA/G Min</label>
             <input type="text" id="pa_per_g_minimum" class="form-control form-control-sm">
         </div>
@@ -37,10 +32,10 @@
             <input type="text" id="sb_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="text-align: right">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
-            <div id="saveSet" style="margin-bottom: 5px">Save search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
+            <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
             <div style="margin-bottom: 5px">Search: <input type="text" id="search"></div>
             <br />
         </div>
@@ -79,7 +74,7 @@
                     <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>
                     <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
-                    <td class="align-middle pa">{{$stat['pa']}}</td>
+                    <td class="align-middle">{{$stat['pa']}}</td>
                     <td class="align-middle pa-per-g" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td class="align-middle">{{$stat['r']}}</td>
                     <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
@@ -177,15 +172,8 @@
             // });
 
             function doMins() {
-                var minPa = parseFloat($('#pa_minimum').val());
-                $('.pa').parent().removeClass('exclude').show();
-                $('.pa').each(function() {
-                    if ($(this).html() < minPa) {
-                        $(this).parent().addClass('exclude');
-                        $(this).parent().hide();
-                    }
-                });
                 var minPaPerGame = parseFloat($('#pa_per_g_minimum').val());
+                $('.pa-per-g').parent().removeClass('exclude').show();
                 $('.pa-per-g').each(function() {
                     if ($(this).html() < minPaPerGame) {
                         $(this).parent().addClass('exclude');
@@ -226,11 +214,6 @@
             //     return true;
             // });
 
-            if (typeof $.cookie('pa_minimum') !== 'undefined') {
-                $('#pa_minimum').val($.cookie('pa_minimum'));
-            } else {
-                $('#pa_minimum').val({{ $min_pa }});
-            }
             if ($.cookie('pa_per_g_minimum') !== 'NaN') {
                 $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
             }
@@ -266,8 +249,7 @@
                 filterCurrentSearch();
             });
 
-            $('#pa_minimum, #pa_per_g_minimum, #sb_minimum').on('keyup change', function(e) {
-                $.cookie('pa_minimum', parseFloat($('#pa_minimum').val()), { expires: 20*365 });
+            $('#pa_per_g_minimum, #sb_minimum').on('keyup change', function(e) {
                 $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
                 $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
                 doMins();
