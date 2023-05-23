@@ -10,7 +10,7 @@
         Hitter Rankings
     </h1>
 
-    <p>Minimum PA: {{ $min_pa }}</p>
+    <p>Average PA in {{ $year }}: {{ $min_pa }}</p>
 
     <div class="row">
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
@@ -23,6 +23,11 @@
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+            <label for="pa_minimum">PA Min</label>
+            <input type="text" id="pa_minimum" class="form-control form-control-sm">
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
             <label for="pa_per_g_minimum">PA/G Min</label>
             <input type="text" id="pa_per_g_minimum" class="form-control form-control-sm">
         </div>
@@ -32,7 +37,7 @@
             <input type="text" id="sb_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6" style="text-align: right">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
             <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
@@ -69,29 +74,29 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($stats as $key => $stat)
-                <tr>
-                    <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>
-                    <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
-                    <td class="align-middle">{{$stat['pa']}}</td>
-                    <td class="align-middle pa-per-g" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
-                    <td class="align-middle">{{$stat['r']}}</td>
-                    <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
-                    <td class="align-middle">{{$stat['hr']}}</td>
-                    <td class="align-middle">{{$stat['rbi']}}</td>
-                    <td class="align-middle sb" style="border-right: 1px solid black;">{{$stat['sb']}}</td>
-                    <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed_rank'])}}</td>
-                    <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-weight: bold @endif">{{number_format($stat['def'],1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['vsleft_wrc_plus']}}</td>
-                    <td class="align-middle" style=" font-size: 1.2em;  @if ($stat['wrc_plus'] > 110) font-weight: bold; color: green @endif">{{$stat['wrc_plus']}}</td>
-                </tr>
-            @endforeach
+{{--            @foreach($stats as $key => $stat)--}}
+{{--                <tr>--}}
+{{--                    <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>--}}
+{{--                    <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>--}}
+{{--                    <td class="align-middle pa">{{$stat['pa']}}</td>--}}
+{{--                    <td class="align-middle pa-per-g" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>--}}
+{{--                    <td class="align-middle">{{$stat['r']}}</td>--}}
+{{--                    <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>--}}
+{{--                    <td class="align-middle">{{$stat['hr']}}</td>--}}
+{{--                    <td class="align-middle">{{$stat['rbi']}}</td>--}}
+{{--                    <td class="align-middle sb" style="border-right: 1px solid black;">{{$stat['sb']}}</td>--}}
+{{--                    <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed_rank'])}}</td>--}}
+{{--                    <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-weight: bold @endif">{{number_format($stat['def'],1)}}</td>--}}
+{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['vsleft_wrc_plus']}}</td>--}}
+{{--                    <td class="align-middle" style=" font-size: 1.2em;  @if ($stat['wrc_plus'] > 110) font-weight: bold; color: green @endif">{{$stat['wrc_plus']}}</td>--}}
+{{--                </tr>--}}
+{{--            @endforeach--}}
             </tbody>
         </table>
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
@@ -147,80 +152,27 @@
                         $('#saveSetName').val(hitter.name);
                         $('#search').val(hitter.players);
                         filterCurrentSearch();
-                        // t.search(hitter.players, true, false).draw();
                     });
                 });
             }
 
             drawPlayerSetButtons(data.hitters);
 
-            // var t = $('#hitters').DataTable({
-            //     fixedHeader: true,
-            //     fixedColumns: {
-            //         left: 2
-            //     },
-            //     scrollX: true,
-            //     paging: false,
-            //     // order: [[ 17, "asc" ]]
-            //     // columnDefs: [
-            //     //     { width: "6%", targets: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] },
-            //     // ]
-            // });
-
-            // $('.table-responsive-md').on("scroll", function() {
-            //     $('#hitters').DataTable().fixedHeader.adjust();
-            // });
-
-            function doMins() {
-                var minPaPerGame = parseFloat($('#pa_per_g_minimum').val());
-                $('.pa-per-g').parent().removeClass('exclude').show();
-                $('.pa-per-g').each(function() {
-                    if ($(this).html() < minPaPerGame) {
-                        $(this).parent().addClass('exclude');
-                        $(this).parent().hide();
-                    }
-                });
-                var minSb = parseFloat($('#sb_minimum').val());
-                $('.sb').each(function() {
-                    if ($(this).html() < minSb) {
-                        $(this).parent().addClass('exclude');
-                        $(this).parent().hide();
-                    }
-                });
-                filterCurrentSearch();
+            if (typeof $.cookie('pa_minimum') !== 'undefined') {
+                $('#pa_minimum').val($.cookie('pa_minimum'));
+            } else {
+                $('#pa_minimum').val({{ $min_pa }});
             }
-
-            // t.on('order.dt search.dt', function () {
-            //     let i = 1;
-            //
-            //     t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-            //         this.data(i++);
-            //     });
-            // }).draw();
-
-            // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            //     var min = parseFloat($('#pa_per_g_minimum').val());
-            //     if (parseFloat(data[4]) < min) {
-            //         return false;
-            //     }
-            //     return true;
-            // });
-            //
-            // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            //     var min = parseFloat($('#sb_minimum').val());
-            //     if (parseFloat(data[9]) < min) {
-            //         return false;
-            //     }
-            //     return true;
-            // });
-
-            if ($.cookie('pa_per_g_minimum') !== 'NaN') {
+            if (typeof $.cookie('pa_per_g_minimum') !== 'undefined') {
                 $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
+            } else {
+                $('#pa_per_g_minimum').val(0);
             }
-            if ($.cookie('sb_minimum') !== 'NaN') {
+            if (typeof $.cookie('sb_minimum') !== 'undefined') {
                 $('#sb_minimum').val($.cookie('sb_minimum'));
+            } else {
+                $('#sb_minimum').val(0);
             }
-            // t.draw();
 
             $('.playerSetBtn').eq(0).click();
 
@@ -230,30 +182,15 @@
                 window.location.href = '/hitters/'+year;
             });
 
-            // $('.dataTables_filter input', t.table().container())
-            //     .off('.DT')
-            //     .on('keyup.DT cut.DT paste.DT input.DT search.DT', function (e) {
-            //         // If the length is 3 or more characters, or the user pressed ENTER, search
-            //         if(this.value.length >= 3 || e.keyCode == 13) {
-            //             // Call the API search function
-            //             t.search(this.value, true, false).draw();
-            //         }
-            //
-            //         // Ensure we clear the search if they backspace far enough
-            //         if(this.value === "") {
-            //             t.search("").draw();
-            //         }
-            //     });
-
             $('#search').on('change keyup', function() {
                 filterCurrentSearch();
             });
 
-            $('#pa_per_g_minimum, #sb_minimum').on('keyup change', function(e) {
+            $('#pa_minimum, #pa_per_g_minimum, #sb_minimum').on('change keyup', function(e) {
+                $.cookie('pa_minimum', parseFloat($('#pa_minimum').val()), { expires: 20*365 });
                 $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
                 $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
-                doMins();
-                // t.draw();
+                updateData();
             });
 
             function filterCurrentSearch() {
@@ -288,14 +225,49 @@
 
                     $('.numHitters').html(rank-1);
                 });
-
-                // $("tr:visible").each(function (index) {
-                //     $(this).css("background-color", !!(index & 1)? "rgba(0,0,0,.05)" : "rgba(0,0,0,0)");
-                // });
             }
 
-            doMins();
-            filterCurrentSearch();
+            function updateData() {
+                $.get("/api/hitters/{{ $year }}/"+$('#pa_minimum').val()+"/"+$('#pa_per_g_minimum').val()+"/"+$('#sb_minimum').val(), function(data) {
+                    $('#hitters tbody tr').remove();
+                    data = JSON.parse(data);
+                    var i = 1;
+                    data.forEach(function(stat) {
+                        insertRow(stat, i);
+                        i++;
+                    });
+                    $('.numHitters').html(data.length);
+                }).done(function() {
+                    filterCurrentSearch();
+                });
+            }
+
+            function insertRow(stat, rank) {
+                $('#hitters tbody').append(
+                    "<tr>" +
+                        '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
+                    '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/hitter/'+stat['player']['slug']+'" class="hitterNameLink">'+stat['player']['name']+'</a></td>'+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
+                '<td class="align-middle pa">'+stat['pa']+"</td>"+
+                '<td class="align-middle pa-per-g" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
+                '<td class="align-middle">'+stat['r']+"</td>"+
+                '<td class="align-middle">'+stat['avg']+"</td>"+
+                '<td class="align-middle">'+stat['hr']+"</td>"+
+                '<td class="align-middle">'+stat['rbi']+"</td>"+
+                '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
+                '<td class="align-middle">'+stat['bb_percentage']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['sprint_speed_rank']+"</td>"+
+                '<td class="align-middle">'+stat['brls_rank']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['vsleft_wrc_plus']+"</td>"+
+                '<td class="align-middle" style=" font-size: 1.2em;  '+(stat['wrc_plus'] > 110 ? 'font-weight: bold; color: green' : '')+'">'+stat['wrc_plus']+"</td>"+
+                '</tr>');
+            }
+
+            updateData();
         });
     </script>
 @endsection

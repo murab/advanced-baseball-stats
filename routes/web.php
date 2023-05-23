@@ -41,3 +41,5 @@ Route::get('/articles', 'ArticleController@index')->name('articles');
 Route::get('/about', 'ArticleController@about')->name('about');
 
 Route::get('/articles/{slug}', 'ArticleController@showPost')->name('article');
+
+Route::get('/api/hitters/{year}/{pa_min}/{pa_per_g_min}/{sb_min}', 'HitterController@filter');
