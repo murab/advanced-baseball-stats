@@ -72,13 +72,6 @@ class HitterController extends Controller
             ['sb', '>=', $sb_min],
         ])->with('player')->orderBy('xwoba', 'desc')->get();
 
-        // select name, *, rank() over (order by xwoba desc) as xwoba_rank, RANK() OVER (ORDER BY brls_per_pa DESC) as brls_rank from hitters inner join players p on p.id = hitters.player_id where year = 2023 and pa >= 50 and pa_per_g >= 3.6 and sb >= 0
-//
-//        $stats = \DB::table('hitters')
-//            ->join('stats', 'stats.player_id', '=', 'hitters.player_id')
-//            ->select('*, RANK() OVER (ORDER BY xwoba DESC) as xwoba_rank, RANK() OVER (ORDER BY brls_per_pa DESC) as brls_per_pa_rank')->toSql();
-//echo $stats;
-
         $arr = [];
 
         foreach ($stats as $i => $player) {

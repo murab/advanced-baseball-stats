@@ -382,7 +382,6 @@ class Stat extends Model
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
-            ['pa', '>=', $min_pa],
             ['avg', '<>', null],
             ['sb', '<>', null],
             ['g', '<>', null],

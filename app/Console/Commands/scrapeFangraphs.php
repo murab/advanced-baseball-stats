@@ -100,6 +100,8 @@ class scrapeFangraphs extends Command
             }
             unset($player['name']);
 
+            $player['pa_per_g'] = $player['pa'] / $player['g'] ?? 0;
+
             $stats->fill($player);
 
             $stats->save();
