@@ -158,17 +158,17 @@
 
             drawPlayerSetButtons(data.hitters);
 
-            if (typeof $.cookie('pa_minimum') !== 'undefined') {
+            if ($.cookie('pa_minimum') !== 'NaN' && typeof $.cookie('pa_minimum') === 'string') {
                 $('#pa_minimum').val($.cookie('pa_minimum'));
             } else {
                 $('#pa_minimum').val({{ $min_pa }});
             }
-            if (typeof $.cookie('pa_per_g_minimum') !== 'undefined') {
+            if ($.cookie('pa_per_g_minimum') !== 'NaN' && typeof $.cookie('pa_per_g_minimum') === 'string') {
                 $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
             } else {
                 $('#pa_per_g_minimum').val(0);
             }
-            if (typeof $.cookie('sb_minimum') !== 'undefined') {
+            if ($.cookie('sb_minimum') !== 'NaN' && typeof $.cookie('sb_minimum') === 'string') {
                 $('#sb_minimum').val($.cookie('sb_minimum'));
             } else {
                 $('#sb_minimum').val(0);
