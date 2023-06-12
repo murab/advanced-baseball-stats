@@ -26,6 +26,8 @@ class scrapeFangraphs extends Command
     const RAWhitterVsLeftDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=1&season=2019&month=13&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
     const RAWhitterVsLeftDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=1&season=2019&month=13&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
 
+    const RAWhitterBattedBallSplitsSource = 'https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0';
+
     const DUPLICATES_TO_SKIP = [
         'Luis Garcia' => ['STL', 'TEX'],
     ];
@@ -73,13 +75,17 @@ class scrapeFangraphs extends Command
                 $year = date('Y')-1;
             }
         }
+        $this->year = $year;
 
         $this->setUrls($year);
 
         $data = $this->getHitterData();
+        $data = $this->getHitterSplitData($data);
         $data_2nd = $this->getHitterData2ndHalf();
 
         foreach ($data as $player) {
+            if (!isset($player['name'])) { continue; }
+
             $Player = Player::firstOrCreate([
                 'slug' => Str::slug($player['name'])
             ], [
@@ -96,7 +102,9 @@ class scrapeFangraphs extends Command
 
             foreach ($data[$lowername] as $stat => $val) {
                 if (in_array($stat, ['name', 'age'])) { continue; }
-                $player['secondhalf_'.$stat] = $data_2nd[$lowername][$stat] ?? null;
+                if (isset($player['secondhalf_'.$stat])) {
+                    $player['secondhalf_'.$stat] = $data_2nd[$lowername][$stat] ?? null;
+                }
             }
             unset($player['name']);
 
@@ -265,6 +273,60 @@ class scrapeFangraphs extends Command
         $this->hitterDataSource2ndHalf = str_replace('2019',$year,self::RAWhitterDataSource2ndHalf);
         $this->hitterVsLeftDataSource = str_replace('2019',$year,self::RAWhitterVsLeftDataSource);
         $this->hitterVsLeftDataSource2ndHalf = str_replace('2019',$year,self::RAWhitterVsLeftDataSource2ndHalf);
+        $this->RAWhitterBattedBallSplitsSource = str_replace('2019',$year,self::RAWhitterBattedBallSplitsSource);
+    }
+
+    public function getHitterSplitData($stats) {
+
+        $cmd = "curl 'https://www.fangraphs.com/api/leaders/splits/splits-leaders' \
+  -H 'authority: www.fangraphs.com' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'cookie: _omappvp=0PXX6y2vYNCnNDIseEPRMOJlwIdkPDI4CkVvFSS0Kyzv86y6ixhB6gqJcJ19DnTFBImy2lMtCkaukxjAp7UPScvKZgnKdZ9z; wordpress_test_cookie=WP%20Cookie%20check; __qca=P0-1357311515-1679081076826; _ga=GA1.1.816244008.1679081079; _ga_757YGY2LKP=GS1.1.1681036933.2.1.1681037841.0.0.0; fg__ab-test=enabled; abtest_FL928EAM=ezoic; wordpress_logged_in_0cae6f5cb929d209043cb97f8c2eee44=yashi%7C1712936683%7C2zdon6eu5ySAObcv5jfWN6Upu2sBBGscSo7QAzuqKqK%7C55c61d8c02bae197fd079c6b8b0de6021e831f4c10221c1e92edcfc7d6eed4c4' \
+  -H 'origin: https://www.fangraphs.com' \
+  -H 'pragma: no-cache' \
+  -H 'referer: https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0' \
+  -H 'sec-ch-ua: \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: \"macOS\"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36' \
+  --data-raw '{\"strPlayerId\":\"all\",\"strSplitArr\":[12],\"strGroup\":\"season\",\"strPosition\":\"B\",\"strType\":\"3\",\"strStartDate\":\"2019-03-01\",\"strEndDate\":\"2019-11-01\",\"strSplitTeams\":false,\"dctFilters\":[],\"strStatType\":\"player\",\"strAutoPt\":\"false\",\"arrPlayerId\":[],\"strSplitArrPitch\":[],\"arrWxTemperature\":null,\"arrWxPressure\":null,\"arrWxAirDensity\":null,\"arrWxElevation\":null,\"arrWxWindSpeed\":null}' \
+  --compressed";
+
+        $output = exec(str_replace("2019", $this->year, $cmd));
+
+        $output = json_decode($output, true);
+
+        if (is_iterable($output['data'])) foreach ($output['data'] as $stat) {
+
+            if (!key_exists('playerName', $stat) || !is_numeric($stat['PA']) || !is_numeric($stat['Pull%'])) { continue; }
+
+            $player_data = [];
+            $player_data['name'] = $stat['playerName'];
+            $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+            $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
+            $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
+
+            if (!isset($stats[strtolower($player_data['name'])]['g'])) {
+                continue;
+            }
+
+            $stats[strtolower($player_data['name'])]['flyballs'] = trim($stat['PA']);
+            $stats[strtolower($player_data['name'])]['pulled_flyball_percentage'] = trim($stat['Pull%']);
+            $stats[strtolower($player_data['name'])]['pulled_flyballs'] = round(trim($stat['Pull%']) * trim($stat['PA']));
+            $stats[strtolower($player_data['name'])]['pulled_flyballs_per_g'] = $stats[strtolower($player_data['name'])]['pulled_flyballs'] / $stats[strtolower($player_data['name'])]['g'];
+        }
+
+        return $stats;
     }
 
     public function parseHitterData($stats)

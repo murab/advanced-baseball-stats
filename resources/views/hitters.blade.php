@@ -66,7 +66,8 @@
                 <th style="border-right: 1px solid black;">K%</th>
                 <th style="border-right: 1px solid black;">SwStr%</th>
                 <th style="border-right: 1px solid black;">Sprint Rank</th>
-                <th>Brls Rank</th>
+                <th style="border-right: 1px solid black;">Brls/PA Rank</th>
+                <th>PullFB/G Rank</th>
                 <th style="border-right: 1px solid black;">xwOBA Rank</th>
                 <th style="font-weight: bold; border-right: 1px solid black;">Def</th>
                 <th class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
@@ -259,7 +260,8 @@
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['sprint_speed_rank']+"</td>"+
-                '<td class="align-middle">'+stat['brls_rank']+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
+                '<td class="align-middle">'+stat['pulled_fb_g_rank']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['vsleft_wrc_plus']+"</td>"+

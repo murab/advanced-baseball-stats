@@ -455,6 +455,21 @@ class Stat extends Model
             ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
             ['pa', '>=', $min_pa],
+        ])->orderBy('pulled_flyballs_per_g', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->pulled_flyballs_per_g_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['wrc_plus', '<>', null],
+            ['k_percentage', '<>', null],
+            ['brls_per_pa', '<>', null],
+            ['pa', '>=', $min_pa],
         ])->orderBy('wrc_plus', 'desc')->get();
 
         $i = 1;
@@ -513,6 +528,22 @@ class Stat extends Model
             'year' => $year,
             ['wrc_plus', '<>', null],
             ['k_percentage', '<>', null],
+            ['sprint_speed', '<>', null],
+            ['brls_per_pa', '<>', null],
+            ['pa', '>=', $min_pa],
+        ])->orderBy('sprint_speed', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->sprint_speed_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['wrc_plus', '<>', null],
+            ['k_percentage', '<>', null],
             ['brls_per_pa', '<>', null],
             ['pa', '>=', $min_pa],
         ])->orderBy('brls_per_pa', 'desc')->get();
@@ -521,7 +552,7 @@ class Stat extends Model
         $all = [];
         foreach ($players as $player) {
             $player->brls_rank = $i;
-            $player->rank_avg = ($player->brls_rank + $player->xwoba_rank) / 2;
+            $player->rank_avg = ($player->pulled_flyballs_per_g_rank + $player->xwoba_rank) / 2;
 
             $all[] = [
                 'id' => $player->id,
