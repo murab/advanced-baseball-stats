@@ -46,20 +46,33 @@ class fullScrape extends Command
             }
         }
 
-        $this->info('Scraping Fangraphs');
-        $this->call('scrape:fangraphs', ['year' => $year]);
+        if ($year == 'all') {
+            for ($year = 2015; $year <= date('Y'); $year++) {
+                $this->info('Scraping Fangraphs');
+                $this->call('scrape:fangraphs', ['year' => $year]);
 
-        $this->info('Scraping Savant');
-        $this->call('scrape:savant', ['year' => $year]);
+                $this->info('Scraping Savant');
+                $this->call('scrape:savant', ['year' => $year]);
 
-//        $this->info('Scraping Prospectus');
-//        $this->call('scrape:prospectus', ['year' => $year]);
+                $this->info('Computing and storing true skill ratings');
+                $this->call('z:tru', ['year' => $year]);
 
-        $this->info('Computing and storing true skill ratings');
-        $this->call('z:tru', ['year' => $year]);
+                $this->info('Tabulating data and generating output files');
+                $this->call('z:text', ['year' => $year]);
+            }
+        } else {
+            $this->info('Scraping Fangraphs');
+            $this->call('scrape:fangraphs', ['year' => $year]);
 
-        $this->info('Tabulating data and generating output files');
-        $this->call('z:text', ['year' => $year]);
+            $this->info('Scraping Savant');
+            $this->call('scrape:savant', ['year' => $year]);
+
+            $this->info('Computing and storing true skill ratings');
+            $this->call('z:tru', ['year' => $year]);
+
+            $this->info('Tabulating data and generating output files');
+            $this->call('z:text', ['year' => $year]);
+        }
 
         return 1;
     }
