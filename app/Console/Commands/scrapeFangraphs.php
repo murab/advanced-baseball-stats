@@ -295,7 +295,7 @@ class scrapeFangraphs extends Command
   -H 'sec-fetch-mode: cors' \
   -H 'sec-fetch-site: same-origin' \
   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36' \
-  --data-raw '{\"strPlayerId\":\"all\",\"strSplitArr\":[12],\"strGroup\":\"season\",\"strPosition\":\"B\",\"strType\":\"3\",\"strStartDate\":\"2019-03-01\",\"strEndDate\":\"2019-11-01\",\"strSplitTeams\":false,\"dctFilters\":[],\"strStatType\":\"player\",\"strAutoPt\":\"false\",\"arrPlayerId\":[],\"strSplitArrPitch\":[],\"arrWxTemperature\":null,\"arrWxPressure\":null,\"arrWxAirDensity\":null,\"arrWxElevation\":null,\"arrWxWindSpeed\":null}' \
+  --data-raw '{\"strPlayerId\":\"all\",\"strSplitArr\":[12,18],\"strGroup\":\"season\",\"strPosition\":\"B\",\"strType\":\"3\",\"strStartDate\":\"2019-03-01\",\"strEndDate\":\"2019-11-01\",\"strSplitTeams\":false,\"dctFilters\":[],\"strStatType\":\"player\",\"strAutoPt\":\"false\",\"arrPlayerId\":[],\"strSplitArrPitch\":[],\"arrWxTemperature\":null,\"arrWxPressure\":null,\"arrWxAirDensity\":null,\"arrWxElevation\":null,\"arrWxWindSpeed\":null}' \
   --compressed";
 
         $output = exec(str_replace("2019", $this->year, $cmd));
@@ -320,8 +320,8 @@ class scrapeFangraphs extends Command
                 continue;
             }
 
-            $stats[strtolower($player_data['name'])]['flyballs'] = trim($stat['PA']);
-            $stats[strtolower($player_data['name'])]['pulled_flyball_percentage'] = trim($stat['Pull%']);
+            $stats[strtolower($player_data['name'])]['flyballs'] = trim($stat['PA']); // hard hit flyballs
+            $stats[strtolower($player_data['name'])]['pulled_flyball_percentage'] = trim($stat['Pull%']); //
             $stats[strtolower($player_data['name'])]['pulled_flyballs'] = round(trim($stat['Pull%']) * trim($stat['PA']));
             $stats[strtolower($player_data['name'])]['pulled_flyballs_per_g'] = $stats[strtolower($player_data['name'])]['pulled_flyballs'] / $stats[strtolower($player_data['name'])]['g'];
         }
