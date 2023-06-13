@@ -26,7 +26,7 @@ class scrapeFangraphs extends Command
     const RAWhitterVsLeftDataSource = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=1&season=2019&month=13&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
     const RAWhitterVsLeftDataSource2ndHalf = 'https://www.fangraphs.com/leaders.aspx?pos=np&stats=bat&lg=all&qual=0&type=1&season=2019&month=13&season1=2019&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2019-01-01&enddate=2019-12-31&page=1_3000';
 
-    const RAWhitterBattedBallSplitsSource = 'https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0';
+    const RAWhitterBattedBallSplitsSource = 'https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12,18&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0';
 
     const DUPLICATES_TO_SKIP = [
         'Luis Garcia' => ['STL', 'TEX'],
