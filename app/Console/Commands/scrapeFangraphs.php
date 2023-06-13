@@ -287,7 +287,7 @@ class scrapeFangraphs extends Command
   -H 'cookie: _omappvp=0PXX6y2vYNCnNDIseEPRMOJlwIdkPDI4CkVvFSS0Kyzv86y6ixhB6gqJcJ19DnTFBImy2lMtCkaukxjAp7UPScvKZgnKdZ9z; wordpress_test_cookie=WP%20Cookie%20check; __qca=P0-1357311515-1679081076826; _ga=GA1.1.816244008.1679081079; _ga_757YGY2LKP=GS1.1.1681036933.2.1.1681037841.0.0.0; fg__ab-test=enabled; abtest_FL928EAM=ezoic; wordpress_logged_in_0cae6f5cb929d209043cb97f8c2eee44=yashi%7C1712936683%7C2zdon6eu5ySAObcv5jfWN6Upu2sBBGscSo7QAzuqKqK%7C55c61d8c02bae197fd079c6b8b0de6021e831f4c10221c1e92edcfc7d6eed4c4' \
   -H 'origin: https://www.fangraphs.com' \
   -H 'pragma: no-cache' \
-  -H 'referer: https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0' \
+  -H 'referer: https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12,18&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0' \
   -H 'sec-ch-ua: \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\"' \
   -H 'sec-ch-ua-mobile: ?0' \
   -H 'sec-ch-ua-platform: \"macOS\"' \
@@ -324,6 +324,7 @@ class scrapeFangraphs extends Command
             $stats[strtolower($player_data['name'])]['pulled_flyball_percentage'] = trim($stat['Pull%']);
             $stats[strtolower($player_data['name'])]['pulled_flyballs'] = round(trim($stat['Pull%']) * trim($stat['PA']));
             $stats[strtolower($player_data['name'])]['pulled_flyballs_per_g'] = $stats[strtolower($player_data['name'])]['pulled_flyballs'] / $stats[strtolower($player_data['name'])]['g'];
+            var_dump($stat);
         }
 
         return $stats;
