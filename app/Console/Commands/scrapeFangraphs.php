@@ -324,7 +324,6 @@ class scrapeFangraphs extends Command
             $stats[strtolower($player_data['name'])]['pulled_flyball_percentage'] = trim($stat['Pull%']);
             $stats[strtolower($player_data['name'])]['pulled_flyballs'] = round(trim($stat['Pull%']) * trim($stat['PA']));
             $stats[strtolower($player_data['name'])]['pulled_flyballs_per_g'] = $stats[strtolower($player_data['name'])]['pulled_flyballs'] / $stats[strtolower($player_data['name'])]['g'];
-            var_dump($stat);
         }
 
         return $stats;
