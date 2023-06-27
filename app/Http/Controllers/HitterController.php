@@ -119,7 +119,7 @@ class HitterController extends Controller
             $stats[$i]['sprint_speed_rank'] = $arr[$player['id']]['sprint_speed_rank']+1;
             $stats[$i]['xwoba_rank'] = $arr[$player['id']]['xwoba_rank']+1;
             $stats[$i]['pulled_fb_g_rank'] = $arr[$player['id']]['pulled_fb_g_rank']+1;
-            $stats[$i]['avg_rank'] = ($stats[$i]['pulled_fb_g_rank']*1.5 + $stats[$i]['xwoba_rank']) / 2.5;
+            $stats[$i]['avg_rank'] = ($stats[$i]['pulled_fb_g_rank'] + $stats[$i]['xwoba_rank']) / 2;
         }
 
         $stats = $stats->toArray();
