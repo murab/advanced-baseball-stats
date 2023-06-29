@@ -51,7 +51,7 @@
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
         <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
             <thead>
-            <tr>
+            <tr style="text-align: center">
                 <th>Rank</th>
                 <th style="width: 125px">Name</th>
                 <th style="border-right: 1px solid black;">Age</th>
@@ -65,11 +65,11 @@
                 <th>BB%</th>
                 <th style="border-right: 1px solid black;">K%</th>
                 <th style="border-right: 1px solid black;">SwStr%</th>
-                <th style="border-right: 1px solid black;">Sprint Rank</th>
-                <th style="border-right: 1px solid black;">Brls/PA Rank</th>
+                <th style="border-right: 1px solid black;">Sprint<br>Rank</th>
+                <th style="border-right: 1px solid black;">Brls/PA<br>Rank</th>
                 <th style="border-right: 1px solid black;">HardPullFB/G</th>
-                <th>HardPullFB/G Rank</th>
-                <th style="border-right: 1px solid black;">xwOBA Rank</th>
+                <th>HardPullFB/G<br>Rank</th>
+                <th style="border-right: 1px solid black;">xwOBA<br>Rank</th>
                 <th style="font-weight: bold; border-right: 1px solid black;">Def</th>
                 <th class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
                 <th class="all">wRC+</th>
