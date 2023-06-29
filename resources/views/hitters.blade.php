@@ -262,7 +262,7 @@
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['sprint_speed_rank']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toPrecision(2)+"</td>"+
+                '<td class="align-middle" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
                 '<td class="align-middle">'+stat['pulled_fb_g_rank']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
                 '<td class="align-middle" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
