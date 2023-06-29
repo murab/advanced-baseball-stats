@@ -51,9 +51,9 @@
                 <th class="desktop" style="border-right: 1px solid black;">Age</th>
                 <th class="desktop">IP</th>
                 <th class="desktop" style="border-right: 1px solid black;">IPpG</th>
+                <th class="desktop" style="border-right: 1px solid black;">KpG</th>
                 <th class="desktop">ERA</th>
                 <th class="desktop" style="border-right: 1px solid black;">WHIP</th>
-                <th class="desktop" style="border-right: 1px solid black;">KpG</th>
                 <th class="all">K%</th>
                 <th class="desktop">BB%</th>
                 <th class="desktop" style="border-right: 1px solid black;">K-BB%</th>
@@ -82,9 +82,9 @@
 {{--                    <td>{{$stat['g']}}</td>--}}
                     <td class="align-middle">{{$stat['ip']}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td class="align-middle">{{number_format($stat['era'], 2)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td class="align-middle">{{number_format($stat['k_percentage'],1)}}</td>
                     <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>

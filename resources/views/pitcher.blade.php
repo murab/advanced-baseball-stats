@@ -19,9 +19,9 @@
                 <th class="all">G</th>
                 <th class="all">IP</th>
                 <th class="all" style="border-right: 1px solid black;">IP per G</th>
+                <th class="all" style="border-right: 1px solid black;">K per G</th>
                 <th class="all">ERA</th>
                 <th class="all" style="border-right: 1px solid black;">WHIP</th>
-                <th class="all" style="border-right: 1px solid black;">K per G</th>
                 <th class="all">K%</th>
                 <th class="all">BB%</th>
                 <th class="all" style="border-right: 1px solid black;">K-BB%</th>
@@ -47,9 +47,9 @@
                     @else
                         <td style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
                     @endif
+                    <td style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td>{{number_format($stat['era'], 2)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
                     <td>{{number_format($stat['k_percentage'],1)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
