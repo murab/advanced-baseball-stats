@@ -40,3 +40,9 @@ table.dataTable td a {
     text-align: right !important;
 }
 
+table#hitters th, table#pitchers th {
+    position: sticky;
+    top: 0;
+    background-color: grey;
+    color: white;
+}
