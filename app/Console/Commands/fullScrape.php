@@ -47,6 +47,7 @@ class fullScrape extends Command
         }
 
         if ($year == 'all') {
+            $this->info('Starting full scrape of all years since 2015...');
             for ($year = 2015; $year <= date('Y'); $year++) {
                 $this->info('Scraping Fangraphs');
                 $this->call('scrape:fangraphs', ['year' => $year]);
