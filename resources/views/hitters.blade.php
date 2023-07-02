@@ -67,8 +67,8 @@
                 <th style="border-right: 1px solid black;">SwStr%</th>
                 <th style="border-right: 1px solid black;">Sprint<br>Rank</th>
                 <th style="border-right: 1px solid black;">Brls/PA<br>Rank</th>
-                <th style="border-right: 1px solid black;">HardPullFB/G</th>
-                <th>HardPullFB/G<br>Rank</th>
+                <th style="border-right: 1px solid black;">HardPullFB<br>per G</th>
+                <th>HardPullFB<br>per G Rank</th>
                 <th style="border-right: 1px solid black;">xwOBA<br>Rank</th>
                 <th style="font-weight: bold; border-right: 1px solid black;">Def</th>
                 <th class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
