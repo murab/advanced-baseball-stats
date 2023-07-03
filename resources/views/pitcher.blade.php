@@ -26,8 +26,9 @@
                 <th class="all">BB%</th>
                 <th class="all" style="border-right: 1px solid black;">K-BB%</th>
                 <th class="all" style="border-right: 1px solid black;">SwStr%</th>
-                <th class="all" style="border-right: 1px solid black;">Velo</th>
                 <th class="all" style="border-right: 1px solid black;">GB%</th>
+                <th class="all" style="border-right: 1px solid black;">CSW%</th>
+                <th class="all" style="border-right: 1px solid black;">Velo</th>
 {{--                <th class="all" style="border-right: 1px solid black;">IP per G Rank</th>--}}
                 <th class="all" style="border-right: 1px solid black;">K% or KpG<br>Rank</th>
                 <th class="all" style="border-right: 1px solid black;">xERA Rank</th>
@@ -54,8 +55,9 @@
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
+                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
 {{--                    <td style="border-right: 1px solid black;">{{ $stat['position'] != 'RP' ? abs($stat['ip_per_g_rank']) : ''}}</td>--}}
                     <td style="border-right: 1px solid black;">{{$stat['k_rank'] ?? ''}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['xwoba_rank'] ?? ''}}</td>

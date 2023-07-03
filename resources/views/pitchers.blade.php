@@ -59,7 +59,7 @@
                 <th class="desktop" style="border-right: 1px solid black;">K-BB%</th>
                 <th class="desktop" style="border-right: 1px solid black;">SwStr%</th>
                 <th class="all" style="border-right: 1px solid black;">GB%</th>
-                <th class="desktop" style="border-right: 1px solid black;"><a href="https://www.pitcherlist.com/csw-rate-an-intro-to-an-important-new-metric/">CSW%</a></th>
+                <th class="desktop" style="border-right: 1px solid black;">CSW%</th>
                 <th class="all" style="border-right: 1px solid black;">Velo</th>
 {{--                <th class="desktop">IPpG Rank</th>--}}
 
