@@ -19,20 +19,30 @@
     <div class="row">
         <div class="col-xl-1 col-lg-2 col-md-3">
             <label for="positionSelect">Position</label>
-            <select class="form-control" id="positionSelect" name="positionSelect">
+            <select class="form-control form-control-sm" id="positionSelect" name="positionSelect">
                 <option value="sp">SP</option>
                 <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
             </select>
         </div>
         <div class="col-xl-2 col-lg-3 col-md-4">
             <label for="yearSelect">Year</label>
-            <select class="form-control" id="yearSelect" name="yearSelect">
+            <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
                     <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
                 @endforeach
             </select>
         </div>
-        <div class="col-xl-9 col-lg-7 col-md-5" style="text-align: right">
+
+        @if ($position == 'sp')
+        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-2">
+            <label for="ip_minimum">IP Min</label>
+            <input type="text" id="ip_minimum" class="form-control form-control-sm">
+        </div>
+        @else
+            <input type="hidden" id="ip_minimum">
+        @endif
+
+        <div class="col-xl-8 col-lg-7 col-md-5" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
             <div id="playerSets" style="margin-bottom: 5px"></div>
             <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
@@ -69,35 +79,12 @@
                     <th class="desktop">K% Rank</th>
                 @endif
 
-                <th class="desktop">xERA Rank</th>
+                <th class="desktop" style="border-right: 1px solid black;">xERA Rank</th>
                 <th class="all" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($stats as $key => $stat)
-                <tr>
-                    <td style="font-size: 1.2em;" class="align-middle">{{$key+1}}</td>
-                    <td class="align-middle" style="text-align: left;font-size: 1.2em; letter-spacing: 0"><a href={{route('pitcher', $stat->player['slug'])}}>{{$stat->player['name']}}</a></td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>
-{{--                    <td>{{$stat['g']}}</td>--}}
-                    <td class="align-middle">{{$stat['ip']}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['ip'] / $stat['g'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_per_game'], 1)}}</td>
-                    <td class="align-middle">{{number_format($stat['era'], 2)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
-                    <td class="align-middle">{{number_format($stat['k_percentage'],1)}}</td>
-                    <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
-                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
-{{--                    <td class="align-middle">{{ $position != 'rp' ? $stat['ip_per_g_rank'] : ''}}</td>--}}
-                    <td class="align-middle">{{ $stat['k_rank'] ?? ''}}</td>
-                    <td class="align-middle">{{ $stat['xwoba_rank'] ?? ''}}</td>
-                    <td class="align-middle" style="font-weight: bold;font-size: 1.2em;">{{$key+1}}</td>
-                </tr>
-            @endforeach
+
             </tbody>
         </table>
         <div style="text-align: center">Out of <span class="numPitchers"></span> eligible pitchers</div>
@@ -106,6 +93,7 @@
 
 @section('javascript')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -158,6 +146,12 @@
 
             drawPlayerSetButtons(data.pitchers);
 
+            if ($('#positionSelect').val() == 'sp' && $.cookie('ip_minimum') !== 'NaN' && typeof $.cookie('ip_minimum') === 'string') {
+                $('#ip_minimum').val($.cookie('ip_minimum'));
+            } else {
+                $('#ip_minimum').val({{ $min_ip }});
+            }
+
             $('.playerSetBtn').eq(0).click();
 
             $('#positionSelect, #yearSelect').change(function() {
@@ -168,6 +162,11 @@
 
             $('#search').on('change keyup', function() {
                 filterCurrentSearch();
+            });
+
+            $('#ip_minimum').on('change keyup', function(e) {
+                $.cookie('ip_minimum', parseFloat($('#ip_minimum').val()), { expires: 20*365 });
+                updateData();
             });
 
             function filterCurrentSearch() {
@@ -204,7 +203,46 @@
                 });
             }
 
-            filterCurrentSearch();
+            function updateData() {
+                $.get("/api/pitchers/{{ $year }}/{{ $position }}/"+$('#ip_minimum').val(), function(data) {
+                    $('#pitchers tbody tr').remove();
+                    data = JSON.parse(data);
+                    var i = 1;
+                    data.forEach(function(stat) {
+                        insertRow(stat, i);
+                        i++;
+                    });
+                    $('.numPitchers').html(data.length);
+                }).done(function() {
+                    filterCurrentSearch();
+                });
+            }
+
+            function insertRow(stat, rank) {
+                $('#pitchers tbody').append(
+                    "<tr>" +
+                    '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
+                    '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/pitcher/'+stat['player']['slug']+'" class="pitcherNameLink">'+stat['player']['name']+'</a></td>'+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
+                    '<td class="align-middle ip">'+stat['ip']+"</td>"+
+                    '<td class="align-middle ip-per-g" style="border-right: 1px solid black;">'+stat['ip_per_g']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['k_per_game']+"</td>"+
+                    '<td class="align-middle">'+stat['era']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['whip']+"</td>"+
+                    '<td class="align-middle">'+stat['k_percentage']+"</td>"+
+                    '<td class="align-middle">'+stat['bb_percentage']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['kbb_percentage']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['gb_percentage']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['csw']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['velo']+"</td>"+
+                    '<td class="align-middle">'+stat['k_rank']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
+                    '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
+                    '</tr>');
+            }
+
+            updateData();
         });
     </script>
 @endsection

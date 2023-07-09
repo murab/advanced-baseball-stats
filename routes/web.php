@@ -43,3 +43,4 @@ Route::get('/about', 'ArticleController@about')->name('about');
 Route::get('/articles/{slug}', 'ArticleController@showPost')->name('article');
 
 Route::get('/api/hitters/{year}/{pa_min}/{pa_per_g_min}/{sb_min}', 'HitterController@filter');
+Route::get('/api/pitchers/{year}/{position}/{min_ip}', 'PitcherController@filter');

@@ -76,29 +76,7 @@
             </tr>
             </thead>
             <tbody>
-{{--            @foreach($stats as $key => $stat)--}}
-{{--                <tr>--}}
-{{--                    <td class="align-middle" style="font-size: 1.2em;">{{$key+1}}</td>--}}
-{{--                    <td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="{{route('hitter', $stat->player['slug'])}}" class="hitterNameLink">{{$stat->player['name']}}</a></td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['age']}}</td>--}}
-{{--                    <td class="align-middle pa">{{$stat['pa']}}</td>--}}
-{{--                    <td class="align-middle pa-per-g" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>--}}
-{{--                    <td class="align-middle">{{$stat['r']}}</td>--}}
-{{--                    <td class="align-middle">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>--}}
-{{--                    <td class="align-middle">{{$stat['hr']}}</td>--}}
-{{--                    <td class="align-middle">{{$stat['rbi']}}</td>--}}
-{{--                    <td class="align-middle sb" style="border-right: 1px solid black;">{{$stat['sb']}}</td>--}}
-{{--                    <td class="align-middle">{{number_format($stat['bb_percentage'], 1)}}</td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed_rank'])}}</td>--}}
-{{--                    <td class="align-middle">{{number_format($stat['brls_rank'])}}</td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-weight: bold @endif">{{number_format($stat['def'],1)}}</td>--}}
-{{--                    <td class="align-middle" style="border-right: 1px solid black;">{{$stat['vsleft_wrc_plus']}}</td>--}}
-{{--                    <td class="align-middle" style=" font-size: 1.2em;  @if ($stat['wrc_plus'] > 110) font-weight: bold; color: green @endif">{{$stat['wrc_plus']}}</td>--}}
-{{--                </tr>--}}
-{{--            @endforeach--}}
+
             </tbody>
         </table>
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>

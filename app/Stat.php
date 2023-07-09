@@ -253,11 +253,6 @@ class Stat extends Model
             $all_data = Stat::reliefPitcherStats($year,$second_half,null);
         }
 
-        $worst_k_per_game = Stat::worstKperGame($year, $position);
-        $best_k_per_game = Stat::bestKperGame($year, $position);
-        $best_xwoba = Stat::bestXwoba($year, $position);
-        $worst_xwoba = Stat::worstXwoba($year, $position);
-
         $league_ops = Stat::leagueAverageStats($year)['ops'];
 
         foreach ($all_data as $key => $data) {
