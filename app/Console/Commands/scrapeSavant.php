@@ -19,6 +19,7 @@ class scrapeSavant extends Command
 
     const namesSavantToFangraphs = [
         'Cedric Mullins' => 'Cedric Mullins II',
+        'Luis Robert Jr' => 'Luis Robert',
     ];
 
     const playersToSkip = [

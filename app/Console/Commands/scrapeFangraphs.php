@@ -28,6 +28,11 @@ class scrapeFangraphs extends Command
 
     const RAWhitterBattedBallSplitsSource = 'https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12,18&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0';
 
+    const namesSavantToFangraphs = [
+        'Cedric Mullins' => 'Cedric Mullins II',
+        'Luis Robert Jr' => 'Luis Robert',
+    ];
+
     const DUPLICATES_TO_SKIP = [
         'Luis Garcia' => ['STL', 'TEX'],
     ];
@@ -315,6 +320,10 @@ class scrapeFangraphs extends Command
                 'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
             $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
+
+            if (isset(self::namesSavantToFangraphs[$player_data['name']])) {
+                $player_data['name'] = self::namesSavantToFangraphs[$player_data['name']];
+            }
 
             if (!isset($stats[strtolower($player_data['name'])]['g'])) {
                 continue;
