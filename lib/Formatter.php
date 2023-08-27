@@ -10,9 +10,9 @@ class Formatter
     {
         $data['era'] = number_format($data['era'], 2);
         $data['whip'] = number_format($data['whip'], 2);
-        $data['kbb_percentage'] = number_format($data['kbb_percentage']*100, 1);
-        $data['swstr_percentage'] = number_format($data['swstr_percentage']*100, 1);
-        $data['gb_percentage'] = number_format($data['gb_percentage']*100, 1);
+        $data['kbb_percentage'] = number_format($data['kbb_percentage'], 1);
+        $data['swstr_percentage'] = number_format($data['swstr_percentage'], 1);
+        $data['gb_percentage'] = number_format($data['gb_percentage'], 1);
         $data['velo'] = number_format($data['velo'], 1);
 
         $output = "\nLeague Averages";

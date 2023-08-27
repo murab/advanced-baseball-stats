@@ -631,10 +631,10 @@ class scrapeFangraphs extends Command
             $data['fbv'] = floatval($stat['pfxvFA']);
             $this->league_pitcher_data['fbv'] = number_format($data['fbv'], 1);
 
-            $data['swstr_percentage'] = floatval($stat['SwStr%']);
+            $data['swstr_percentage'] = floatval($stat['SwStr%']*100);
             $this->league_pitcher_data['swstr_percentage'] = number_format($data['swstr_percentage'], 1);
 
-            $data['kbb_percentage'] = floatval($stat['K-BB%']);
+            $data['kbb_percentage'] = floatval($stat['K-BB%'])*100;
             $this->league_pitcher_data['kbb_percentage'] = number_format($data['kbb_percentage'], 1);
 
             $data['era'] = floatval($stat['ERA']);
@@ -643,7 +643,7 @@ class scrapeFangraphs extends Command
             $data['whip'] = floatval($stat['WHIP']);
             $this->league_pitcher_data['whip'] = number_format($data['whip'], 2);
 
-            $data['gb_percentage'] = floatval($stat['GB%']);
+            $data['gb_percentage'] = floatval($stat['GB%']*100);
             $this->league_pitcher_data['gb_percentage'] = number_format($data['gb_percentage'], 1);
         }
 
