@@ -49,7 +49,7 @@
 
 </div>
 
-<div class="col" style="padding-left: 0; padding-right: 21px">
+<div class="col-sm-12" style="padding-left: 0; padding-right: 21px">
 
     <div class="table-responsive-sm">
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
