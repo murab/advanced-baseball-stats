@@ -47,6 +47,10 @@
 
     </div>
 
+</div>
+
+<div class="col" style="padding-left: 0; padding-right: 21px">
+
     <div class="table-responsive-sm">
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
         <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
@@ -81,6 +85,7 @@
         </table>
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
     </div>
+
 @endsection
 
 @section('javascript')
