@@ -49,7 +49,7 @@
 
 </div>
 
-<div class="col-sm-12" style="padding-left: 0; padding-right: 21px">
+<div class="col-sm-12" style="padding-left: 0; padding-right: 0px">
 
     <div class="table-responsive-sm">
         <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
@@ -66,16 +66,16 @@
                 <th class="all" >HR</th>
                 <th class="all" >RBI</th>
                 <th class="all"  style="border-right: 1px solid black;">SB</th>
-                <th>BB%</th>
-                <th style="border-right: 1px solid black;">K%</th>
-                <th style="border-right: 1px solid black;">SwStr%</th>
-                <th style="border-right: 1px solid black;">Sprint<br>Rank</th>
-                <th style="border-right: 1px solid black;">Brls/PA<br>Rank</th>
-                <th style="border-right: 1px solid black;">HardPullFB<br>per G</th>
-                <th>HardPullFB<br>per G Rank</th>
-                <th style="border-right: 1px solid black;">xwOBA<br>Rank</th>
-                <th style="font-weight: bold; border-right: 1px solid black;">Def</th>
-                <th class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
+                <th class="d-none d-sm-block">BB%</th>
+                <th class="d-none d-sm-block" style="border-right: 1px solid black;">K%</th>
+                <th class="d-none d-sm-block" style="border-right: 1px solid black;">SwStr%</th>
+                <th class="d-none d-sm-block" style="border-right: 1px solid black;">Sprint<br>Rank</th>
+                <th class="d-none d-sm-block" style="border-right: 1px solid black;">Brls/PA<br>Rank</th>
+                <th class="d-none d-sm-block" style="border-right: 1px solid black;">HardPullFB<br>per G</th>
+                <th class="d-none d-sm-block">HardPullFB<br>per G Rank</th>
+                <th class="d-none d-sm-block" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
+                <th class="d-none d-sm-block" style="font-weight: bold; border-right: 1px solid black;">Def</th>
+                <th class="d-none d-sm-block" class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
                 <th class="all">wRC+</th>
             </tr>
             </thead>
@@ -240,16 +240,16 @@
                 '<td class="align-middle">'+stat['hr']+"</td>"+
                 '<td class="align-middle">'+stat['rbi']+"</td>"+
                 '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
-                '<td class="align-middle">'+stat['bb_percentage']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['sprint_speed_rank']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
-                '<td class="align-middle">'+stat['pulled_fb_g_rank']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
-                '<td class="align-middle" style="border-right: 1px solid black;">'+stat['vsleft_wrc_plus']+"</td>"+
+                '<td class="align-middle d-none d-sm-block">'+stat['bb_percentage']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+stat['sprint_speed_rank']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
+                '<td class="align-middle d-none d-sm-block">'+stat['pulled_fb_g_rank']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
+                '<td class="align-middle d-none d-sm-block" style="border-right: 1px solid black;">'+stat['vsleft_wrc_plus']+"</td>"+
                 '<td class="align-middle" style=" font-size: 1.2em;  '+(stat['wrc_plus'] > 110 ? 'font-weight: bold; color: green' : '')+'">'+stat['wrc_plus']+"</td>"+
                 '</tr>');
             }
