@@ -217,7 +217,7 @@ class scrapeSavant extends Command
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
             $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
 
-            $player_data['sprint_speed'] = floatval(trim($player[10]));
+            $player_data['sprint_speed'] = floatval(trim($player[10]," \""));
 
             if (!empty($player_data) && !empty($hitters[strtolower($player_data['name'])])) {
                 $hitters[strtolower($player_data['name'])]['sprint_speed'] = $player_data['sprint_speed'];
