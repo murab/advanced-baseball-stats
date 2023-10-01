@@ -395,6 +395,9 @@ class scrapeFangraphs extends Command
             // wRC+
             $player_data['wrc_plus'] = (int) $stat['wRC+'];
 
+            // OPS
+            $player_data['ops'] = floatval($stat['OPS']);
+
             // Barrels/BBE
             $player_data['brls_bbe'] = floatval($stat['Barrel%'])*100;
 

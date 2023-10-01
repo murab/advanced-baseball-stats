@@ -55,13 +55,14 @@
                     <th>Rank</th>
                     <th style="width: 125px">Name</th>
                     <th style="border-right: 1px solid black;">Age</th>
-                    <th>PA</th>
+                    <th class="d-none d-md-table-cell">PA</th>
                     <th style="border-right: 1px solid black;">PA/G</th>
                     <th>R</th>
                     <th>AVG</th>
                     <th>HR</th>
                     <th>RBI</th>
                     <th style="border-right: 1px solid black;">SB</th>
+                    <th style="border-right: 1px solid black;">OPS</th>
                     <th class="d-none d-md-table-cell">BB%</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K%</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">SwStr%</th>
@@ -229,13 +230,14 @@
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
                     '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/hitter/'+stat['player']['slug']+'" class="hitterNameLink">'+stat['player']['name']+'</a></td>'+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
-                    '<td class="align-middle pa">'+stat['pa']+"</td>"+
+                    '<td class="align-middle pa d-none d-md-table-cell">'+stat['pa']+"</td>"+
                     '<td class="align-middle pa-per-g" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
                     '<td class="align-middle">'+stat['r']+"</td>"+
                     '<td class="align-middle">'+stat['avg']+"</td>"+
                     '<td class="align-middle">'+stat['hr']+"</td>"+
                     '<td class="align-middle">'+stat['rbi']+"</td>"+
                     '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black;">'+Number(stat['ops']).toFixed(3)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
