@@ -9,7 +9,8 @@
         {{$player['name']}} Stats
     </h1>
 
-    <div class="table-responsive-sm">
+    <div class="row">
+        <div class="col-sm-12 table-responsive" style="padding-right: 0; padding-left: 0">
         <table id="hitters" class="table-bordered table-striped table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
             <thead style="text-align: center">
             <tr>
@@ -22,6 +23,7 @@
                 <th class="all">HR</th>
                 <th class="all">RBI</th>
                 <th class="all" style="border-right: 1px solid black;">SB</th>
+                <th class="all" style="border-right: 1px solid black;">OPS</th>
                 <th class="all">BB%</th>
                 <th class="all" style="border-right: 1px solid black;">K%</th>
                 <th class="all" style="border-right: 1px solid black;">SwStr%</th>
@@ -48,6 +50,7 @@
                     <td>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
+                    <td style="border-right: 1px solid black;">{{number_format($stat['ops'], 3)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
@@ -64,6 +67,7 @@
             @endforeach
             </tbody>
         </table>
+    </div>
     </div>
 @endsection
 
