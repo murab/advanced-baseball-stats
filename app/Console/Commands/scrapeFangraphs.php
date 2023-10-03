@@ -28,8 +28,8 @@ class scrapeFangraphs extends Command
     const RAWhitterBattedBallSplitsSource = 'https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=12,18&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=player&statgroup=3&startDate=2019-03-01&endDate=2019-11-01&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=12,1&pageitems=10000000000000&pg=0';
 
     const namesSavantToFangraphs = [
-        'Cedric Mullins' => 'Cedric Mullins II',
-        'Luis Robert Jr' => 'Luis Robert',
+//        'Cedric Mullins' => 'Cedric Mullins II',
+//        'Luis Robert Jr' => 'Luis Robert',
     ];
 
     const DUPLICATES_TO_SKIP = [
