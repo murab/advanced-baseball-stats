@@ -18,8 +18,8 @@ class scrapeSavant extends Command
     const RAWhittersBrlsPaURL = "https://baseballsavant.mlb.com/leaderboard/statcast?type=batter&year=2019&position=&team=&min=1&csv=true";
 
     const namesSavantToFangraphs = [
-        'Cedric Mullins' => 'Cedric Mullins II',
-        'Luis Robert Jr' => 'Luis Robert',
+//        'Cedric Mullins' => 'Cedric Mullins II',
+//        'Luis Robert Jr' => 'Luis Robert',
     ];
 
     const playersToSkip = [
