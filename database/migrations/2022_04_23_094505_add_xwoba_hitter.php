@@ -14,7 +14,7 @@ class AddXwobaHitter extends Migration
     public function up()
     {
         Schema::table('hitters', function (Blueprint $table) {
-            $table->float('xwoba_rank')->nullable();
+            $table->float('xwoba_rank',8,3)->nullable();
         });
     }
 

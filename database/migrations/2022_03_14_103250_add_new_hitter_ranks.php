@@ -15,7 +15,7 @@ class AddNewHitterRanks extends Migration
     {
         Schema::table('hitters', function (Blueprint $table) {
             $table->integer('avg_rank')->nullable();
-            $table->float('sb_per_pa')->nullable();
+            $table->float('sb_per_pa',8,3)->nullable();
             $table->integer('sb_per_pa_rank')->nullable();
         });
     }

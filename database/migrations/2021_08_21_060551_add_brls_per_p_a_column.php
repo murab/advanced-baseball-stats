@@ -14,7 +14,7 @@ class AddBrlsPerPAColumn extends Migration
     public function up()
     {
         Schema::table('hitters', function (Blueprint $table) {
-            $table->float('brls_per_pa')->nullable();
+            $table->float('brls_per_pa',8,3)->nullable();
         });
     }
 

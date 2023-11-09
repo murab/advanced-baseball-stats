@@ -14,7 +14,7 @@ class AddOps extends Migration
     public function up()
     {
         Schema::table('hitters', function (Blueprint $table) {
-            $table->float('ops')->nullable();
+            $table->float('ops',8,3)->nullable();
         });
     }
 

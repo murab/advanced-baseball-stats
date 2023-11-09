@@ -14,10 +14,10 @@ class AddHitterRanks extends Migration
     public function up()
     {
         Schema::table('hitters', function (Blueprint $table) {
-            $table->float('sprint_speed')->nullable();
-            $table->float('brls_bbe')->nullable();
+            $table->float('sprint_speed',8,3)->nullable();
+            $table->float('brls_bbe',8,3)->nullable();
             $table->float('rank_avg')->nullable();
-            
+
             $table->float('secondhalf_brls_bbe')->nullable();
 
             $table->integer('k_percentage_rank')->nullable();

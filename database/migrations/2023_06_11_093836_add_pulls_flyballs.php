@@ -16,8 +16,8 @@ class AddPullsFlyballs extends Migration
         Schema::table('hitters', function (Blueprint $table) {
             $table->integer('flyballs')->nullable();
             $table->integer('pulled_flyballs')->nullable();
-            $table->float('pulled_flyball_percentage')->nullable();
-            $table->float('pulled_flyballs_per_g')->nullable();
+            $table->float('pulled_flyball_percentage',8,3)->nullable();
+            $table->float('pulled_flyballs_per_g',8,3)->nullable();
             $table->integer('pulled_flyballs_per_g_rank')->nullable();
         });
     }
