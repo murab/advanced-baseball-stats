@@ -51,7 +51,7 @@
                     <td>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
-                    <td style="border-right: 1px solid black;"><?php if ($stat['cs'] === null) echo '0'; else echo number_format($stat['sb']/($stat['sb']+$stat['cs']),2)*100; ?>%</td>
+                    <td style="border-right: 1px solid black;"><?php if ($stat['cs'] === null || $stat['sb'] === 0) echo '0'; else echo number_format($stat['sb']/($stat['sb']+$stat['cs']),2)*100; ?>%</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['ops'], 3)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
