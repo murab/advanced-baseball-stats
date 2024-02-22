@@ -22,7 +22,7 @@
                 <th class="all">AVG</th>
                 <th class="all">HR</th>
                 <th class="all">RBI</th>
-                <th class="all">SB</th>
+                <th class="all" style="border-right: 1px solid black;">SB</th>
                 <th class="all" style="border-right: 1px solid black;">SB%</th>
                 <th class="all" style="border-right: 1px solid black;">OPS</th>
                 <th class="all">BB%</th>
