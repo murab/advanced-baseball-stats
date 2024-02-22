@@ -22,7 +22,8 @@
                 <th class="all">AVG</th>
                 <th class="all">HR</th>
                 <th class="all">RBI</th>
-                <th class="all" style="border-right: 1px solid black;">SB</th>
+                <th class="all">SB</th>
+                <th class="all" style="border-right: 1px solid black;">SB%</th>
                 <th class="all" style="border-right: 1px solid black;">OPS</th>
                 <th class="all">BB%</th>
                 <th class="all" style="border-right: 1px solid black;">K%</th>
@@ -50,6 +51,7 @@
                     <td>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
+                    <td style="border-right: 1px solid black;"><?php if ($stat['cs'] === null) echo '0'; else echo number_format($stat['sb']/($stat['sb']+$stat['cs']),2)*100; ?>%</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['ops'], 3)}}</td>
                     <td>{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>

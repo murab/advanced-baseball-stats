@@ -380,6 +380,9 @@ class scrapeFangraphs extends Command
             // SB
             $player_data['sb'] = (int) $stat['SB'];
 
+            // CS
+            $player_data['cs'] = (int) $stat['CS'];
+
             // K%
             $player_data['k_percentage'] = floatval($stat['K%'])*100;
 
