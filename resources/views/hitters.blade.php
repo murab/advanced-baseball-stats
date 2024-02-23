@@ -239,7 +239,7 @@
                     '<td class="align-middle">'+stat['hr']+"</td>"+
                     '<td class="align-middle">'+stat['rbi']+"</td>"+
                     '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
-                    '<td style="border-right: 1px solid black;">' + sb_percentage + '%</td>' +
+                    '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">' + sb_percentage + '%</td>' +
                     '<td class="align-middle" style="border-right: 1px solid black;">'+Number(stat['ops']).toFixed(3)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
