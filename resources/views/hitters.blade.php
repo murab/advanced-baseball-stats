@@ -62,6 +62,7 @@
                     <th>HR</th>
                     <th>RBI</th>
                     <th style="border-right: 1px solid black;">SB</th>
+                    <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SB%</th>
                     <th style="border-right: 1px solid black;">OPS</th>
                     <th class="d-none d-md-table-cell">BB%</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K%</th>
@@ -225,6 +226,7 @@
             }
 
             function insertRow(stat, rank) {
+                var sb_percentage = stat['sb'] === 0 ? 0 :  Number(stat['sb']/(stat['sb']+stat['cs'])*100).toFixed(0);
                 $('#hitters tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
@@ -237,6 +239,7 @@
                     '<td class="align-middle">'+stat['hr']+"</td>"+
                     '<td class="align-middle">'+stat['rbi']+"</td>"+
                     '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
+                    '<td style="border-right: 1px solid black;">' + sb_percentage + '%</td>' +
                     '<td class="align-middle" style="border-right: 1px solid black;">'+Number(stat['ops']).toFixed(3)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
