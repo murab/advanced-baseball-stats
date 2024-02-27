@@ -21,7 +21,12 @@
         </ul>
 
         <div class="form-inline my-2 my-lg-0">
-            <p class="my-sm-0 my-2"><a class="nav-link" href="https://twitter.com/therotoranker">@TheRotoRanker</a></p>
+            <p class="my-sm-0 my-2">
+                <form method="post" action="/gotoplayer" name="gotoplayerForm">
+                    @csrf
+                    <input type="text" id="gotoplayer" name="gotoplayer" class="form-control" placeholder="Go to Player Page">
+                </form>
+            </p>
         </div>
     </div>
 </nav>

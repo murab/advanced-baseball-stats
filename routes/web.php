@@ -1,5 +1,6 @@
 <?php
 
+use App\Player;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -44,3 +45,18 @@ Route::get('/articles/{slug}', 'ArticleController@showPost')->name('article');
 
 Route::get('/api/hitters/{year}/{pa_min}/{pa_per_g_min}/{sb_min}', 'HitterController@filter');
 Route::get('/api/pitchers/{year}/{position}/{min_ip}', 'PitcherController@filter');
+
+Route::post('/gotoplayer', function(Request $request) {
+    $player = $request->post('gotoplayer');
+    $slug = str_replace(' ', '-', strtolower($player));
+    Player::where('slug', $slug)->first();
+    if ($player = Player::where('slug', $slug)->first()) {
+        $hitter = \App\Hitter::where('player_id', $player->id)->get();
+        $pitcher = \App\Stat::where('player_id', $player->id)->get();
+        if (count($pitcher)) {
+            return redirect()->route('pitcher', ['slug' => $slug]);
+        } else if (count($hitter)) {
+            return redirect()->route('hitter', ['slug' => $slug]);
+        }
+    }
+});
