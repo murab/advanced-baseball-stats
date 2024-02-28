@@ -59,4 +59,21 @@ Route::post('/gotoplayer', function(Request $request) {
             return redirect()->route('hitter', ['slug' => $slug]);
         }
     }
+    abort(404);
+})->name('gotoplayer');
+
+Route::get('/{any}', function ($any) {
+    $player = $any;
+    $slug = str_replace(' ', '-', strtolower($player));
+    Player::where('slug', $slug)->first();
+    if ($player = Player::where('slug', $slug)->first()) {
+        $hitter = \App\Hitter::where('player_id', $player->id)->get();
+        $pitcher = \App\Stat::where('player_id', $player->id)->get();
+        if (count($pitcher)) {
+            return redirect()->route('pitcher', ['slug' => $slug]);
+        } else if (count($hitter)) {
+            return redirect()->route('hitter', ['slug' => $slug]);
+        }
+    }
+    abort(404);
 });
