@@ -69,7 +69,7 @@ Route::get('/{any}', function ($any) {
     if ($player = Player::where('slug', $slug)->first()) {
         $hitter = \App\Hitter::where('player_id', $player->id)->get();
         $pitcher = \App\Stat::where('player_id', $player->id)->get();
-        if (count($pitcher)) {
+        if (count($pitcher) >= count($hitter)) {
             return redirect()->route('pitcher', ['slug' => $slug]);
         } else if (count($hitter)) {
             return redirect()->route('hitter', ['slug' => $slug]);
