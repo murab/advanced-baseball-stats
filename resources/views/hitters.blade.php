@@ -12,7 +12,7 @@
     <p>Average PA in {{ $year }}: {{ $min_pa }}</p>
 
     <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
             <label for="yearSelect">Year</label>
             <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
@@ -21,27 +21,25 @@
             </select>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
             <label for="pa_minimum">PA Min</label>
             <input type="text" id="pa_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
             <label for="pa_per_g_minimum">PA/G Min</label>
             <input type="text" id="pa_per_g_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
             <label for="sb_minimum">SB Min</label>
             <input type="text" id="sb_minimum" class="form-control form-control-sm">
         </div>
 
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
-            <div id="playerSets" style="margin-bottom: 5px"></div>
-            <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
-            <div style="margin-bottom: 5px">Search: <input type="text" id="search"></div>
-            <br />
+            <div id="saveSet" style="margin-bottom: 5px">Save search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
+            <div>Search: <input type="text" id="search"></div><div id="playerSets"></div>
         </div>
 
     </div>
