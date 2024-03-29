@@ -12,7 +12,7 @@
     <p>Average PA in {{ $year }}: {{ $min_pa }}</p>
 
     <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
             <label for="yearSelect">Year</label>
             <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
@@ -21,17 +21,17 @@
             </select>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
             <label for="pa_minimum">PA Min</label>
             <input type="text" id="pa_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
             <label for="pa_per_g_minimum">PA/G Min</label>
             <input type="text" id="pa_per_g_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
             <label for="sb_minimum">SB Min</label>
             <input type="text" id="sb_minimum" class="form-control form-control-sm">
         </div>
