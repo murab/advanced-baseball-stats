@@ -17,15 +17,15 @@
     @endif
 
     <div class="row">
-        <div class="col-xl-1 col-lg-2 col-md-3">
-            <label for="positionSelect">Position</label>
+        <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
+            <label class="mb-0" for="positionSelect">Position</label>
             <select class="form-control form-control-sm" id="positionSelect" name="positionSelect">
                 <option value="sp">SP</option>
                 <option value="rp" @if ($position == 'rp') selected @endif>RP</option>
             </select>
         </div>
-        <div class="col-xl-2 col-lg-3 col-md-4">
-            <label for="yearSelect">Year</label>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-4">
+            <label class="mb-0"  for="yearSelect">Year</label>
             <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
                     <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
@@ -34,20 +34,23 @@
         </div>
 
         @if ($position == 'sp')
-        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-2">
-            <label for="ip_minimum">IP Min</label>
+        <div class="col-lg-1 col-sm-2 col-4">
+            <label class="mb-0"  for="ip_minimum">IP Min</label>
             <input type="text" id="ip_minimum" class="form-control form-control-sm">
         </div>
         @else
             <input type="hidden" id="ip_minimum">
         @endif
 
-        <div class="col-xl-8 col-lg-7 col-md-5" style="text-align: right">
-            <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
-            <div id="playerSets" style="margin-bottom: 5px"></div>
-            <div id="saveSet" style="margin-bottom: 5px">Save current search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
-            <div style="margin-bottom: 5px">Search: <input type="text" id="search"></div>
-            <br />
+        <div class="col-sm-2 offset-sm-4 col-6">
+            <label class="mb-0"  for="saveSetName">Save search as</label>
+            <input type="text" class="form-control form-control-sm" id="saveSetName">
+            <button class="btn btn-outline-secondary btn-sm mt-1 mr-1" id="saveSetBtn">Save</button><button class="btn btn-outline-secondary mt-1 btn-sm" id="deleteSetBtn">Delete</button>
+        </div>
+        <div class="col-sm-2 col-6">
+            <label class="mb-0"  for="search">Search</label>
+            <input class="form-control-sm form-control" type="text" id="search">
+            <span class="float-right" id="playerSets"></span>
         </div>
     </div>
 
@@ -133,7 +136,7 @@
                 $("#playerSets").empty();
                 $.each(players, function(key, pitcher) {
                     $("#playerSets").append(
-                        "<button id='"+pitcher.name+"' class='playerSetBtn'>"+pitcher.name+"</button>"
+                        "<button id='"+pitcher.name+"' class='playerSetBtn btn btn-outline-secondary mt-1 ml-1 btn-sm'>"+pitcher.name+"</button>"
                     );
                     $("#"+pitcher.name).on('click', function() {
                         $("#pitchers_filter input").val(pitcher.players);

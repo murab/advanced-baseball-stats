@@ -12,8 +12,8 @@
     <p>Average PA in {{ $year }}: {{ $min_pa }}</p>
 
     <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 mb-2">
-            <label for="yearSelect">Year</label>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 mb-3">
+            <label class="mb-0"  for="yearSelect">Year</label>
             <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
                     <option value="{{$oneYear}}" @if ($year == $oneYear) selected @endif>{{$oneYear}}</option>
@@ -22,27 +22,27 @@
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
-            <label for="pa_minimum">PA Min</label>
+            <label class="mb-0"  for="pa_minimum">PA Min</label>
             <input type="text" id="pa_minimum" class="form-control form-control-sm">
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
-            <label for="pa_per_g_minimum">PA/G Min</label>
+            <label class="mb-0"  for="pa_per_g_minimum">PA/G Min</label>
             <input type="text" id="pa_per_g_minimum" class="form-control form-control-sm">
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
-            <label for="sb_minimum">SB Min</label>
+            <label class="mb-0"  for="sb_minimum">SB Min</label>
             <input type="text" id="sb_minimum" class="form-control form-control-sm">
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
-            <label for="saveSetName">Save search as</label>
-            <input type="text" class="form-control form-control-sm" id="saveSetName" placeholder="Save search as">
-            <button class="btn btn-outline-secondary mr-1" id="saveSetBtn">Save</button><button class="btn btn-outline-secondary" id="deleteSetBtn">Delete</button>
+            <label class="mb-0"  for="saveSetName">Save search as</label>
+            <input type="text" class="form-control form-control-sm" id="saveSetName">
+            <button class="btn btn-outline-secondary btn-sm mt-1 mr-1" id="saveSetBtn">Save</button><button class="btn btn-outline-secondary mt-1 btn-sm" id="deleteSetBtn">Delete</button>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
-            <label for="search">Search</label>
+            <label class="mb-0"  for="search">Search</label>
             <input class="form-control-sm form-control" type="text" id="search">
             <span class="float-right" id="playerSets"></span>
         </div>
@@ -131,7 +131,7 @@
                 $("#playerSets").empty();
                 $.each(players, function(key, hitter) {
                     $("#playerSets").append(
-                        "<button id='"+hitter.name+"' class='btn btn-outline-secondary ml-1 playerSetBtn'>"+hitter.name+"</button>"
+                        "<button id='"+hitter.name+"' class='btn btn-outline-secondary ml-1 btn-sm mt-1 playerSetBtn'>"+hitter.name+"</button>"
                     );
                     $("#"+hitter.name).on('click', function() {
                         $("#hitters_filter input").val(hitter.players);
@@ -247,7 +247,7 @@
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['sprint_speed']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+Number(stat['sprint_speed']).toFixed(1)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['pulled_fb_g_rank']+"</td>"+
