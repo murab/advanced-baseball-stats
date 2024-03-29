@@ -12,7 +12,7 @@
     <p>Average PA in {{ $year }}: {{ $min_pa }}</p>
 
     <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 mb-2">
             <label for="yearSelect">Year</label>
             <select class="form-control form-control-sm" id="yearSelect" name="yearSelect">
                 @foreach ($years as $oneYear)
@@ -36,18 +36,15 @@
             <input type="text" id="sb_minimum" class="form-control form-control-sm">
         </div>
 
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="text-align: right">
-            <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
-            <div class="row">
-                <div class="col-12" id="saveSet" style="margin-bottom: 5px">
-                    <div class="float-left">Save search as <input type="text" id="saveSetName"></div>
-                    <div class="float-right"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
-                </div>
-                <div class="col-12">
-                    <span class="float-left">Search: <input type="text" id="search"></span>
-                    <span class="float-right" id="playerSets"></span>
-                </div>
-            </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
+            <label for="saveSetName">Save search as</label>
+            <input type="text" class="form-control form-control-sm" id="saveSetName" placeholder="Save search as">
+            <button class="btn btn-outline-secondary mr-1" id="saveSetBtn">Save</button><button class="btn btn-outline-secondary" id="deleteSetBtn">Delete</button>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-6">
+            <label for="search">Search</label>
+            <input class="form-control-sm form-control" type="text" id="search">
+            <span class="float-right" id="playerSets"></span>
         </div>
 
     </div>
@@ -134,7 +131,7 @@
                 $("#playerSets").empty();
                 $.each(players, function(key, hitter) {
                     $("#playerSets").append(
-                        "<button id='"+hitter.name+"' class='playerSetBtn'>"+hitter.name+"</button>"
+                        "<button id='"+hitter.name+"' class='btn btn-outline-secondary ml-1 playerSetBtn'>"+hitter.name+"</button>"
                     );
                     $("#"+hitter.name).on('click', function() {
                         $("#hitters_filter input").val(hitter.players);
