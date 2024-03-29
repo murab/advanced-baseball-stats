@@ -38,8 +38,16 @@
 
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="text-align: right">
             <div>Last updated: @if (date('G') > 7) {{ date('F j, Y') }}@else {{ date('F j, Y', strtotime('yesterday')) }}@endif</div>
-            <div id="saveSet" style="margin-bottom: 5px">Save search as <input type="text" id="saveSetName"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
-            <div>Search: <input type="text" id="search"></div><div id="playerSets"></div>
+            <div class="row">
+                <div class="col-12" id="saveSet" style="margin-bottom: 5px">
+                    <div class="float-left">Save search as <input type="text" id="saveSetName"></div>
+                    <div class="float-right"><button id="saveSetBtn">Save</button><button id="deleteSetBtn">Delete</button></div>
+                </div>
+                <div class="col-12">
+                    <span class="float-left">Search: <input type="text" id="search"></span>
+                    <span class="float-right" id="playerSets"></span>
+                </div>
+            </div>
         </div>
 
     </div>
