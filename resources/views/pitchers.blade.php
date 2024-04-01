@@ -3,6 +3,14 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/datatables.min.css"/>
     <link rel="canonical" href="{{route('pitcher_ranks', [$year, $position])}}" />
+    <style>
+        @media (max-width: 540px) {
+            .ip, .name { border-right: 1px solid black !important; }
+        }
+        @media (min-width: 541px) {
+            .xera { border-right: 1px solid black !important; }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -54,36 +62,37 @@
         </div>
     </div>
 
-    <div class="table-responsive-sm">
+    <div class="row">
+        <div class="col-sm-12" style="padding-right: 0; padding-left: 0">
         <div style="text-align: center">Out of <span class="numPitchers"></span> eligible pitchers</div>
         <table id="pitchers" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 16px; margin: 0 auto;">
             <thead>
             <tr>
-                <th class="all">Rank</th>
-                <th class="all" style="width: 125px">Name</th>
-                <th class="desktop" style="border-right: 1px solid black;">Age</th>
-                <th class="desktop">IP</th>
-                <th class="desktop" style="border-right: 1px solid black;">IPpG</th>
-                <th class="desktop" style="border-right: 1px solid black;">KpG</th>
-                <th class="desktop">ERA</th>
-                <th class="desktop" style="border-right: 1px solid black;">WHIP</th>
-                <th class="all">K%</th>
-                <th class="desktop">BB%</th>
-                <th class="desktop" style="border-right: 1px solid black;">K-BB%</th>
-                <th class="desktop" style="border-right: 1px solid black;">SwStr%</th>
-                <th class="all" style="border-right: 1px solid black;">GB%</th>
-                <th class="desktop" style="border-right: 1px solid black;">CSW%</th>
-                <th class="all" style="border-right: 1px solid black;">Velo</th>
+                <th class="">Rank</th>
+                <th class="name" style="width: 125px">Name</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Age</th>
+                <th class="ip">IP</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">IPpG</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">KpG</th>
+                <th class="">ERA</th>
+                <th class="" style="border-right: 1px solid black;">WHIP</th>
+                <th class="d-none d-md-table-cell">K%</th>
+                <th class="d-none d-md-table-cell">BB%</th>
+                <th class="" style="border-right: 1px solid black;">K-BB%</th>
+                <th class="" style="border-right: 1px solid black;">SwStr%</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">GB%</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">CSW%</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Velo</th>
 {{--                <th class="desktop">IPpG Rank</th>--}}
 
                 @if ($position == 'sp')
-                    <th class="desktop">KpG Rank</th>
+                    <th class="">KpG Rank</th>
                 @else
-                    <th class="desktop">K% Rank</th>
+                    <th class="">K% Rank</th>
                 @endif
 
-                <th class="desktop" style="border-right: 1px solid black;">xERA Rank</th>
-                <th class="all" style="font-weight: bold">Rank</th>
+                <th class="xera">xERA Rank</th>
+                <th class="d-none d-md-table-cell" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -225,23 +234,23 @@
                 $('#pitchers tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
-                    '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/pitcher/'+stat['player']['slug']+'" class="pitcherNameLink">'+stat['player']['name']+'</a></td>'+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
+                    '<td class="align-middle name" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/pitcher/'+stat['player']['slug']+'" class="pitcherNameLink">'+stat['player']['name']+'</a></td>'+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
                     '<td class="align-middle ip">'+stat['ip']+"</td>"+
-                    '<td class="align-middle ip-per-g" style="border-right: 1px solid black;">'+stat['ip_per_g']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['k_per_game']+"</td>"+
+                    '<td class="align-middle ip-per-g d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['ip_per_g']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_per_game']+"</td>"+
                     '<td class="align-middle">'+stat['era']+"</td>"+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['whip']+"</td>"+
-                    '<td class="align-middle">'+stat['k_percentage']+"</td>"+
-                    '<td class="align-middle">'+stat['bb_percentage']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell">'+stat['k_percentage']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['kbb_percentage']+"</td>"+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['gb_percentage']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['csw']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['velo']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['gb_percentage']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['csw']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['velo']+"</td>"+
                     '<td class="align-middle">'+stat['k_rank']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
-                    '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
+                    '<td class="align-middle xera">'+stat['xwoba_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="font-size: 1.2em;">'+rank+"</td>"+
                     '</tr>');
             }
 
