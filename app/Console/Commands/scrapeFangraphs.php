@@ -412,6 +412,11 @@ class scrapeFangraphs extends Command
                 $player_data['xwoba'] = floatval($stat['xwOBA']);
             }
 
+            // xBA
+            if (!empty($stat['xAVG'])) {
+                $player_data['xba'] = floatval($stat['xAVG']);
+            }
+
             foreach ($player_data as $stat => $val) {
                 $data[strtolower($player_data['name'])][$stat] = $val;
             }
