@@ -118,7 +118,7 @@ class Stat extends Model
         }
         $data = [];
         foreach ($stats as $stat) {
-            if ($stat['ip'] && $stat['g'] && $stat['ip'] >= $min_ip && ($stat['ip'] / $stat['g'] >= $min_ip_per_g)) {
+            if ($stat['ip'] && $stat['g'] && $stat['ip'] >= $min_ip) {
                 $data[$stat['id']] = $stat;
             }
         }
@@ -159,7 +159,7 @@ class Stat extends Model
         $data = [];
         if ($min_ip && $min_ip_per_g) {
             foreach ($orig_data as $key => $player) {
-                if ($player['ip'] >= $min_ip && ($player['ip'] / $player['g']) >= $min_ip_per_g) {
+                if ($player['ip'] >= $min_ip && $player['position'] == 'SP') {
                     $data['sp'][] = $player;
                 } else if ($player['ip'] >= $min_ip)  {
                     $data['rp'][] = $player;
@@ -384,6 +384,7 @@ class Stat extends Model
 
         foreach ($players as &$player) {
             $player->pa_per_g = $player->pa / $player->g ?? 0;
+            $player->pulled_flyballs_per_g = $player->pulled_flyballs / $player->g ?? 0;
         }
         $players = $players->sort(function ($a, $b) {
             if ($a->pa_per_g == $b->pa_per_g) {
