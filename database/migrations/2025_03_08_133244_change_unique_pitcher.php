@@ -14,6 +14,7 @@ class ChangeUniquePitcher extends Migration
     public function up()
     {
         Schema::table('stats', function (Blueprint $table) {
+            $table->dropForeign('stats_player_id_foreign');
             $table->dropUnique(['player_id', 'year']);
             $table->unique(['player_id', 'year', 'position']);
         });
@@ -29,6 +30,7 @@ class ChangeUniquePitcher extends Migration
         Schema::table('stats', function (Blueprint $table) {
             $table->dropUnique(['player_id', 'year', 'position']);
             $table->unique(['player_id', 'year']);
+            $table->foreign('player_id')->references('id')->on('players');
         });
     }
 }
