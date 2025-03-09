@@ -48,13 +48,12 @@ class calculateTru extends Command
             }
         }
 
-        DB::statement('update stats set tru = null, secondhalf_tru = null where year = ?',[$year]);
+        DB::statement('update stats set tru = null, secondhalf_tru = null, k_rank = null, xwoba_rank = null where year = ?',[$year]);
 
         $starters = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP');
         $starters2ndHalf = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP',true);
         $relievers = Stat::computeKperGameMinusAdjustedXwoba($year,'RP');
         $relievers2ndHalf = Stat::computeKperGameMinusAdjustedXwoba($year,'RP',true);
-
         foreach ($starters as $starter) {
             $Stat = Stat::find($starter['id']);
             $Stat->tru = $starter['tru'];

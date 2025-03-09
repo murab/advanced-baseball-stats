@@ -357,7 +357,7 @@ class Stat extends Model
     public static function calculateMinInningsPitched(int $year, string $position = 'sp')
     {
         $position = strtoupper($position);
-        return min(50, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = '{$position}'", [$year])[0])));
+        return min(33, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = '{$position}'", [$year])[0])));
     }
 
     public static function calculateMinPlateAppearances(int $year)
@@ -367,7 +367,19 @@ class Stat extends Model
 
     public static function computeHitterRanks(int $year)
     {
-        DB::statement('update hitters set rank_avg_rank = null, rank_avg = null where year = ?',[$year]);
+        DB::statement('
+                update hitters set
+                   rank_avg_rank = null,
+                   rank_avg = null,
+                   pa_per_g_rank = null,
+                   sb_per_pa_rank = null,
+                   pulled_flyballs_per_g_rank = null,
+                   wrcplus_rank = null,
+                   k_percentage_rank = null,
+                   sprint_speed_rank = null,
+                   brls_rank = null,
+                   xwoba_rank = null
+                where year = ?' ,[$year]);
 
         $min_pa = self::calculateMinPlateAppearances($year);
 
