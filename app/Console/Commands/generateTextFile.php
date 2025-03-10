@@ -74,7 +74,7 @@ class generateTextFile extends Command
             $player_formatted_data = \Formatter::pitcher($player);
 
             foreach ($custom_lists as $list) {
-                if (in_array($player['player']['name'], $players_of_interest[$list])) {
+                if (in_array($player['player']['name'], $players_of_interest[$list]) && str_contains($list, 'SP')) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
             }
@@ -85,7 +85,7 @@ class generateTextFile extends Command
             $player_formatted_data = \Formatter::pitcher($player);
 
             foreach ($custom_lists as $list) {
-                if (in_array($player['player']['name'], $players_of_interest[$list])) {
+                if (in_array($player['player']['name'], $players_of_interest[$list]) && str_contains($list, 'RP')) {
                     $custom_players[$list][] = $player_formatted_data;
                 }
             }
