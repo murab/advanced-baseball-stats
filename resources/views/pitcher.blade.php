@@ -38,7 +38,11 @@
             <tbody>
             @foreach($stats as $key => $stat)
                 <tr>
-                    <td><a href="{{route('pitcher_ranks', [$stat['year'], strtolower($stat['position'])])}}">{{$stat['year']}}</a></td>
+                    <td>
+                        @if ($key == 0 || $key > 0 && $stats[$key-1]['year'] != $stat['year'])
+                        <a href="{{route('pitcher_ranks', [$stat['year'], strtolower($stat['position'])])}}">{{$stat['year']}}</a>
+                        @endif
+                    </td>
                     <td>{{$stat['age']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['position']}}</td>
                     <td>{{$stat['g']}}</td>

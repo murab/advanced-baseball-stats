@@ -159,23 +159,25 @@ class scrapeFangraphs extends Command
             $stats->velo = $player['velo'] ?? 0;
             $stats->csw = $player['csw'] ?? 0;
 
-            //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
-            $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? 0;
-            $stats->secondhalf_era = $data_2nd[$lowername]['era'] ?? 0;
-            $stats->secondhalf_whip = $data_2nd[$lowername]['whip'] ?? 0;
-            $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? 0;
-            $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? 0;
-            $stats->secondhalf_gb_percentage = $data_2nd[$lowername]['gb_percentage'] ?? 0;
-            $stats->secondhalf_k_percentage_plus = $data_2nd[$lowername]['k_percentage_plus'] ?? 0;
-            $stats->secondhalf_g = $data_2nd[$lowername]['g'] ?? 0;
-            $stats->secondhalf_gs = $data_2nd[$lowername]['gs'] ?? 0;
-            $stats->secondhalf_k = $data_2nd[$lowername]['k'] ?? 0;
-            $stats->secondhalf_k_per_game = $data_2nd[$lowername]['k_per_game'] ?? 0;
-            $stats->secondhalf_ip = $data_2nd[$lowername]['ip'] ?? 0;
-            $stats->secondhalf_pa = $data_2nd[$lowername]['pa'] ?? 0;
-            //$stats->secondhalf_xwoba = $data_2nd[$lowername]['xera'] ?? null;
-            $stats->secondhalf_velo = isset($data_2nd[$lowername]) ? $data_2nd[$lowername]['velo'] : 0;
-            $stats->secondhalf_csw = isset($data_2nd[$lowername]) ? $data_2nd[$lowername]['csw'] : 0;
+            if (isset($data_2nd[$lowername])) {
+                //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
+                $stats->secondhalf_k_percentage = $data_2nd[$lowername]['k_percentage'] ?? 0;
+                $stats->secondhalf_era = $data_2nd[$lowername]['era'] ?? 0;
+                $stats->secondhalf_whip = $data_2nd[$lowername]['whip'] ?? 0;
+                $stats->secondhalf_bb_percentage = $data_2nd[$lowername]['bb_percentage'] ?? 0;
+                $stats->secondhalf_swstr_percentage = $data_2nd[$lowername]['swstr_percentage'] ?? 0;
+                $stats->secondhalf_gb_percentage = $data_2nd[$lowername]['gb_percentage'] ?? 0;
+                $stats->secondhalf_k_percentage_plus = $data_2nd[$lowername]['k_percentage_plus'] ?? 0;
+                $stats->secondhalf_g = $data_2nd[$lowername]['g'] ?? 0;
+                $stats->secondhalf_gs = $data_2nd[$lowername]['gs'] ?? 0;
+                $stats->secondhalf_k = $data_2nd[$lowername]['k'] ?? 0;
+                $stats->secondhalf_k_per_game = $data_2nd[$lowername]['k_per_game'] ?? 0;
+                $stats->secondhalf_ip = $data_2nd[$lowername]['ip'] ?? 0;
+                $stats->secondhalf_pa = $data_2nd[$lowername]['pa'] ?? 0;
+                //$stats->secondhalf_xwoba = $data_2nd[$lowername]['xera'] ?? null;
+                $stats->secondhalf_velo = isset($data_2nd[$lowername]) ? $data_2nd[$lowername]['velo'] : 0;
+                $stats->secondhalf_csw = isset($data_2nd[$lowername]) ? $data_2nd[$lowername]['csw'] : 0;
+            }
 
             $stats->save();
         }
@@ -193,10 +195,6 @@ class scrapeFangraphs extends Command
                 'year' => $year,
                 'position' => 'RP',
             ]);
-
-            if (!empty($data[$lowername]) && $data[$lowername]['ip'] > $player['ip']) {
-                continue;
-            }
 
             $stats->age = $player['age'];
             $stats->position = 'RP';
@@ -219,23 +217,25 @@ class scrapeFangraphs extends Command
             $stats->velo = $player['velo'] ?? 0;
             $stats->csw = $player['csw'] ?? 0;
 
-            //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
-            $stats->secondhalf_k_percentage = $rp_data_2nd[$lowername]['k_percentage'] ?? 0;
-            $stats->secondhalf_era = $rp_data_2nd[$lowername]['era'] ?? 0;
-            $stats->secondhalf_whip = $rp_data_2nd[$lowername]['whip'] ?? 0;
-            $stats->secondhalf_bb_percentage = $rp_data_2nd[$lowername]['bb_percentage'] ?? 0;
-            $stats->secondhalf_swstr_percentage = $rp_data_2nd[$lowername]['swstr_percentage'] ?? 0;
-            $stats->secondhalf_gb_percentage = $rp_data_2nd[$lowername]['gb_percentage'] ?? 0;
-            $stats->secondhalf_k_percentage_plus = $rp_data_2nd[$lowername]['k_percentage_plus'] ?? 0;
-            $stats->secondhalf_g = $rp_data_2nd[$lowername]['g'] ?? 0;
-            $stats->secondhalf_gs = $rp_data_2nd[$lowername]['gs'] ?? 0;
-            $stats->secondhalf_k = $rp_data_2nd[$lowername]['k'] ?? 0;
-            $stats->secondhalf_k_per_game = $rp_data_2nd[$lowername]['k_per_game'] ?? 0;
-            $stats->secondhalf_ip = $rp_data_2nd[$lowername]['ip'] ?? 0;
-            $stats->secondhalf_pa = $rp_data_2nd[$lowername]['pa'] ?? 0;
-            //$stats->secondhalf_xwoba = $data_2nd[$lowername]['xera'] ?? null;
-            $stats->secondhalf_velo = isset($rp_data_2nd[$lowername]) ? $rp_data_2nd[$lowername]['velo'] : 0;
-            $stats->secondhalf_csw = isset($rp_data_2nd[$lowername]) ? $rp_data_2nd[$lowername]['csw'] : 0;
+            if (isset($rp_data_2nd[$lowername])) {
+                //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
+                $stats->secondhalf_k_percentage = $rp_data_2nd[$lowername]['k_percentage'] ?? 0;
+                $stats->secondhalf_era = $rp_data_2nd[$lowername]['era'] ?? 0;
+                $stats->secondhalf_whip = $rp_data_2nd[$lowername]['whip'] ?? 0;
+                $stats->secondhalf_bb_percentage = $rp_data_2nd[$lowername]['bb_percentage'] ?? 0;
+                $stats->secondhalf_swstr_percentage = $rp_data_2nd[$lowername]['swstr_percentage'] ?? 0;
+                $stats->secondhalf_gb_percentage = $rp_data_2nd[$lowername]['gb_percentage'] ?? 0;
+                $stats->secondhalf_k_percentage_plus = $rp_data_2nd[$lowername]['k_percentage_plus'] ?? 0;
+                $stats->secondhalf_g = $rp_data_2nd[$lowername]['g'] ?? 0;
+                $stats->secondhalf_gs = $rp_data_2nd[$lowername]['gs'] ?? 0;
+                $stats->secondhalf_k = $rp_data_2nd[$lowername]['k'] ?? 0;
+                $stats->secondhalf_k_per_game = $rp_data_2nd[$lowername]['k_per_game'] ?? 0;
+                $stats->secondhalf_ip = $rp_data_2nd[$lowername]['ip'] ?? 0;
+                $stats->secondhalf_pa = $rp_data_2nd[$lowername]['pa'] ?? 0;
+                //$stats->secondhalf_xwoba = $data_2nd[$lowername]['xera'] ?? null;
+                $stats->secondhalf_velo = isset($rp_data_2nd[$lowername]) ? $rp_data_2nd[$lowername]['velo'] : 0;
+                $stats->secondhalf_csw = isset($rp_data_2nd[$lowername]) ? $rp_data_2nd[$lowername]['csw'] : 0;
+            }
 
             $stats->save();
         }

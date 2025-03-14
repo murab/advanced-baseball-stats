@@ -1,8 +1,8 @@
-FROM php:7.4.9-apache
+FROM php:7.4.33-apache
 
 ENV PROJECT_ROOT="/var/www/html"
 
-RUN echo "deb http://ftp.debian.org/debian stable main" >> /etc/apt/sources.list.d/apache24.list
+RUN echo "deb http://ftp.de.debian.org/debian stable main" >> /etc/apt/sources.list.d/apache24.list
 RUN apt-get -qq update --fix-missing
 RUN apt-get install -y apache2
 
@@ -55,10 +55,10 @@ RUN cd /var/www/html && composer install
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get update
 RUN apt-get -y install curl gnupg
-RUN curl -sL https://deb.nodesource.com/setup_14.x  | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x  | bash -
 RUN apt-get -y install nodejs
 RUN npm install
-RUN npm run production
+#RUN npm run production
 
 RUN chmod a+w storage/logs
 RUN chmod a+w storage/framework/views
