@@ -116,7 +116,7 @@ class PitcherController extends Controller
     {
         $pitcher = Player::where('slug', $slug)->first();
 
-        $stats = Stat::where('player_id', $pitcher->id)->orderBy('year', 'asc')->get();
+        $stats = Stat::where('player_id', $pitcher->id)->orderBy('year', 'asc')->orderBy('position', 'desc')->get();
 
         return view('pitcher', [
             'page_title' => "{$pitcher->name} Stats",
