@@ -390,6 +390,8 @@ class scrapeFangraphs extends Command
 
         if (is_iterable($stats['data'])) foreach ($stats['data'] as $stat) {
 
+            if ((float) $stat['IP'] == 0) continue;
+
             $player_data = [];
 
             // Name
