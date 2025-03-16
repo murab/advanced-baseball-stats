@@ -357,7 +357,7 @@ class Stat extends Model
     public static function calculateMinInningsPitched(int $year, string $position = 'sp')
     {
         $position = strtoupper($position);
-        return min(33, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = '{$position}'", [$year])[0])));
+        return min(50, floor(current(DB::select("select floor(avg(ip) * .67) from stats where year = ? and position = '{$position}'", [$year])[0])));
     }
 
     public static function calculateMinPlateAppearances(int $year)
