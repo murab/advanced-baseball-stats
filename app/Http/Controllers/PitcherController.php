@@ -118,11 +118,21 @@ class PitcherController extends Controller
 
         $stats = Stat::where('player_id', $pitcher->id)->orderBy('year', 'asc')->orderBy('position', 'desc')->get();
 
+        $has_rp_stats = false;
+        $has_sp_stats = false;
+
+        foreach ($stats as $stat) {
+            if ($stat->position == 'SP') $has_sp_stats = true;
+            if ($stat->position == 'RP') $has_rp_stats = true;
+        }
+
         return view('pitcher', [
             'page_title' => "{$pitcher->name} Stats",
             'stats' => $stats,
             'player' => $pitcher,
             'max_width' => true,
+            'has_rp_stats' => $has_rp_stats,
+            'has_sp_stats' => $has_sp_stats,
         ]);
     }
 }
