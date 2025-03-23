@@ -69,7 +69,18 @@ Route::get('/{any}', function ($any) {
     if ($player = Player::where('slug', $slug)->first()) {
         $hitter = \App\Hitter::where('player_id', $player->id)->get();
         $pitcher = \App\Stat::where('player_id', $player->id)->get();
-        if (count($pitcher) >= count($hitter)) {
+
+        $total_pa = 0;
+        $total_ip = 0;
+
+        foreach ($hitter as $stat) {
+            $total_pa += $stat->pa;
+        }
+        foreach ($pitcher as $stat) {
+            $total_ip += $stat->ip;
+        }
+
+        if ($total_ip * 3 > $total_pa) {
             return redirect()->route('pitcher', ['slug' => $slug]);
         } else if (count($hitter)) {
             return redirect()->route('hitter', ['slug' => $slug]);
