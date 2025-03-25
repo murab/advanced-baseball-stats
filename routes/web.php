@@ -66,7 +66,12 @@ Route::get('/{any}', function ($any) {
     $player = $any;
     $slug = str_replace(' ', '-', strtolower($player));
     Player::where('slug', $slug)->first();
-    if ($player = Player::where('slug', $slug)->first()) {
+    $player = Player::where('slug', $slug)->first();
+    if (!$player) {
+        $player = Player::where('slug2', $slug)->first();
+        $slug = $player->slug;
+    }
+    if ($player) {
         $hitter = \App\Hitter::where('player_id', $player->id)->get();
         $pitcher = \App\Stat::where('player_id', $player->id)->get();
 
