@@ -65,13 +65,12 @@ Route::post('/gotoplayer', function(Request $request) {
 Route::get('/{any}', function ($any) {
     $player = $any;
     $slug = str_replace(' ', '-', strtolower($player));
-    Player::where('slug', $slug)->first();
-    $player = Player::where('slug', $slug)->first();
+    $player = Player::where('slug', 'ilike', $slug.'%')->first();
     if (!$player) {
-        $player = Player::where('slug2', $slug)->first();
-        $slug = $player->slug;
+        $player = Player::where('slug2', 'ilike', $slug.'%')->first();
     }
     if ($player) {
+        $slug = $player->slug;
         $hitter = \App\Hitter::where('player_id', $player->id)->get();
         $pitcher = \App\Stat::where('player_id', $player->id)->get();
 
