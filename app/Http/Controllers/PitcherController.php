@@ -122,8 +122,8 @@ class PitcherController extends Controller
         $has_sp_stats = false;
 
         foreach ($stats as $stat) {
-            if ($stat->position == 'SP') $has_sp_stats = true;
-            if ($stat->position == 'RP') $has_rp_stats = true;
+            if ($stat->position == 'SP' && $stat->ip > 0) $has_sp_stats = true;
+            if ($stat->position == 'RP' && $stat->ip > 0) $has_rp_stats = true;
         }
 
         return view('pitcher', [
