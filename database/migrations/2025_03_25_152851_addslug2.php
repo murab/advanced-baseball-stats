@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Player;
 
 class Addslug2 extends Migration
 {
@@ -16,7 +17,11 @@ class Addslug2 extends Migration
         Schema::table('players', function (Blueprint $table) {
             $table->string('slug2')->nullable();
         });
-        DB::statement("UPDATE players SET slug2 = regexp_replace(slug, '-', '', 'g')");
+        $players = Player::all();
+        foreach ($players as $player) {
+            $player->slug2 = str_replace('-', '', $player->slug);
+            $player->update();
+        }
     }
 
     /**
