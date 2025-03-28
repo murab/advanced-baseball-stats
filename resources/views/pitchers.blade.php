@@ -105,7 +105,6 @@
 
 @section('javascript')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -158,11 +157,7 @@
 
             drawPlayerSetButtons(data.pitchers);
 
-            if ($('#positionSelect').val() == 'sp' && $.cookie('ip_minimum') !== 'NaN' && typeof $.cookie('ip_minimum') === 'string') {
-                $('#ip_minimum').val($.cookie('ip_minimum'));
-            } else {
-                $('#ip_minimum').val({{ $min_ip }});
-            }
+            $('#ip_minimum').val({{ $min_ip }});
 
             $('.playerSetBtn').eq(0).click();
 
@@ -177,7 +172,7 @@
             });
 
             $('#ip_minimum').on('change keyup', function(e) {
-                $.cookie('ip_minimum', parseFloat($('#ip_minimum').val()), { expires: 20*365 });
+                // $.cookie('ip_minimum', parseFloat($('#ip_minimum').val()), { expires: 20*365 });
                 updateData();
             });
 

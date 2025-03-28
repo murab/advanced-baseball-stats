@@ -100,7 +100,6 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -153,21 +152,11 @@
 
             drawPlayerSetButtons(data.hitters);
 
-            if ($.cookie('pa_minimum') !== 'NaN' && typeof $.cookie('pa_minimum') === 'string') {
-                $('#pa_minimum').val($.cookie('pa_minimum'));
-            } else {
-                $('#pa_minimum').val({{ $min_pa }});
-            }
-            if ($.cookie('pa_per_g_minimum') !== 'NaN' && typeof $.cookie('pa_per_g_minimum') === 'string') {
-                $('#pa_per_g_minimum').val($.cookie('pa_per_g_minimum'));
-            } else {
-                $('#pa_per_g_minimum').val(0);
-            }
-            if ($.cookie('sb_minimum') !== 'NaN' && typeof $.cookie('sb_minimum') === 'string') {
-                $('#sb_minimum').val($.cookie('sb_minimum'));
-            } else {
-                $('#sb_minimum').val(0);
-            }
+            $('#pa_minimum').val({{ $min_pa }});
+
+            $('#pa_per_g_minimum').val(3.7);
+
+            $('#sb_minimum').val(0);
 
             $('.playerSetBtn').eq(0).click();
 
@@ -182,9 +171,9 @@
             });
 
             $('#pa_minimum, #pa_per_g_minimum, #sb_minimum').on('change keyup', function(e) {
-                $.cookie('pa_minimum', parseFloat($('#pa_minimum').val()), { expires: 20*365 });
-                $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
-                $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
+                // $.cookie('pa_minimum', parseFloat($('#pa_minimum').val()), { expires: 20*365 });
+                // $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
+                // $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
                 updateData();
             });
 
