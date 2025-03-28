@@ -25,7 +25,8 @@ class scrapeSavant extends Command
     ];
 
     const playersToSkip = [
-        'Luis Garcia' => ['id_472610']
+        'Luis Garcia' => ['id_472610'],
+        'Max Muncy' => ['id_571970'],
     ];
 
     private $pitchersXwobaURL;
@@ -286,6 +287,10 @@ class scrapeSavant extends Command
 
             $player_data['sprint_speed'] = floatval(trim($player[10]," \""));
 
+            if (isset(self::playersToSkip[$player_data['name']]) && in_array('id_'.trim($player['2'],"\""), self::playersToSkip[$player_data['name']])) {
+                continue;
+            }
+
             if (!empty($player_data) && !empty($hitters[strtolower($player_data['name'])])) {
                 $hitters[strtolower($player_data['name'])]['sprint_speed'] = $player_data['sprint_speed'];
             }
@@ -314,6 +319,10 @@ class scrapeSavant extends Command
             $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
 
             $player_data['brls_per_pa'] = floatval(trim($player['17']));
+
+            if (isset(self::playersToSkip[$player_data['name']]) && in_array('id_'.trim($player['2'],"\""), self::playersToSkip[$player_data['name']])) {
+                continue;
+            }
 
             if (!empty($player_data)) {
                 $data[strtolower($player_data['name'])] = [

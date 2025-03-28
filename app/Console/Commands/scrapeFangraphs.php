@@ -34,6 +34,7 @@ class scrapeFangraphs extends Command
 
     const DUPLICATES_TO_SKIP = [
         'Luis Garcia' => ['STL', 'TEX'],
+        'Max Muncy' => ['ATH'],
     ];
 
     /**
@@ -291,6 +292,14 @@ class scrapeFangraphs extends Command
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
 
             $player_data['name'] = preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']);
+
+            // Team
+            //$player_data['team'] = $stat['TeamName'];
+
+            // skip certain players that have the same name that we don't care about (e.g. Luis Garcia TEX vs. Luis Garcia HOU)
+            if (isset(self::DUPLICATES_TO_SKIP[$player_data['name']]) && in_array($stat['TeamName'], self::DUPLICATES_TO_SKIP[$player_data['name']])) {
+                continue;
+            }
 
             // Age
             $player_data['age'] = (int) $stat['Age'];
