@@ -30,8 +30,8 @@
                 <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SwStr%</th>
                 <th class="all" style="border-right: 1px solid black;">Sprint Spd</th>
                 <th class="all" style="border-right: 1px solid black;">Brls<br>Rank</th>
-                <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">HardPullFB/G</th>
-                <th class="all">HardPullFB/G<br>Rank</th>
+                <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
+                <th class="all">PullFB/G<br>Rank</th>
                 <th class="all" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
                 <th class="all" style="border-right: 1px solid black;">Def</th>
                 <th class="all" style="border-right: 1px solid black;">wRC+ vs. L</th>
