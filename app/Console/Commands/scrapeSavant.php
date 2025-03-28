@@ -337,7 +337,7 @@ class scrapeSavant extends Command
 
     public function getHittersSprintSpeedData(&$hitters)
     {
-        $data = file_get_contents($this->hittersSprintSpeedURL);
+        $data = file_get_contents($this->hittersSprintSpeedURL . '&' . bin2hex(random_bytes(2)));
 
         $rows = explode("\n", $data);
         $data_parsed = [];
@@ -401,7 +401,7 @@ class scrapeSavant extends Command
 
     public function getHittersBrlPAData()
     {
-        $data = file_get_contents($this->hittersBrlsPerPaURL);
+        $data = file_get_contents($this->hittersBrlsPerPaURL . '&' . bin2hex(random_bytes(2)));
 
         $rows = explode("\n", $data);
         $data_parsed = [];
