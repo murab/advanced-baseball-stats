@@ -218,6 +218,7 @@ class scrapeFangraphs extends Command
             //$stats->xwoba = $player['xera'];
             $stats->velo = $player['velo'] ?? 0;
             $stats->csw = $player['csw'] ?? 0;
+            $stats->stuff_plus = $player['stuff_plus'] ?? 0;
 
             if (isset($rp_data_2nd[$lowername])) {
                 //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
