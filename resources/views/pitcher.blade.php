@@ -31,6 +31,7 @@
                     <th class="all" style="border-right: 1px solid black;">SwStr%</th>
                     <th class="all" style="border-right: 1px solid black;">GB%</th>
                     <th class="all" style="border-right: 1px solid black;">CSW%</th>
+                    <th class="all" style="border-right: 1px solid black;">Stuff+</th>
                     <th class="all" style="border-right: 1px solid black;">Velo</th>
     {{--                <th class="all" style="border-right: 1px solid black;">IP per G Rank</th>--}}
                     <th class="all" style="border-right: 1px solid black;">K% or KpG<br>Rank</th>
@@ -61,6 +62,7 @@
                         <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                         <td style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
                         <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
+                        <td class="align-middle" style="border-right: 1px solid black;">{{$stat['stuff_plus']}}</td>
                         <td style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
     {{--                    <td style="border-right: 1px solid black;">{{ $stat['position'] != 'RP' ? abs($stat['ip_per_g_rank']) : ''}}</td>--}}
                         <td style="border-right: 1px solid black;">{{$stat['k_rank'] ?? ''}}</td>
@@ -96,6 +98,7 @@
                     <th class="all" style="border-right: 1px solid black;">SwStr%</th>
                     <th class="all" style="border-right: 1px solid black;">GB%</th>
                     <th class="all" style="border-right: 1px solid black;">CSW%</th>
+                    <th class="all" style="border-right: 1px solid black;">Stuff+</th>
                     <th class="all" style="border-right: 1px solid black;">Velo</th>
                     {{--                <th class="all" style="border-right: 1px solid black;">IP per G Rank</th>--}}
                     <th class="all" style="border-right: 1px solid black;">K% or KpG<br>Rank</th>
@@ -126,6 +129,7 @@
                             <td style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                             <td style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
                             <td class="align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
+                            <td class="align-middle" style="border-right: 1px solid black;">{{$stat['stuff_plus']}}</td>
                             <td style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
                             {{--                    <td style="border-right: 1px solid black;">{{ $stat['position'] != 'RP' ? abs($stat['ip_per_g_rank']) : ''}}</td>--}}
                             <td style="border-right: 1px solid black;">{{$stat['k_rank'] ?? ''}}</td>

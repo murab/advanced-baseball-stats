@@ -98,6 +98,7 @@ class PitcherController extends Controller
             $stats[$i]['csw'] = number_format($player['csw'], 1);
             $stats[$i]['velo'] = number_format($player['velo'], 1);
             $stats[$i]['k_rank'] = $arr[$player['id']]['k_rank'] + 1;
+            $stats[$i]['stuff_plus'] = round((float)$player['stuff_plus']);
             $stats[$i]['xwoba_rank'] = $i + 1;
             $stats[$i]['avg_rank'] = ($stats[$i]['k_rank'] + $stats[$i]['xwoba_rank']) / 2;
         }

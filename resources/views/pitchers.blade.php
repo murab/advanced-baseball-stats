@@ -82,6 +82,7 @@
                 <th class="" style="border-right: 1px solid black;">SwStr%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">GB%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">CSW%</th>
+                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Stuff+</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Velo</th>
 {{--                <th class="desktop">IPpG Rank</th>--}}
 
@@ -242,6 +243,7 @@
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['gb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['csw']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['stuff_plus']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['velo']+"</td>"+
                     '<td class="align-middle">'+stat['k_rank']+"</td>"+
                     '<td class="align-middle xera">'+stat['xwoba_rank']+"</td>"+

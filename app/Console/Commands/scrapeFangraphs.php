@@ -159,6 +159,7 @@ class scrapeFangraphs extends Command
             //$stats->xwoba = $player['xera'];
             $stats->velo = $player['velo'] ?? 0;
             $stats->csw = $player['csw'] ?? 0;
+            $stats->stuff_plus = $player['stuff_plus'] ?? 0;
 
             if (isset($data_2nd[$lowername])) {
                 //$stats->secondhalf_velo = $data_2nd[$lowername]['velo'] ?? null;
@@ -464,6 +465,8 @@ class scrapeFangraphs extends Command
                 $player_data['pa'] = (int)$stat['TBF'];
 //            }
 
+            $player_data['stuff_plus'] = round((float)$stat['sp_stuff']);
+
             // skip certain players that have the same name that we don't care about (e.g. Luis Garcia TEX vs. Luis Garcia HOU)
             if (isset(self::DUPLICATES_TO_SKIP[$player_data['name']]) && in_array($player_data['team'], self::DUPLICATES_TO_SKIP[$player_data['name']])) {
                 continue;
@@ -489,6 +492,7 @@ class scrapeFangraphs extends Command
                 'pa' => $player_data['pa'],
                 //'xwoba' => $player_data['xera'],
                 'velo' => $player_data['velo'],
+                'stuff_plus' => $player_data['stuff_plus'],
             ];
         }
 
