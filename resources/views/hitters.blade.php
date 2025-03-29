@@ -81,7 +81,7 @@
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Sprint<br>Speed</th>
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA<br>Rank</th>
                         <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
-                        <th class="d-none d-md-table-cell">PullFB/G<br>Rank</th>
+                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">PullFB/G<br>Rank</th>
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
                         <th class="d-none d-md-table-cell" style="font-weight: bold; border-right: 1px solid black;">Def</th>
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">wRC+ vs. L</th>
@@ -248,7 +248,7 @@
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+Number(stat['sprint_speed']).toFixed(1)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell">'+stat['pulled_fb_g_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['pulled_fb_g_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['vsleft_wrc_plus']+"</td>"+
