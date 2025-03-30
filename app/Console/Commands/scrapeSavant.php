@@ -27,7 +27,7 @@ class scrapeSavant extends Command
 
     const playersToSkip = [
         'Luis Garcia' => ['id_472610'],
-        'Max Muncy' => ['id_571970'],
+        'Max Muncy' => ['id_691777'],
     ];
 
     private $pitchersXwobaURL;
