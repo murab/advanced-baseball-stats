@@ -79,7 +79,7 @@
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K%</th>
                         <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SwStr%</th>
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Sprint<br>Speed</th>
-                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA<br>Rank</th>
+                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA</th>
                         <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">PullFB/G<br>Rank</th>
                         <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
@@ -246,7 +246,7 @@
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+Number(stat['sprint_speed']).toFixed(1)+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['brls_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['brls_per_pa']+"%</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['pulled_fb_g_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+

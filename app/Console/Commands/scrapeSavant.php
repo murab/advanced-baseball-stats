@@ -354,7 +354,7 @@ class scrapeSavant extends Command
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
             $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
 
-            $player_data['brls_per_pa'] = floatval(trim($player['17']));
+            $player_data['brls_per_pa'] = floatval(trim($player['18']));
 
             if (isset(self::playersToSkip[$player_data['name']]) && in_array('id_'.trim($player['2'],"\""), self::playersToSkip[$player_data['name']])) {
                 continue;
