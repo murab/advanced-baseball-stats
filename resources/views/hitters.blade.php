@@ -177,6 +177,10 @@
                 updateData();
             });
 
+            $('#pa_minimum, #pa_per_g_minimum, #sb_minimum').on('blur', function(e) {
+                if ($(this).val() == '') { $(this).val(0); }
+            });
+
             function filterCurrentSearch() {
                 if ($('#search').val() == '') {
                     $('#hitters tbody tr').show();

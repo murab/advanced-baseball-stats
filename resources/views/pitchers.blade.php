@@ -177,6 +177,10 @@
                 updateData();
             });
 
+            $('#ip_minimum').on('blur', function(e) {
+                if ($(this).val() == '') { $(this).val(0); }
+            });
+
             function filterCurrentSearch() {
                 if ($('#search').val() == '') {
                     $('#pitchers tbody tr').show();
