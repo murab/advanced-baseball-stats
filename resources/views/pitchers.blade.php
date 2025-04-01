@@ -179,6 +179,7 @@
 
             $('#ip_minimum').on('blur', function(e) {
                 if ($(this).val() == '') { $(this).val(0); }
+                updateData();
             });
 
             function filterCurrentSearch() {
