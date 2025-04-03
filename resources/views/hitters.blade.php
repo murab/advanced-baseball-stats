@@ -233,6 +233,9 @@
 
             function insertRow(stat, rank) {
                 var sb_percentage = stat['sb'] === 0 ? 0 :  Number(stat['sb']/(stat['sb']+stat['cs'])*100).toFixed(0);
+                var brls_style = '';
+                if (stat['brls_per_pa'] >= 8) { brls_style += 'color: green; '; }
+                if (stat['brls_per_pa'] >= 10) { brls_style += 'font-weight: bold; font-size: 1.2em'; }
                 $('#hitters tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
@@ -251,7 +254,7 @@
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+Number(stat['sprint_speed']).toFixed(1)+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['brls_per_pa']+"%</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;'+brls_style+'">'+stat['brls_per_pa']+"%</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+Number(stat['pulled_flyballs_per_g']).toFixed(2)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['pulled_fb_g_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
