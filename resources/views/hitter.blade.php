@@ -27,10 +27,10 @@
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">OPS</th>
                 <th class="d-none d-md-table-cell">BB%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K%</th>
-                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">SwStr%</th>
+                <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SwStr%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Sprint Spd</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA</th>
-                <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
+                <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
                 <th class="d-none d-md-table-cell">PullFB/G<br>Rank</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Def</th>
@@ -55,10 +55,10 @@
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['ops'], 3)}}</td>
                     <td class="d-none d-md-table-cell">{{number_format($stat['bb_percentage'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
-                    <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
+                    <td class="d-none d-lg-table-cell" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{$stat['brls_per_pa']}}%</td>
-                    <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['pulled_flyballs_per_g'], 2)}}</td>
+                    <td class="d-none d-lg-table-cell" style="border-right: 1px solid black;">{{number_format($stat['pulled_flyballs_per_g'], 2)}}</td>
                     <td class="d-none d-md-table-cell">{{number_format($stat['pulled_flyballs_per_g_rank'])}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-size: 1.2em; font-weight: bold @endif ">{{number_format($stat['def'], 1)}}</td>
