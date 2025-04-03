@@ -233,6 +233,9 @@
 
             function insertRow(stat, rank) {
                 var sb_percentage = stat['sb'] === 0 ? 0 :  Number(stat['sb']/(stat['sb']+stat['cs'])*100).toFixed(0);
+                var ops_style = '';
+                if (stat['ops'] >= .8) { ops_style += 'color: green; '; }
+                if (stat['ops'] >= .9) { ops_style += 'font-weight: bold; font-size: 1.2em;'; }
                 var brls_style = '';
                 if (stat['brls_per_pa'] >= 8) { brls_style += 'color: green; '; }
                 if (stat['brls_per_pa'] >= 10) { brls_style += 'font-weight: bold; font-size: 1.2em'; }
@@ -249,7 +252,7 @@
                     '<td class="align-middle">'+stat['rbi']+"</td>"+
                     '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">' + sb_percentage + '%</td>' +
-                    '<td class="align-middle ops" style="border-right: 1px solid black;">'+Number(stat['ops']).toFixed(3)+"</td>"+
+                    '<td class="align-middle ops" style="border-right: 1px solid black;'+ops_style+'">'+Number(stat['ops']).toFixed(3)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
