@@ -19,9 +19,9 @@
     </h1>
 
     @if ($position == 'sp')
-        <p>Average total IP for SP is currently {{ $min_ip }}.</p>
+        <p>Average IP for SP in {{ $year }}: {{ $min_ip }}</p>
     @else
-        <p>Average total IP for RP is currently {{ $min_ip }}.</p>
+        <p>Average IP for RP in {{$year}}: {{ $min_ip }}</p>
     @endif
 
     <div class="row">
