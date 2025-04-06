@@ -19,9 +19,9 @@
     </h1>
 
     @if ($position == 'sp')
-        <p>Minimum 3.0 IP per appearance, {{ $min_ip }} total IP</p>
+        <p>Average total IP for SP is currently {{ $min_ip }}.</p>
     @else
-        <p>Less than 3.0 IP per appearance, at least {{ $min_ip }} total IP</p>
+        <p>Average total IP for RP is currently {{ $min_ip }}.</p>
     @endif
 
     <div class="row">
