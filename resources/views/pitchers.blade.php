@@ -235,7 +235,7 @@
                 $('#pitchers tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
-                    '<td class="align-middle name" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/pitcher/'+stat['player']['slug']+'" class="pitcherNameLink">'+stat['player']['name']+'</a></td>'+
+                    '<td class="align-middle name" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a target="_blank" href="/pitcher/'+stat['player']['slug']+'" class="pitcherNameLink">'+stat['player']['name']+'</a></td>'+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
                     '<td class="align-middle ip">'+stat['ip']+"</td>"+
                     '<td class="align-middle ip-per-g d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['ip_per_g']+"</td>"+

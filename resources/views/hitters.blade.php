@@ -245,7 +245,7 @@
                 $('#hitters tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
-                    '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a href="/hitter/'+stat['player']['slug']+'" class="hitterNameLink">'+stat['player']['name']+'</a></td>'+
+                    '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a target="_blank" href="/hitter/'+stat['player']['slug']+'" class="hitterNameLink">'+stat['player']['name']+'</a></td>'+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
                     '<td class="align-middle pa d-none d-md-table-cell">'+stat['pa']+"</td>"+
                     '<td class="align-middle pa-per-g" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
