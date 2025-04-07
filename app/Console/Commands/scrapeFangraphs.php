@@ -306,6 +306,9 @@ class scrapeFangraphs extends Command
             // Age
             $player_data['age'] = (int) $stat['Age'];
 
+            // Bats
+            $player_data['bats'] = $stat['Bats'];
+
             // G
             $player_data['g'] = (int) $stat['G'];
 
