@@ -240,8 +240,8 @@
                 if (stat['brls_per_pa'] >= 8) { brls_style += 'color: green; '; }
                 if (stat['brls_per_pa'] >= 10) { brls_style += 'font-weight: bold; font-size: 1.2em'; }
                 var vsleft_wrc_plus_style = '';
-                if (stat['bats'] == 'L' && stat['vsleft_wrc_plus'] >= 100) { vsleft_wrc_plus_style += 'color: green; '; }
-                if (stat['bats'] == 'L' && stat['vsleft_wrc_plus'] >= 110) { vsleft_wrc_plus_style += 'font-weight: bold; font-size: 1.2em; '; }
+                if ((stat['bats'] == 'L' || stat['bats'] == 'B') && stat['vsleft_wrc_plus'] >= 100) { vsleft_wrc_plus_style += 'color: green; '; }
+                if ((stat['bats'] == 'L' || stat['bats'] == 'B') && stat['vsleft_wrc_plus'] >= 110) { vsleft_wrc_plus_style += 'font-weight: bold; font-size: 1.2em; '; }
                 $('#hitters tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+

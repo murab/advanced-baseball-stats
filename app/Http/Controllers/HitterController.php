@@ -55,10 +55,16 @@ class HitterController extends Controller
 
         $stats = Hitter::where('player_id', $hitter->id)->orderBy('year', 'asc')->get();
 
+        $bats = false;
+        foreach ($stats as $stat) {
+            if ($stat['bats']) $bats = $stat['bats'];
+        }
+
         return view('hitter', [
             'page_title' => "{$hitter->name} Stats",
             'stats' => $stats,
             'player' => $hitter,
+            'bats' => $bats,
             'max_width' => true,
         ]);
     }
