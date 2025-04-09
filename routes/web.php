@@ -46,6 +46,9 @@ Route::get('/articles/{slug}', 'ArticleController@showPost')->name('article');
 Route::get('/api/hitters/{year}/{pa_min}/{pa_per_g_min}/{sb_min}', 'HitterController@filter');
 Route::get('/api/pitchers/{year}/{position}/{min_ip}', 'PitcherController@filter');
 
+Route::post('/api/lists/save', 'ListController@save');
+Route::post('/api/lists/get', 'ListController@get');
+
 Route::post('/gotoplayer', function(Request $request) {
     $player = $request->post('gotoplayer');
     $slug = str_replace(' ', '-', strtolower($player));

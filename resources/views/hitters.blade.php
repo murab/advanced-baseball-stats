@@ -114,6 +114,13 @@
                 data = JSON.parse(data);
             }
 
+            $.post('/api/lists/get', data, function(resp) {
+                var parsed = JSON.parse(resp);
+                if (parsed.hitters || parsed.pitchers) {
+                    data = parsed;
+                }
+            });
+
             $('#saveSetBtn').on('click', function(e) {
                 var name = $('#saveSetName').val();
                 var string = $('#search').val();
@@ -124,6 +131,8 @@
                     };
                     drawPlayerSetButtons(data.hitters);
                     localStorage.setItem('data', JSON.stringify(data));
+
+                    $.post('/api/lists/save', data);
                 }
             });
 
