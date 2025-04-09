@@ -120,11 +120,17 @@
                 data = JSON.parse(data);
             }
 
-            $.post('/api/lists/get', data, function(resp) {
-                var parsed = JSON.parse(resp);
-                if (parsed.hitters || parsed.pitchers) {
-                    data = parsed;
-                }
+            $.ajax({
+                url: '/api/lists/get',
+                data: data,
+                type: 'POST',
+                success: function(resp) {
+                    var parsed = JSON.parse(resp);
+                    if (parsed.hitters || parsed.pitchers) {
+                        data = parsed;
+                    }
+                },
+                async: false
             });
 
             $('#saveSetBtn').on('click', function(e) {
