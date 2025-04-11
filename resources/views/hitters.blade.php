@@ -122,6 +122,7 @@
                     var parsed = JSON.parse(resp);
                     if (parsed.hitters || parsed.pitchers) {
                         data = parsed;
+                        localStorage.setItem('data', resp);
                     }
                 },
                 async: false
