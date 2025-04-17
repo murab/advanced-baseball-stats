@@ -128,6 +128,10 @@
                 async: false
             });
 
+            if (data.min_pa != {{ $min_pa }}) {
+                data.pa_min = {{ $min_pa }};
+            }
+
             $('#saveSetBtn').on('click', function(e) {
                 var name = $('#saveSetName').val();
                 var string = $('#search').val();
@@ -168,9 +172,9 @@
 
             drawPlayerSetButtons(data.hitters);
 
-            $('#pa_minimum').val({{ $min_pa }});
+            $('#pa_minimum').val(data.pa_min);
 
-            $('#pa_per_g_minimum').val(3.7);
+            $('#pa_per_g_minimum').val(data.pa_per_g_minimum);
 
             $('#sb_minimum').val(0);
 
@@ -187,6 +191,11 @@
             });
 
             $('#pa_minimum, #pa_per_g_minimum, #sb_minimum').on('change keyup', function(e) {
+                data.pa_min = $('#pa_minimum').val();
+                data.pa_per_g_minimum = $('#pa_per_g_minimum').val();
+                data.min_pa = {{ $min_pa }};
+                localStorage.setItem('data', JSON.stringify(data));
+                $.post('/api/lists/save', data);
                 // $.cookie('pa_minimum', parseFloat($('#pa_minimum').val()), { expires: 20*365 });
                 // $.cookie('pa_per_g_minimum', parseFloat($('#pa_per_g_minimum').val()), { expires: 20*365 });
                 // $.cookie('sb_minimum', parseFloat($('#sb_minimum').val()), { expires: 20*365 });
