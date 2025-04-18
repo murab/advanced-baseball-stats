@@ -121,6 +121,7 @@ class HitterController extends Controller
             $stats[$i]['k_percentage'] = number_format($stats[$i]['k_percentage'], 1);
             $stats[$i]['swstr_percentage'] = number_format($stats[$i]['swstr_percentage'], 1);
             $stats[$i]['def'] = number_format(round($stats[$i]['def'], 1), 1);
+            $stats[$i]['brls_per_pa'] = number_format(round($stats[$i]['brls_per_pa']));
             $stats[$i]['brls_rank'] = $i+1;
             $stats[$i]['sprint_speed_rank'] = $arr[$player['id']]['sprint_speed_rank']+1;
             $stats[$i]['xwoba_rank'] = $arr[$player['id']]['xwoba_rank']+1;

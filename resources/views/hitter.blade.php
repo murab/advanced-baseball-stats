@@ -57,7 +57,7 @@
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['k_percentage'], 1)}}</td>
                     <td class="d-none d-lg-table-cell" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed'], 1)}}</td>
-                    <td class="d-none d-md-table-cell" style="border-right: 1px solid black; @if ($stat['brls_per_pa'] >= 8) color: green; @endif @if ($stat['brls_per_pa'] >= 10) font-size: 1.2em; font-weight: bold; @endif">{{$stat['brls_per_pa']}}%</td>
+                    <td class="d-none d-md-table-cell" style="border-right: 1px solid black; @if ($stat['brls_per_pa'] >= 8) color: green; @endif @if ($stat['brls_per_pa'] >= 10) font-size: 1.2em; font-weight: bold; @endif">{{ number_format(round($stat['brls_per_pa'])) }}%</td>
                     <td class="d-none d-lg-table-cell" style="border-right: 1px solid black;">{{number_format($stat['pulled_flyballs_per_g'], 2)}}</td>
                     <td class="d-none d-md-table-cell">{{number_format($stat['pulled_flyballs_per_g_rank'])}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
