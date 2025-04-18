@@ -174,7 +174,7 @@
 
             $('#pa_minimum').val(data.pa_min);
 
-            $('#pa_per_g_minimum').val(data.pa_per_g_minimum);
+            $('#pa_per_g_minimum').val(data.pa_per_g_minimum ?? 3.7);
 
             $('#sb_minimum').val(0);
 
