@@ -273,11 +273,11 @@
             }
 
             updateData();
-            if (window.screen.height <= 430) { // scroll to stats automatically on mobile
+            if (window.screen.height <= 932) { // scroll to stats automatically on mobile
                 $('html').animate({ scrollTop: $('table').offset().top }, 800);
             }
             $(window).on("orientationchange", function(event) {
-                if (window.screen.height <= 430) { // scroll to stats automatically on mobile
+                if (window.screen.height <= 932) { // scroll to stats automatically on mobile
                     $('html').animate({ scrollTop: $('table').offset().top }, 800);
                 }
             });
