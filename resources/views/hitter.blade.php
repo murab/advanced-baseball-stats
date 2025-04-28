@@ -5,9 +5,13 @@
 @endsection
 
 @section('content')
-    <h1 style="margin-bottom: 25px">
+    <h1 style="margin-bottom: 25px; text-align: center">
         {{$player['name']}} Stats
     </h1>
+
+    <div style="text-align: center">
+        <button id="expand" class="d-block d-sm-none btn btn-primary" style="margin: 0 auto; margin-bottom: 20px;">Expand</button>
+    </div>
 
     <div class="row">
         <div class="col-sm-12 table-responsive" style="padding-right: 0; padding-left: 0">
@@ -75,4 +79,11 @@
 
 @section('javascript')
     <script type="text/javascript" src="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#expand').on('click', function() {
+                $('.d-none').removeClass('d-none');
+            });
+        });
+    </script>
 @endsection
