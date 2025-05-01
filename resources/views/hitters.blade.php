@@ -14,7 +14,7 @@
 
 @section('content')
     <h1>
-        Hitter Rankings
+        Hitter Rankings <button id="expand" class="d-sm-none btn btn-primary">Expand</button>
     </h1>
 
     <p>Average PA in {{ $year }}: {{ $min_pa }}</p>
@@ -303,6 +303,10 @@
                 if (window.screen.height <= 932) { // scroll to stats automatically on mobile
                     $('html').animate({ scrollTop: $('table').offset().top }, 800);
                 }
+            });
+
+            $('#expand').on('click', function() {
+                $('.d-none').removeClass('d-none');
             });
         });
     </script>
