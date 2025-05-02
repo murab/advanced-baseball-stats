@@ -276,7 +276,7 @@
                     '<td class="align-middle pa d-none d-md-table-cell">'+stat['pa']+"</td>"+
                     '<td class="align-middle pa-per-g" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
                     '<td class="align-middle">'+stat['r']+"</td>"+
-                    '<td class="align-middle" data-toggle="tooltip" title="xBA: '+stat['xba']+'">'+stat['avg']+"</td>"+
+                    '<td class="align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="xBA: '+stat['xba']+'">'+stat['avg']+"</td>"+
                     '<td class="align-middle">'+stat['hr']+"</td>"+
                     '<td class="align-middle">'+stat['rbi']+"</td>"+
                     '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
