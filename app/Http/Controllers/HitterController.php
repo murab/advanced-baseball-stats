@@ -117,6 +117,7 @@ class HitterController extends Controller
         foreach ($stats as $i => $player) {
             $stats[$i]['pa_per_g'] = ltrim(number_format($stats[$i]['pa_per_g'], 2));
             $stats[$i]['avg'] = ltrim(number_format($stats[$i]['avg'], 3),"0");
+            $stats[$i]['xba'] = ltrim(number_format($stats[$i]['xba'], 3),"0");
             $stats[$i]['bb_percentage'] = number_format($stats[$i]['bb_percentage'], 1);
             $stats[$i]['k_percentage'] = number_format($stats[$i]['k_percentage'], 1);
             $stats[$i]['swstr_percentage'] = number_format($stats[$i]['swstr_percentage'], 1);
