@@ -51,8 +51,8 @@
                     <td class="all">{{$stat['pa']}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td>{{$stat['r']}}</td>
-                    <td>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
-                    <td>{{$stat['hr']}}</td>
+                    <td style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{ltrim(number_format($stat['xba'], 3),'0')}}">{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
+                    <td style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{$stat['xhr']}}">{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;"><?php if ($stat['cs'] === null || $stat['sb'] === 0) echo '0'; else echo number_format($stat['sb']/($stat['sb']+$stat['cs']),2)*100; ?>%</td>
@@ -78,6 +78,7 @@
 @endsection
 
 @section('javascript')
+    <script>$('[data-toggle="tooltip"]').tooltip();</script>
     <script type="text/javascript" src="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/fh-3.1.8/r-2.2.7/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
