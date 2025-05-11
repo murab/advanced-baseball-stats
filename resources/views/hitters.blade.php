@@ -59,41 +59,44 @@
 
     <div class="row">
         <div class="col-sm-12" style="padding-right: 0; padding-left: 0">
-            <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
-                <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
-                    <thead>
-                    <tr style="text-align: center">
-                        <th>Rank</th>
-                        <th style="width: 125px">Name</th>
-                        <th style="border-right: 1px solid black;">Age</th>
-                        <th class="d-none d-md-table-cell">PA</th>
-                        <th style="border-right: 1px solid black;">PA/G</th>
-                        <th>R</th>
-                        <th>AVG</th>
-                        <th>HR</th>
-                        <th>RBI</th>
-                        <th style="border-right: 1px solid black;">SB</th>
-                        <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SB%</th>
-                        <th class="ops" style="border-right: 1px solid black;">OPS</th>
-                        <th class="d-none d-md-table-cell">BB%</th>
-                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K%</th>
-                        <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SwStr%</th>
-                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Sprint<br>Speed</th>
-                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA</th>
-                        <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
-                        <th class="d-none d-md-table-cell">PullFB/G<br>Rank</th>
-                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
-                        <th class="d-none d-md-table-cell" style="font-weight: bold; border-right: 1px solid black;">Def</th>
-                        <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">wRC+ vs. L</th>
-                        <th class="d-none d-md-table-cell">wRC+</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-                <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
+            <div class="form-group form-check" style="text-align: center">
+                <input type="checkbox" name="toggle-xstats" id="toggle-xstats" class="form-check-input">
+                <label class="form-check-label" for="toggle-xstats">Toggle xBA/xHR</label>
             </div>
+            <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
+            <table id="hitters" class="table-bordered table-hover table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
+                <thead>
+                <tr style="text-align: center">
+                    <th>Rank</th>
+                    <th style="width: 125px">Name</th>
+                    <th style="border-right: 1px solid black;">Age</th>
+                    <th class="d-none d-md-table-cell">PA</th>
+                    <th style="border-right: 1px solid black;">PA/G</th>
+                    <th>R</th>
+                    <th id="th-avg">AVG</th>
+                    <th id="th-hr">HR</th>
+                    <th>RBI</th>
+                    <th style="border-right: 1px solid black;">SB</th>
+                    <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SB%</th>
+                    <th class="ops" style="border-right: 1px solid black;">OPS</th>
+                    <th class="d-none d-md-table-cell">BB%</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K%</th>
+                    <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">SwStr%</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Sprint<br>Speed</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA</th>
+                    <th class="d-none d-lg-table-cell" style="border-right: 1px solid black;">PullFB/G</th>
+                    <th class="d-none d-md-table-cell">PullFB/G<br>Rank</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
+                    <th class="d-none d-md-table-cell" style="font-weight: bold; border-right: 1px solid black;">Def</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">wRC+ vs. L</th>
+                    <th class="d-none d-md-table-cell">wRC+</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <div style="text-align: center">Out of <span class="numHitters"></span> eligible hitters</div>
         </div>
     </div>
 
@@ -254,6 +257,7 @@
                 }).done(function() {
                     filterCurrentSearch();
                     $('[data-toggle="tooltip"]').tooltip();
+                    doXstats();
                 });
             }
 
@@ -276,8 +280,8 @@
                     '<td class="align-middle pa d-none d-md-table-cell">'+stat['pa']+"</td>"+
                     '<td class="align-middle pa-per-g" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
                     '<td class="align-middle">'+stat['r']+"</td>"+
-                    '<td class="align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: '+stat['xba']+'">'+stat['avg']+"</td>"+
-                    '<td class="align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: '+stat['xhr']+'">'+stat['hr']+"</td>"+
+                    '<td class="avg align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-avg="'+stat['avg']+'" data-xavg="'+stat['xba']+'" data-toggle="tooltip" title="Expected: '+stat['xba']+'">'+stat['avg']+"</td>"+
+                    '<td class="hr align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-hr="'+stat['hr']+'" data-xhr="'+stat['xhr']+'" data-toggle="tooltip" title="Expected: '+stat['xhr']+'">'+stat['hr']+"</td>"+
                     '<td class="align-middle">'+stat['rbi']+"</td>"+
                     '<td class="align-middle sb" style="border-right: 1px solid black;">'+stat['sb']+"</td>"+
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">' + sb_percentage + '%</td>' +
@@ -308,6 +312,32 @@
 
             $('#expand').on('click', function() {
                 $('.d-none').removeClass('d-none');
+            });
+
+            function doXstats() {
+                if ($('#toggle-xstats').is(':checked')) {
+                    $('#th-avg').html('xAVG');
+                    $('.avg').each(function() {
+                        $(this).html($(this).data('xavg') ?? 0);
+                    });
+                    $('#th-hr').html('xHR');
+                    $('.hr').each(function() {
+                        $(this).html($(this).data('xhr') ?? 0);
+                    });
+                } else {
+                    $('#th-avg').html('AVG');
+                    $('.avg').each(function() {
+                        $(this).html($(this).data('avg') ?? 0);
+                    });
+                    $('#th-hr').html('HR');
+                    $('.hr').each(function() {
+                        $(this).html($(this).data('hr') ?? 0);
+                    });
+                }
+            }
+
+            $('#toggle-xstats').on('change', function() {
+                doXstats();
             });
         });
     </script>

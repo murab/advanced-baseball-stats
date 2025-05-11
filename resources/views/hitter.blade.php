@@ -52,7 +52,7 @@
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td>{{$stat['r']}}</td>
                     <td <?php if ($stat['xba']) { ?> style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{ltrim(number_format($stat['xba'], 3),'0')}}" <?php } ?>>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
-                    <td <?php if ($stat['xhr']) { ?>style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{$stat['xhr']}}" <?php } ?>>{{$stat['hr']}}</td>
+                    <td <?php if ($stat['xba']) { ?>style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{$stat['xhr']}}" <?php } ?>>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;"><?php if ($stat['cs'] === null || $stat['sb'] === 0) echo '0'; else echo number_format($stat['sb']/($stat['sb']+$stat['cs']),2)*100; ?>%</td>
