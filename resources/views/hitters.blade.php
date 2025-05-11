@@ -181,6 +181,10 @@
 
             $('#sb_minimum').val(0);
 
+            if (data.xstats === 'true') {
+                $('#toggle-xstats').click();
+            }
+
             $('.playerSetBtn').eq(0).click();
 
             $('#positionSelect, #yearSelect').change(function() {
@@ -197,6 +201,7 @@
                 data.pa_min = $('#pa_minimum').val();
                 data.pa_per_g_minimum = $('#pa_per_g_minimum').val();
                 data.min_pa = {{ $min_pa }};
+                data.xstats = $('#toggle-xstats').is(':checked');
                 localStorage.setItem('data', JSON.stringify(data));
                 $.post('/api/lists/save', data);
                 // $.cookie('pa_minimum', parseFloat($('#pa_minimum').val()), { expires: 20*365 });
@@ -316,6 +321,7 @@
 
             function doXstats() {
                 if ($('#toggle-xstats').is(':checked')) {
+                    data.xstats = true;
                     $('#th-avg').html('xAVG');
                     $('.avg').each(function() {
                         $(this).html($(this).data('xavg') ?? 0);
@@ -325,6 +331,7 @@
                         $(this).html(Math.round($(this).data('xhr')) ?? 0);
                     });
                 } else {
+                    data.xstats = false;
                     $('#th-avg').html('AVG');
                     $('.avg').each(function() {
                         $(this).html($(this).data('avg') ?? 0);
@@ -336,8 +343,15 @@
                 }
             }
 
+            if (data.xstats == true) {
+                $('#toggle-xstats').click();
+            }
+
             $('#toggle-xstats').on('change', function() {
                 doXstats();
+                data.xstats = $('#toggle-xstats').is(':checked');
+                localStorage.setItem('data', JSON.stringify(data));
+                $.post('/api/lists/save', data);
             });
         });
     </script>
