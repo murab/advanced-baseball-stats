@@ -322,7 +322,7 @@
                     });
                     $('#th-hr').html('xHR');
                     $('.hr').each(function() {
-                        $(this).html($(this).data('xhr') ?? 0);
+                        $(this).html(Math.round($(this).data('xhr')) ?? 0);
                     });
                 } else {
                     $('#th-avg').html('AVG');
@@ -331,7 +331,7 @@
                     });
                     $('#th-hr').html('HR');
                     $('.hr').each(function() {
-                        $(this).html($(this).data('hr') ?? 0);
+                        $(this).html(Math.round($(this).data('hr')) ?? 0);
                     });
                 }
             }
