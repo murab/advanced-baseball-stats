@@ -62,7 +62,7 @@
                         <td style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
                         <td>{{number_format($stat['k_percentage'],1)}}</td>
                         <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                        <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                        <td style="border-right: 1px solid black; @if ($stat['k_percentage'] - $stat['bb_percentage'] >= 17.5) color: green; @endif @if ($stat['k_percentage'] - $stat['bb_percentage'] >= 20) font-weight: bold; font-size: 1.2em; @endif">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
                         <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                         <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
                         <td class="d-none d-md-table-cell align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>
@@ -129,7 +129,7 @@
                             <td style="border-right: 1px solid black;">{{number_format($stat['whip'], 2)}}</td>
                             <td>{{number_format($stat['k_percentage'],1)}}</td>
                             <td>{{number_format($stat['bb_percentage'], 1)}}</td>
-                            <td style="border-right: 1px solid black;">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
+                            <td style="border-right: 1px solid black; @if ($stat['k_percentage'] - $stat['bb_percentage'] >= 20) color: green; @endif @if ($stat['k_percentage'] - $stat['bb_percentage'] >= 25) font-weight: bold; font-size: 1.2em; @endif">{{number_format($stat['k_percentage'] - $stat['bb_percentage'], 1)}}</td>
                             <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                             <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{number_format($stat['gb_percentage'], 1)}}</td>
                             <td class="d-none d-md-table-cell align-middle" style="border-right: 1px solid black;">{{number_format($stat['csw'], 1)}}</td>

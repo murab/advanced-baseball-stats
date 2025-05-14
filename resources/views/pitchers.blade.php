@@ -248,6 +248,9 @@
             }
 
             function insertRow(stat, rank) {
+                var kbb_style = '';
+                if ('{{$position}}' == 'sp' && stat['kbb_percentage'] >= 17.5 || '{{$position}}' == 'rp' && stat['kbb_percentage'] >= 20) { kbb_style += 'color: green; '; }
+                if ('{{$position}}' == 'sp' && stat['kbb_percentage'] >= 20 || '{{$position}}' == 'rp' && stat['kbb_percentage'] >= 25) { kbb_style += 'font-weight: bold; font-size: 1.2em'; }
                 $('#pitchers tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
@@ -260,7 +263,7 @@
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['whip']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['kbb_percentage']+"</td>"+
+                    '<td class="align-middle" style="border-right: 1px solid black; '+kbb_style+'">'+stat['kbb_percentage']+"</td>"+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['gb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['csw']+"</td>"+
