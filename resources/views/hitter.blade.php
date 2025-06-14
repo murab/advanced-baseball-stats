@@ -13,6 +13,11 @@
         <button id="expand" class="d-block d-sm-none btn btn-primary" style="margin: 0 auto; margin-bottom: 20px;">Expand</button>
     </div>
 
+    <div class="form-group form-check" style="text-align: center">
+        <input type="checkbox" name="toggle-xstats" id="toggle-xstats" class="form-check-input">
+        <label class="form-check-label" for="toggle-xstats">Toggle xBA/xHR</label>
+    </div>
+
     <div class="row">
         <div class="col-sm-12 table-responsive" style="padding-right: 0; padding-left: 0">
         <table id="hitters" class="table-bordered table-striped table-sm" style="font-size: 12px; line-height: 18px; margin: 0 auto;">
@@ -23,8 +28,8 @@
                 <th class="all">PA</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">PA/G</th>
                 <th class="all">R</th>
-                <th class="all">AVG</th>
-                <th class="all">HR</th>
+                <th id="th-avg" class="all">AVG</th>
+                <th id="th-hr" class="all">HR</th>
                 <th class="all">RBI</th>
                 <th class="all" style="border-right: 1px solid black;">SB</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">SB%</th>
@@ -51,8 +56,8 @@
                     <td class="all">{{$stat['pa']}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
                     <td>{{$stat['r']}}</td>
-                    <td <?php if ($stat['xba']) { ?> style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{ltrim(number_format($stat['xba'], 3),'0')}}" <?php } ?>>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
-                    <td <?php if ($stat['xba']) { ?>style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" title="Expected: {{$stat['xhr']}}" <?php } ?>>{{$stat['hr']}}</td>
+                    <td class="avg" <?php if ($stat['xba']) { ?> style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" data-avg="<?php echo ltrim(number_format($stat['avg'], 3),"0")?>" data-xba="<?php echo ltrim(number_format($stat['xba'], 3),'0')?>" title="Expected: {{ltrim(number_format($stat['xba'], 3),'0')}}" <?php } ?>>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
+                    <td class="hr" <?php if ($stat['xba']) { ?>style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" data-hr="<?php echo $stat['hr']?>" data-xhr="<?php echo $stat['xhr']?>" title="Expected: {{$stat['xhr']}}" <?php } ?>>{{$stat['hr']}}</td>
                     <td>{{$stat['rbi']}}</td>
                     <td style="border-right: 1px solid black;">{{$stat['sb']}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;"><?php if ($stat['cs'] === null || $stat['sb'] === 0) echo '0'; else echo number_format($stat['sb']/($stat['sb']+$stat['cs']),2)*100; ?>%</td>
@@ -84,6 +89,50 @@
         $(document).ready(function() {
             $('#expand').on('click', function() {
                 $('.d-none').removeClass('d-none');
+            });
+
+            var data = localStorage.getItem('data');
+
+            if (!data) {
+                data = {
+                    "hitters": {},
+                    "pitchers": {}
+                };
+            } else {
+                data = JSON.parse(data);
+            }
+
+            if (data.xstats === 'true') {
+                $('#toggle-xstats').click();
+            }
+
+            function doXstats() {
+                if ($('#toggle-xstats').is(':checked')) {
+                    data.xstats = true;
+                    $('#th-avg').html('xAVG');
+                    $('.avg').each(function() {
+                        $(this).html($(this).data('xba') ?? 0);
+                    });
+                    $('#th-hr').html('xHR');
+                    $('.hr').each(function() {
+                        $(this).html(Math.round($(this).data('xhr')) ?? 0);
+                    });
+                } else {
+                    data.xstats = false;
+                    $('#th-avg').html('AVG');
+                    $('.avg').each(function() {
+                        $(this).html($(this).data('avg') ?? 0);
+                    });
+                    $('#th-hr').html('HR');
+                    $('.hr').each(function() {
+                        $(this).html(Math.round($(this).data('hr')) ?? 0);
+                    });
+                }
+            }
+
+            doXstats();
+            $('#toggle-xstats').on('change', function() {
+                doXstats();
             });
         });
     </script>
