@@ -5,6 +5,7 @@
     <style>
         @media (max-width: 540px) {
             .ops { border-right: none !important; }
+            .border-right-mobile { border-right: 1px solid black !important }
         }
         @media (min-width: 541px) {
 
@@ -70,8 +71,8 @@
                     <th>Rank</th>
                     <th style="width: 125px">Name</th>
                     <th style="border-right: 1px solid black;">Age</th>
-                    <th class="d-none d-md-table-cell">PA</th>
-                    <th style="border-right: 1px solid black;">PA/G</th>
+                    <th class="border-right-mobile">PA</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">PA/G</th>
                     <th>R</th>
                     <th id="th-avg">AVG</th>
                     <th id="th-hr">HR</th>
@@ -282,8 +283,8 @@
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
                     '<td class="align-middle" style="text-align: left; font-size: 1.2em; width: 150px; letter-spacing: 0;"><a target="_blank" href="/hitter/'+stat['player']['slug']+'" class="hitterNameLink">'+stat['player']['name']+'</a></td>'+
                     '<td class="align-middle" style="border-right: 1px solid black;">'+stat['age']+"</td>"+
-                    '<td class="align-middle pa d-none d-md-table-cell">'+stat['pa']+"</td>"+
-                    '<td class="align-middle pa-per-g" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
+                    '<td class="align-middle pa border-right-mobile">'+stat['pa']+"</td>"+
+                    '<td class="align-middle pa-per-g d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['pa_per_g']+"</td>"+
                     '<td class="align-middle">'+stat['r']+"</td>"+
                     '<td class="avg align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-avg="'+stat['avg']+'" data-xavg="'+stat['xba']+'" data-toggle="tooltip" title="Expected: '+stat['xba']+'">'+stat['avg']+"</td>"+
                     '<td class="hr align-middle" style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-hr="'+stat['hr']+'" data-xhr="'+stat['xhr']+'" data-toggle="tooltip" title="Expected: '+stat['xhr']+'">'+stat['hr']+"</td>"+
