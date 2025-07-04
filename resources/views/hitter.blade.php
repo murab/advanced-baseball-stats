@@ -102,7 +102,8 @@
                 data = JSON.parse(data);
             }
 
-            if (data.xstats === 'true') {
+            if (data.xstats === 'true' && !$('#toggle-xstats').is(':checked') || data.xstats === 'false' && $('#toggle-xstats').is(':checked')) {
+                console.log(data.xstats, $('#toggle-xstats').is(':checked'));
                 $('#toggle-xstats').click();
             }
 

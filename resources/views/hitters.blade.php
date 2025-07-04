@@ -182,7 +182,8 @@
 
             $('#sb_minimum').val(0);
 
-            if (data.xstats === 'true') {
+            if (data.xstats === 'true' && !$('#toggle-xstats').is(':checked') || data.xstats === 'false' && $('#toggle-xstats').is(':checked')) {
+                console.log(data.xstats, $('#toggle-xstats').is(':checked'));
                 $('#toggle-xstats').click();
             }
 
@@ -344,7 +345,8 @@
                 }
             }
 
-            if (data.xstats == true) {
+            if (data.xstats === 'true' && !$('#toggle-xstats').is(':checked') || data.xstats === 'false' && $('#toggle-xstats').is(':checked')) {
+                console.log(data.xstats, $('#toggle-xstats').is(':checked'));
                 $('#toggle-xstats').click();
             }
 
