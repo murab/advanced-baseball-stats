@@ -116,6 +116,8 @@
                 };
             } else {
                 data = JSON.parse(data);
+                if (data.xstats === 'true') data.xstats = true;
+                if (data.xstats === 'false') data.xstats = false;
             }
 
             $.ajax({
@@ -126,6 +128,8 @@
                     var parsed = JSON.parse(resp);
                     if (parsed.hitters || parsed.pitchers) {
                         data = parsed;
+                        if (data.xstats === 'true') data.xstats = true;
+                        if (data.xstats === 'false') data.xstats = false;
                         localStorage.setItem('data', resp);
                     }
                 },
@@ -182,8 +186,7 @@
 
             $('#sb_minimum').val(0);
 
-            if (data.xstats === 'true' && !$('#toggle-xstats').is(':checked') || data.xstats === 'false' && $('#toggle-xstats').is(':checked')) {
-                console.log(data.xstats, $('#toggle-xstats').is(':checked'));
+            if (data.xstats === true && !$('#toggle-xstats').is(':checked') || data.xstats === false && $('#toggle-xstats').is(':checked')) {
                 $('#toggle-xstats').click();
             }
 
@@ -345,8 +348,7 @@
                 }
             }
 
-            if (data.xstats === 'true' && !$('#toggle-xstats').is(':checked') || data.xstats === 'false' && $('#toggle-xstats').is(':checked')) {
-                console.log(data.xstats, $('#toggle-xstats').is(':checked'));
+            if (data.xstats === true && !$('#toggle-xstats').is(':checked') || data.xstats === false && $('#toggle-xstats').is(':checked')) {
                 $('#toggle-xstats').click();
             }
 
