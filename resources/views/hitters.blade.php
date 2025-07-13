@@ -150,7 +150,6 @@
                     };
                     drawPlayerSetButtons(data.hitters);
                     localStorage.setItem('data', JSON.stringify(data));
-
                     $.post('/api/lists/save', data);
                 }
             });
@@ -160,6 +159,8 @@
                 delete data.hitters[name];
                 localStorage.setItem('data', JSON.stringify(data));
                 drawPlayerSetButtons(data.hitters);
+                localStorage.setItem('data', JSON.stringify(data));
+                $.post('/api/lists/save', data);
             });
 
             function drawPlayerSetButtons(players)
