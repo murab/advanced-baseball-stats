@@ -282,6 +282,7 @@
                 var vsleft_wrc_plus_style = '';
                 if ((stat['bats'] == 'L' || stat['bats'] == 'B') && stat['vsleft_wrc_plus'] >= 100) { vsleft_wrc_plus_style += 'color: green; '; }
                 if ((stat['bats'] == 'L' || stat['bats'] == 'B') && stat['vsleft_wrc_plus'] >= 110) { vsleft_wrc_plus_style += 'font-weight: bold; font-size: 1.2em; '; }
+                if ((stat['bats'] == 'L' || stat['bats'] == 'B') && stat['vsleft_wrc_plus'] <= 80) { vsleft_wrc_plus_style += 'color: red; '; }
                 $('#hitters tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
