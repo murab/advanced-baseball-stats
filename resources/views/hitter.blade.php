@@ -136,6 +136,15 @@
             $('#toggle-xstats').on('change', function() {
                 doXstats();
             });
+
+            if (window.screen.height <= 932) { // scroll to stats automatically on mobile
+                $('html').animate({ scrollTop: $('table').offset().top }, 800);
+            }
+            $(window).on("orientationchange", function(event) {
+                if (window.screen.height <= 932) { // scroll to stats automatically on mobile
+                    $('html').animate({ scrollTop: $('table').offset().top }, 800);
+                }
+            });
         });
     </script>
 @endsection
