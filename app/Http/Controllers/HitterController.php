@@ -103,7 +103,7 @@ class HitterController extends Controller
         ])->with('player')->orderBy('xhr_per_g', 'desc')->get();
 
         foreach ($stats as $i => $player) {
-            $arr[$player['id']]['xhr_g_rank'] = $i;
+            $arr[$player['id']]['xhr_per_g_rank'] = $i;
         }
 
         $stats = Hitter::where([
@@ -126,7 +126,7 @@ class HitterController extends Controller
             $stats[$i]['brls_rank'] = $i+1;
             $stats[$i]['sprint_speed_rank'] = $arr[$player['id']]['sprint_speed_rank']+1;
             $stats[$i]['xwoba_rank'] = $arr[$player['id']]['xwoba_rank']+1;
-            $stats[$i]['xhr_g_rank'] = $arr[$player['id']]['xhr_g_rank']+1;
+            $stats[$i]['xhr_per_g_rank'] = $arr[$player['id']]['xhr_per_g_rank']+1;
 //            $stats[$i]['pulled_fb_g_rank'] = $arr[$player['id']]['pulled_fb_g_rank']+1;
             $stats[$i]['avg_rank'] = $stats[$i]['xhr_g_rank'] < $stats[$i]['xwoba_rank'] ? ($stats[$i]['xhr_g_rank'] + $stats[$i]['xwoba_rank']) / 2.0 : $stats[$i]['xwoba_rank'];
         }
