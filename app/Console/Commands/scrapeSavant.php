@@ -362,7 +362,7 @@ class scrapeSavant extends Command
             $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
             $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
 
-            $player_data['xhr'] = floatval(trim($player[11]," \""));
+            $player_data['xhr'] = floatval(trim($player[12]," \""));
             $player_data['team'] = trim($player[3]," \"");
 
             if (isset(self::playersNotToSkipTeam[$player_data['name']]) && $player_data['team'] != self::playersNotToSkipTeam[$player_data['name']]) {
