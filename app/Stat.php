@@ -374,6 +374,7 @@ class Stat extends Model
                    pa_per_g_rank = null,
                    sb_per_pa_rank = null,
                    pulled_flyballs_per_g_rank = null,
+                   xhr_per_g_rank = null,
                    wrcplus_rank = null,
                    k_percentage_rank = null,
                    sprint_speed_rank = null,
@@ -397,6 +398,7 @@ class Stat extends Model
         foreach ($players as &$player) {
             $player->pa_per_g = $player->pa / $player->g ?? 0;
             $player->pulled_flyballs_per_g = $player->pulled_flyballs / $player->g ?? 0;
+            $player->xhr_per_g = $player->xhr / $player->g ?? 0;
         }
         $players = $players->sort(function ($a, $b) {
             if ($a->pa_per_g == $b->pa_per_g) {
@@ -468,6 +470,21 @@ class Stat extends Model
         $i = 1;
         foreach ($players as $player) {
             $player->pulled_flyballs_per_g_rank = $i;
+            $i++;
+            $player->save();
+        }
+
+        $players = Hitter::where([
+            'year' => $year,
+            ['wrc_plus', '<>', null],
+            ['k_percentage', '<>', null],
+            ['brls_per_pa', '<>', null],
+            ['pa', '>=', $min_pa],
+        ])->orderBy('xhr_per_g', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->xhr_per_g_rank = $i;
             $i++;
             $player->save();
         }
@@ -560,7 +577,7 @@ class Stat extends Model
         $all = [];
         foreach ($players as $player) {
             $player->brls_rank = $i;
-            $player->rank_avg = $player->pulled_flyballs_per_g_rank < $player->xwoba_rank ? ($player->pulled_flyballs_per_g_rank + $player->xwoba_rank) / 2.0 : $player->xwoba_rank;
+            $player->rank_avg = $player->xhr_per_g_rank < $player->xwoba_rank ? ($player->xhr_per_g_rank + $player->xwoba_rank) / 2.0 : $player->xwoba_rank;
 
             $all[] = [
                 'id' => $player->id,
