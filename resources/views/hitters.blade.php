@@ -303,7 +303,7 @@
                     '<td class="align-middle d-none d-lg-table-cell" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+Number(stat['sprint_speed']).toFixed(1)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;'+brls_style+'">'+stat['brls_per_pa']+"%</td>"+
-                    '<td class="align-middle d-none d-lg-table-cell">'+stat['ba_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell">'+stat['ba_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['xhr_per_g_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
