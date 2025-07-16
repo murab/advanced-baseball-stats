@@ -106,6 +106,26 @@ class HitterController extends Controller
             $arr[$player['id']]['xhr_per_g_rank'] = $i;
         }
 
+        if (Stat::calculateMinPlateAppearances($year) >= 150) {
+            $stats = Hitter::where([
+                'year' => $year,
+                ['pa', '>=', $pa_min],
+                ['pa_per_g', '>=', $pa_per_g_min],
+                ['sb', '>=', $sb_min],
+            ])->with('player')->orderBy('avg', 'desc')->get();
+        } else {
+            $stats = Hitter::where([
+                'year' => $year,
+                ['pa', '>=', $pa_min],
+                ['pa_per_g', '>=', $pa_per_g_min],
+                ['sb', '>=', $sb_min],
+            ])->with('player')->orderBy('xavg', 'desc')->get();
+        }
+
+        foreach ($stats as $i => $player) {
+            $arr[$player['id']]['ba_rank'] = $i;
+        }
+
         $stats = Hitter::where([
             'year' => $year,
             ['pa', '>=', $pa_min],
@@ -125,10 +145,11 @@ class HitterController extends Controller
             $stats[$i]['brls_per_pa'] = number_format(round($stats[$i]['brls_per_pa']));
             $stats[$i]['brls_rank'] = $i+1;
             $stats[$i]['sprint_speed_rank'] = $arr[$player['id']]['sprint_speed_rank']+1;
+            $stats[$i]['ba_rank'] = $arr[$player['id']]['ba_rank']+1;
             $stats[$i]['xwoba_rank'] = $arr[$player['id']]['xwoba_rank']+1;
             $stats[$i]['xhr_per_g_rank'] = $arr[$player['id']]['xhr_per_g_rank']+1;
 //            $stats[$i]['pulled_fb_g_rank'] = $arr[$player['id']]['pulled_fb_g_rank']+1;
-            $stats[$i]['avg_rank'] = $stats[$i]['xhr_per_g_rank'] < $stats[$i]['xwoba_rank'] ? ($stats[$i]['xhr_per_g_rank'] + $stats[$i]['xwoba_rank']) / 2.0 : $stats[$i]['xwoba_rank'];
+            $stats[$i]['avg_rank'] = ($arr[$player['id']]['ba_rank'] + $arr[$player['id']]['xhr_per_g_rank'] + $arr[$player['id']]['xwoba_rank']) / 3.0;
         }
 
         $stats = $stats->toArray();
