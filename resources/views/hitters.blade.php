@@ -86,7 +86,7 @@
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Sprint<br>Speed</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Brls/PA</th>
                     <th class="d-none d-md-table-cell" >@if ($min_pa >= 150) AVG @else xAVG @endif<br>Rank</th>
-                    <th class="d-none d-md-table-cell">xHR/G<br>Rank</th>
+                    <th class="d-none d-md-table-cell">HR/G<br>Rank</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xwOBA<br>Rank</th>
                     <th class="d-none d-md-table-cell" style="font-weight: bold; border-right: 1px solid black;">Def</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">wRC+ vs. L</th>
@@ -304,11 +304,11 @@
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+Number(stat['sprint_speed']).toFixed(1)+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;'+brls_style+'">'+stat['brls_per_pa']+"%</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['ba_rank']+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell">'+stat['xhr_per_g_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell">'+stat['hr_per_g_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;'+vsleft_wrc_plus_style+'">'+stat['vsleft_wrc_plus']+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell" style=" font-size: 1.2em;  '+(stat['wrc_plus'] > 110 ? 'font-weight: bold; color: green' : '')+'">'+stat['wrc_plus']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style=" font-size: 1.2em;  '+(stat['wrc_plus'] > 110 ? 'font-weight: bold; color: green' : '')+'">'+stat['avg_rank']+"</td>"+
                     '</tr>');
             }
 

@@ -371,10 +371,16 @@ class Stat extends Model
                 update hitters set
                    rank_avg_rank = null,
                    rank_avg = null,
+                   pa_per_g = null,
                    pa_per_g_rank = null,
                    sb_per_pa_rank = null,
+                   pulled_flyballs_per_g = null,
                    pulled_flyballs_per_g_rank = null,
+                   xhr_per_g = null,
                    xhr_per_g_rank = null,
+                   hr_per_g = null,
+                   hr_per_g_rank = null,
+                   xba_rank = null,
                    wrcplus_rank = null,
                    k_percentage_rank = null,
                    sprint_speed_rank = null,
@@ -395,6 +401,7 @@ class Stat extends Model
             $player->pa_per_g = $player->pa / $player->g ?? 0;
             $player->pulled_flyballs_per_g = $player->pulled_flyballs / $player->g ?? 0;
             $player->xhr_per_g = $player->xhr / $player->g ?? 0;
+            $player->hr_per_g = $player->hr / $player->g ?? 0;
         }
 //        $players = $players->sort(function ($a, $b) {
 //            if ($a->pa_per_g == $b->pa_per_g) {
@@ -405,7 +412,7 @@ class Stat extends Model
 
         $i = 1;
         foreach ($players as $player) {
-            $player->pa_per_g_rank = $i;
+//            $player->pa_per_g_rank = $i;
             $i++;
             $player->save();
         }
@@ -442,6 +449,7 @@ class Stat extends Model
             'year' => $year,
             ['pa', '>=', $min_pa],
             ['avg', '<>', null],
+            ['pa_per_g', '>=', 3.7],
         ])->orderBy('avg', 'desc')->get();
 
         $i = 1;
@@ -455,6 +463,7 @@ class Stat extends Model
             'year' => $year,
             ['pa', '>=', $min_pa],
             ['xba', '<>', null],
+            ['pa_per_g', '>=', 3.7],
         ])->orderBy('xba', 'desc')->get();
 
         $i = 1;
@@ -468,6 +477,7 @@ class Stat extends Model
 //            'year' => $year,
 //            ['pulled_flyballs_per_g', '<>', null],
 //            ['pa', '>=', $min_pa],
+//            ['pa_per_g', '>=', 3.7],
 //        ])->orderBy('pulled_flyballs_per_g', 'desc')->get();
 //
 //        $i = 1;
@@ -481,6 +491,7 @@ class Stat extends Model
             'year' => $year,
             ['xhr_per_g', '<>', null],
             ['pa', '>=', $min_pa],
+            ['pa_per_g', '>=', 3.7],
         ])->orderBy('xhr_per_g', 'desc')->get();
 
         $i = 1;
@@ -490,11 +501,26 @@ class Stat extends Model
             $player->save();
         }
 
+        $players = Hitter::where([
+            'year' => $year,
+            ['hr_per_g', '<>', null],
+            ['pa', '>=', $min_pa],
+            ['pa_per_g', '>=', 3.7],
+        ])->orderBy('hr_per_g', 'desc')->get();
+
+        $i = 1;
+        foreach ($players as $player) {
+            $player->hr_per_g_rank = $i;
+            $i++;
+            $player->save();
+        }
+
 //        $players = Hitter::where([
 //            'year' => $year,
 //            ['wrc_plus', '<>', null],
 //            ['pa', '>=', $min_pa],
 //        ])->orderBy('wrc_plus', 'desc')->get();
+//            ['pa_per_g', '>=', 3.7],
 //
 //        $i = 1;
 //        foreach ($players as $player) {
@@ -507,6 +533,7 @@ class Stat extends Model
 //            'year' => $year,
 //            ['k_percentage', '<>', null],
 //            ['pa', '>=', $min_pa],
+//            ['pa_per_g', '>=', 3.7],
 //        ])->orderBy('k_percentage', 'asc')->get();
 //
 //        $i = 1;
@@ -520,6 +547,7 @@ class Stat extends Model
             'year' => $year,
             ['xwoba', '<>', null],
             ['pa', '>=', $min_pa],
+            ['pa_per_g', '>=', 3.7],
         ])->orderBy('xwoba', 'desc')->get();
 
         $i = 1;
@@ -562,14 +590,15 @@ class Stat extends Model
         $players = Hitter::where([
             'year' => $year,
             ['pa', '>=', $min_pa],
+            ['pa_per_g', '>=', 3.7],
         ])->get();
 
         foreach ($players as $player) {
 
             if ($min_pa >= 150) { // use batting average for >= 150 plate appearances
-                $player->rank_avg = $player->xhr_per_g_rank + $player->xwoba_rank + $player->avg_rank / 3.0;
+                $player->rank_avg = ($player->hr_per_g_rank + $player->xwoba_rank + $player->avg_rank) / 3.0;
             } else { // use expected batting average for less than 150 plate appearances
-                $player->rank_avg = $player->xhr_per_g_rank < $player->xwoba_rank + $player->xavg_rank / 3.0;
+                $player->rank_avg = ($player->hr_per_g_rank < $player->xwoba_rank + $player->xba_rank) / 3.0;
             }
 
             $all[] = [
@@ -582,10 +611,12 @@ class Stat extends Model
         }
 
         usort($all, function($a,$b) {
+            if ($a['avg'] == $b['avg']) return 0;
             return $a['avg'] < $b['avg'] ? -1 : 1;
         });
 
         $i = 1;
+
         foreach ($all as $player) {
             Hitter::where('id', $player['id'])->update(['rank_avg_rank' => $i]);
             $i++;
