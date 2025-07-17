@@ -308,7 +308,7 @@
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['xwoba_rank']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black; '+(stat['def'] > 0 ? 'color: green; font-weight: bold' : '')+' ">'+stat['def']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;'+vsleft_wrc_plus_style+'">'+stat['vsleft_wrc_plus']+"</td>"+
-                    '<td class="align-middle d-none d-md-table-cell" style=" font-size: 1.2em;  '+(stat['wrc_plus'] > 110 ? 'font-weight: bold; color: green' : '')+'">'+stat['avg_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell" style=" font-size: 1.2em;  '+(stat['wrc_plus'] > 110 ? 'font-weight: bold; color: green' : '')+'">'+stat['wrc_plus']+"</td>"+
                     '</tr>');
             }
 
