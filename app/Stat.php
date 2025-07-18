@@ -272,39 +272,63 @@ class Stat extends Model
 
         if ($second_half == false) {
             usort($xwoba_sorted, function($a, $b) {
+                if ($a['adjusted_xwoba'] == $b['adjusted_xwoba']) {
+                    return $a['ip'] > $b['ip'] ? -1 : 1;
+                }
                 return $a['adjusted_xwoba'] > $b['adjusted_xwoba'];
             });
 
             if ($position == 'SP') {
                 usort($k_sorted, function($a, $b) {
+                    if ($a['k_per_game'] == $b['k_per_game']) {
+                        return $a['ip'] > $b['ip'] ? -1 : 1;
+                    }
                     return $a['k_per_game'] < $b['k_per_game'];
                 });
             } else {
                 usort($k_sorted, function($a, $b) {
+                    if ($a['k_percentage'] == $b['k_percentage']) {
+                        return $a['ip'] > $b['ip'] ? -1 : 1;
+                    }
                     return $a['k_percentage'] < $b['k_percentage'];
                 });
             }
 
             usort($ipg_sorted, function ($a, $b) {
+                if ($a['innings_per_game'] == $b['innings_per_game']) {
+                    return $a['ip'] > $b['ip'] ? -1 : 1;
+                }
                 return $a['innings_per_game'] < $b['innings_per_game'];
             });
         } else {
             usort($xwoba_sorted, function($a, $b) {
+                if ($a['xwoba'] == $b['xwoba']) {
+                    return $a['ip'] > $b['ip'] ? -1 : 1;
+                }
                 return $a['xwoba'] > $b['xwoba'];
             });
 
             $k_sorted = $all_data;
             if ($position == 'SP') {
                 usort($k_sorted, function($a, $b) {
+                    if ($a['k_per_game'] == $b['k_per_game']) {
+                        return $a['ip'] > $b['ip'] ? -1 : 1;
+                    }
                     return $a['k_per_game'] < $b['k_per_game'];
                 });
             } else {
                 usort($k_sorted, function($a, $b) {
+                    if ($a['k_percentage'] == $b['k_percentage']) {
+                        return $a['ip'] > $b['ip'] ? -1 : 1;
+                    }
                     return $a['k_percentage'] < $b['k_percentage'];
                 });
             }
 
             usort($ipg_sorted, function ($a, $b) {
+                if ($a['innings_per_game'] == $b['innings_per_game']) {
+                    return $a['ip'] > $b['ip'] ? -1 : 1;
+                }
                 return $a['innings_per_game'] < $b['innings_per_game'];
             });
         }
@@ -395,7 +419,7 @@ class Stat extends Model
             'year' => $year,
             ['pa', '<>', null],
             ['g', '<>', null],
-        ])->orderBy('pa', 'desc')->get();
+        ])->orderBy('pa', 'desc')->orderBy('pa', 'desc')->get();
 
         foreach ($players as &$player) {
             $player->pa_per_g = $player->pa / $player->g ?? 0;
@@ -450,7 +474,7 @@ class Stat extends Model
             ['pa', '>=', $min_pa],
             ['avg', '<>', null],
             ['pa_per_g', '>=', 3.7],
-        ])->orderBy('avg', 'desc')->get();
+        ])->orderBy('avg', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
         foreach ($players as $player) {
@@ -464,7 +488,7 @@ class Stat extends Model
             ['pa', '>=', $min_pa],
             ['xba', '<>', null],
             ['pa_per_g', '>=', 3.7],
-        ])->orderBy('xba', 'desc')->get();
+        ])->orderBy('xba', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
         foreach ($players as $player) {
@@ -492,7 +516,7 @@ class Stat extends Model
             ['xhr_per_g', '<>', null],
             ['pa', '>=', $min_pa],
             ['pa_per_g', '>=', 3.7],
-        ])->orderBy('xhr_per_g', 'desc')->get();
+        ])->orderBy('xhr_per_g', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
         foreach ($players as $player) {
@@ -506,7 +530,7 @@ class Stat extends Model
             ['hr_per_g', '<>', null],
             ['pa', '>=', $min_pa],
             ['pa_per_g', '>=', 3.7],
-        ])->orderBy('hr_per_g', 'desc')->get();
+        ])->orderBy('hr_per_g', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
         foreach ($players as $player) {
@@ -548,7 +572,7 @@ class Stat extends Model
             ['xwoba', '<>', null],
             ['pa', '>=', $min_pa],
             ['pa_per_g', '>=', 3.7],
-        ])->orderBy('xwoba', 'desc')->get();
+        ])->orderBy('xwoba', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
         foreach ($players as $player) {
@@ -603,15 +627,18 @@ class Stat extends Model
 
             $all[] = [
                 'id' => $player->id,
-                'avg' => $player->rank_avg]
-            ;
+                'avg' => $player->rank_avg,
+                'pa' => $player->pa,
+            ];
             $i++;
 
             $player->save();
         }
 
         usort($all, function($a,$b) {
-            if ($a['avg'] == $b['avg']) return 0;
+            if ($a['avg'] == $b['avg']) {
+                return $a['pa'] > $b['pa'] ? -1 : 1;
+            }
             return $a['avg'] < $b['avg'] ? -1 : 1;
         });
 

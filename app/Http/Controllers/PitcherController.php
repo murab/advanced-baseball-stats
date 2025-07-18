@@ -64,13 +64,13 @@ class PitcherController extends Controller
                 'year' => $year,
                 'position' => strtoupper($position),
                 ['ip', '>=', $min_ip],
-            ])->with('player')->orderBy('k_per_game', 'desc')->get();
+            ])->with('player')->orderBy('k_per_game', 'desc')->orderBy('ip', 'desc')->get();
         } else { // rp
             $stats = Stat::where([
                 'year' => $year,
                 'position' => strtoupper($position),
                 ['ip', '>=', $min_ip],
-            ])->with('player')->orderBy('k_percentage', 'desc')->get();
+            ])->with('player')->orderBy('k_percentage', 'desc')->orderBy('ip', 'desc')->get();
         }
 
         $arr = [];
@@ -83,7 +83,7 @@ class PitcherController extends Controller
             'year' => $year,
             'position' => strtoupper($position),
             ['ip', '>=', $min_ip],
-        ])->with('player')->orderBy('xwoba', 'asc')->get();
+        ])->with('player')->orderBy('xwoba', 'asc')->orderBy('ip', 'desc')->get();
 
         foreach ($stats as $i => $player) {
             $stats[$i]['ip_per_g'] = number_format($player['ip'] / $player['g'], 1);

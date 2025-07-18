@@ -74,12 +74,12 @@ class HitterController extends Controller
             ['pa', '>=', $pa_min],
             ['pa_per_g', '>=', $pa_per_g_min],
             ['sb', '>=', $sb_min],
-        ])->with('player')->orderBy('xwoba', 'desc')->get();
+        ])->with('player')->orderBy('xwoba', 'desc')->orderBy('pa', 'desc')->get();
 
         $arr = [];
 
         foreach ($stats as $i => $player) {
-            $arr[$player['id']]['xwoba_rank'] = $i;
+            $arr[$player['id']]['xwoba_rank'] = $i+1;
         }
 
 //        $stats = Hitter::where([
@@ -109,7 +109,7 @@ class HitterController extends Controller
             ['pa', '>=', $pa_min],
             ['pa_per_g', '>=', $pa_per_g_min],
             ['sb', '>=', $sb_min],
-        ])->with('player')->orderBy('hr_per_g', 'desc')->get();
+        ])->with('player')->orderBy('hr_per_g', 'desc')->orderBy('pa', 'desc')->get();
 //        usort($stats, function ($a, $b) {
 //            $A = $a['hr'] / $a['g'];
 //            $B = $b['hr'] / $b['g'];
@@ -117,7 +117,7 @@ class HitterController extends Controller
 //            return ($A < $B) ? -1 : 1;
 //        });
         foreach ($stats as $i => $player) {
-            $arr[$player['id']]['hr_per_g_rank'] = $i;
+            $arr[$player['id']]['hr_per_g_rank'] = $i+1;
         }
 
         if (Stat::calculateMinPlateAppearances($year) >= 150) {
@@ -126,18 +126,18 @@ class HitterController extends Controller
                 ['pa', '>=', $pa_min],
                 ['pa_per_g', '>=', $pa_per_g_min],
                 ['sb', '>=', $sb_min],
-            ])->with('player')->orderBy('avg', 'desc')->get();
+            ])->with('player')->orderBy('avg', 'desc')->orderBy('pa', 'desc')->get();
         } else {
             $stats = Hitter::where([
                 'year' => $year,
                 ['pa', '>=', $pa_min],
                 ['pa_per_g', '>=', $pa_per_g_min],
                 ['sb', '>=', $sb_min],
-            ])->with('player')->orderBy('xavg', 'desc')->get();
+            ])->with('player')->orderBy('xavg', 'desc')->orderBy('pa', 'desc')->get();
         }
 
         foreach ($stats as $i => $player) {
-            $arr[$player['id']]['ba_rank'] = $i;
+            $arr[$player['id']]['ba_rank'] = $i+1;
         }
 
         $stats = Hitter::where([
@@ -145,7 +145,7 @@ class HitterController extends Controller
             ['pa', '>=', $pa_min],
             ['pa_per_g', '>=', $pa_per_g_min],
             ['sb', '>=', $sb_min],
-        ])->with('player')->orderBy('brls_per_pa', 'desc')->get();
+        ])->with('player')->orderBy('brls_per_pa', 'desc')->orderBy('pa', 'desc')->get();
 
 
         foreach ($stats as $i => $player) {
@@ -169,7 +169,9 @@ class HitterController extends Controller
         $stats = $stats->toArray();
 
         usort($stats, function($a, $b) {
-            if ($a['avg_rank'] == $b['avg_rank']) return 0;
+            if ($a['avg_rank'] == $b['avg_rank']) {
+                return $a['pa'] > $b['pa'] ? -1 : 1;
+            }
             return ($a['avg_rank'] < $b['avg_rank']) ? -1 : 1;
         });
 
