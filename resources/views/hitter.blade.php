@@ -67,9 +67,9 @@
                     <td class="d-none d-lg-table-cell" style="border-right: 1px solid black;">{{number_format($stat['swstr_percentage'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['sprint_speed'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black; @if ($stat['brls_per_pa'] >= 8) color: green; @endif @if ($stat['brls_per_pa'] >= 10) font-size: 1.2em; font-weight: bold; @endif">{{ number_format(round($stat['brls_per_pa'])) }}%</td>
-                    <td class="d-none d-md-table-cell">{{number_format($stat['avg_rank'])}}</td>
-                    <td class="d-none d-md-table-cell">{{number_format($stat['hr_per_g_rank'])}}</td>
-                    <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['xwoba_rank'])}}</td>
+                    <td class="d-none d-md-table-cell">{{$stat['avg_rank'] ?? '' }}</td>
+                    <td class="d-none d-md-table-cell">{{$stat['hr_per_g_rank'] ?? ''}}</td>
+                    <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{$stat['xwoba_rank'] ?? ''}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black; @if ($stat['def'] > 0) color: green; font-weight: bold @endif ">{{number_format($stat['def'], 1)}}</td>
                     <td class="d-none d-md-table-cell" style="border-right: 1px solid black; @if (($bats == 'L' || $bats == 'B') && $stat['vsleft_wrc_plus'] >= 100) color: green; @endif @if (($bats == 'L' || $bats == 'B') && $stat['vsleft_wrc_plus'] >= 110) font-weight: bold; font-size: 1.2em; @endif @if (($bats == 'L' || $bats == 'B') && $stat['vsleft_wrc_plus'] <= 80) color: red; @endif">{{ $stat['vsleft_wrc_plus'] }}</td>
                     <td style="border-right: 1px solid black; @if ($stat['wrc_plus'] > 110) font-weight: bold; font-size: 1.2em; color: green @endif">{{$stat['wrc_plus']}}</td>

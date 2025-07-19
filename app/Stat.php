@@ -404,6 +404,7 @@ class Stat extends Model
                    xhr_per_g_rank = null,
                    hr_per_g = null,
                    hr_per_g_rank = null,
+                   avg_rank = null,
                    xba_rank = null,
                    wrcplus_rank = null,
                    k_percentage_rank = null,
