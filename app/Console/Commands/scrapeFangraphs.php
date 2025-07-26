@@ -103,6 +103,7 @@ class scrapeFangraphs extends Command
             ]);
 
             $stats->age = $player['age'];
+            $stats->slug2 = str_replace('-', '', $stats->slug);
 
             foreach ($data[$lowername] as $stat => $val) {
                 if (in_array($stat, ['name', 'age'])) { continue; }
@@ -141,6 +142,7 @@ class scrapeFangraphs extends Command
 
             $stats->age = $player['age'];
             $stats->position = 'SP';
+            $stats->slug2 = str_replace('-', '', $stats->slug);
 
             //$stats->velo = $player['velo'];
             $stats->k_percentage = $player['k_percentage'];
