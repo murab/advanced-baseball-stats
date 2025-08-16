@@ -59,6 +59,8 @@ class PitcherController extends Controller
         if (empty($year)) { $year = date('Y'); }
         if (empty($min_ip)) { $min_ip = Stat::calculateMinInningsPitched($year, $position); }
 
+        $arr = [];
+
         if ($position == 'sp') {
             $stats = Stat::where([
                 'year' => $year,
@@ -70,6 +72,10 @@ class PitcherController extends Controller
                 'position' => strtoupper($position),
                 ['ip', '>=', $min_ip],
             ])->with('player')->orderBy('whip', 'asc')->orderBy('ip', 'desc')->get();
+
+            foreach ($stats_whip as $i => $player) {
+                $arr[$player['id']]['whip_rank'] = $i;
+            }
         } else { // rp
             $stats = Stat::where([
                 'year' => $year,
@@ -78,14 +84,8 @@ class PitcherController extends Controller
             ])->with('player')->orderBy('k_percentage', 'desc')->orderBy('ip', 'desc')->get();
         }
 
-        $arr = [];
-
         foreach ($stats as $i => $player) {
             $arr[$player['id']]['k_rank'] = $i;
-        }
-
-        foreach ($stats_whip as $i => $player) {
-            $arr[$player['id']]['whip_rank'] = $i;
         }
 
         $stats = Stat::where([
@@ -107,7 +107,7 @@ class PitcherController extends Controller
             $stats[$i]['csw'] = number_format($player['csw'], 1);
             $stats[$i]['velo'] = number_format($player['velo'], 1);
             $stats[$i]['k_rank'] = $arr[$player['id']]['k_rank'] + 1;
-            $stats[$i]['whip_rank'] = $arr[$player['id']]['whip_rank'] + 1;
+            $stats[$i]['whip_rank'] = isset($arr[$player['id']]['whip_rank']) ? $arr[$player['id']]['whip_rank'] + 1 : 0;
             $stats[$i]['stuff_plus'] = round((float)$player['stuff_plus']);
             $stats[$i]['xwoba_rank'] = $i + 1;
             if ($position == 'sp') {
