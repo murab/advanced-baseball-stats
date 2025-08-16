@@ -89,14 +89,14 @@
 {{--                <th class="desktop">IPpG Rank</th>--}}
 
                 @if ($position == 'sp')
-                    <th class="d-none d-md-table-cell">KpG Rank</th>
+                    <th class="d-none d-md-table-cell">KpG<br>Rank</th>
                 @else
-                    <th class="d-none d-md-table-cell">K% Rank</th>
+                    <th class="d-none d-md-table-cell">K%<br>Rank</th>
                 @endif
 
-                <th class="xera d-none d-md-table-cell">xERA Rank</th>
+                <th class="xera d-none d-md-table-cell">xERA<br>Rank</th>
                 @if ($position == 'sp')
-                    <th class="d-none d-md-table-cell whip">WHIP Rank</th>
+                    <th class="d-none d-md-table-cell whip">WHIP<br>Rank</th>
                 @endif
                 <th class="d-none d-md-table-cell avg_rank" style="font-weight: bold">Rank</th>
             </tr>
