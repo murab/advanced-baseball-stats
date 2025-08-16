@@ -48,6 +48,7 @@ class Stat extends Model
                 'gs' => $player['gs'],
                 'k' => $player['k'],
                 'k_per_game' => $player['k_per_game'],
+                'whip' => $player['whip'],
                 'ip' => $player['ip'],
                 'xwoba' => $player['xwoba'],
                 'opprpa' => $player['opprpa'],
@@ -328,13 +329,6 @@ class Stat extends Model
                 });
             }
 
-            usort($whip_sorted, function($a, $b) {
-                if ($a['whip'] == $b['whip']) {
-                    return $a['ip'] > $b['ip'] ? -1 : 1;
-                }
-                return $a['whip'] > $b['whip'];
-            });
-
 //            usort($ipg_sorted, function ($a, $b) {
 //                if ($a['innings_per_game'] == $b['innings_per_game']) {
 //                    return $a['ip'] > $b['ip'] ? -1 : 1;
@@ -342,6 +336,13 @@ class Stat extends Model
 //                return $a['innings_per_game'] < $b['innings_per_game'];
 //            });
         }
+
+        usort($whip_sorted, function($a, $b) {
+            if ($a['whip'] == $b['whip']) {
+                return $a['ip'] > $b['ip'] ? -1 : 1;
+            }
+            return $a['whip'] > $b['whip'];
+        });
 
         foreach ($all_data as $key => $data) {
 
