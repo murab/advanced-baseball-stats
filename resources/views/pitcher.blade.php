@@ -38,7 +38,7 @@
                     <th class="d-none d-md-table-cell"  style="border-right: 1px solid black;">Stuff+</th>
                     <th class="d-none d-md-table-cell"  style="border-right: 1px solid black;">Velo</th>
     {{--                <th class="all" style="border-right: 1px solid black;">IP per G Rank</th>--}}
-                    <th class="d-none d-md-table-cell" style="">K%<br>Rank</th>
+                    <th class="d-none d-md-table-cell" style="">KpG<br>Rank</th>
                     <th class="d-none d-md-table-cell" style="">xERA<br>Rank</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">WHIP<br>Rank</th>
                     <th class="all" style="font-weight: bold">Rank</th>
