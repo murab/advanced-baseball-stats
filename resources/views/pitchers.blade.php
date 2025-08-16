@@ -6,9 +6,11 @@
     <style>
         @media (max-width: 540px) {
             .ip, .name { border-right: 1px solid black !important; }
+            .no-border-right-mobile { border-right: none; !important}
         }
         @media (min-width: 541px) {
             .whip { border-right: 1px solid black !important; }
+            .border-right-desktop { border-right: 1px solid black !important; }
         }
     </style>
 @endsection
@@ -79,7 +81,7 @@
                 <th class="d-none d-md-table-cell">K%</th>
                 <th class="d-none d-md-table-cell">BB%</th>
                 <th class="" style="border-right: 1px solid black;">K-BB%</th>
-                <th class="" style="border-right: 1px solid black;">SwStr%</th>
+                <th class="no-border-right-mobile border-right-desktop" style="">SwStr%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">GB%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">CSW%</th>
                 <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Stuff+</th>
@@ -87,14 +89,14 @@
 {{--                <th class="desktop">IPpG Rank</th>--}}
 
                 @if ($position == 'sp')
-                    <th class="">KpG Rank</th>
+                    <th class="d-none d-md-table-cell">KpG Rank</th>
                 @else
-                    <th class="">K% Rank</th>
+                    <th class="d-none d-md-table-cell">K% Rank</th>
                 @endif
 
-                <th class="xera">xERA Rank</th>
+                <th class="xera d-none d-md-table-cell">xERA Rank</th>
                 @if ($position == 'sp')
-                    <th class="whip">WHIP Rank</th>
+                    <th class="d-none d-md-table-cell whip">WHIP Rank</th>
                 @endif
                 <th class="d-none d-md-table-cell avg_rank" style="font-weight: bold">Rank</th>
             </tr>
@@ -255,7 +257,7 @@
                 if ('{{$position}}' == 'sp' && stat['kbb_percentage'] >= 17.5 || '{{$position}}' == 'rp' && stat['kbb_percentage'] >= 20) { kbb_style += 'color: green; '; }
                 if ('{{$position}}' == 'sp' && stat['kbb_percentage'] >= 20 || '{{$position}}' == 'rp' && stat['kbb_percentage'] >= 25) { kbb_style += 'font-weight: bold; font-size: 1.2em'; }
                 var whip_rank_html = '';
-                if ('{{$position}}' == 'sp') { whip_rank_html = '<td class="align-middle whip">'+stat['whip_rank']+'</td>' };
+                if ('{{$position}}' == 'sp') { whip_rank_html = '<td class="align-middle whip d-none d-md-table-cell">'+stat['whip_rank']+'</td>' };
                 $('#pitchers tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
@@ -269,13 +271,13 @@
                     '<td class="align-middle d-none d-md-table-cell">'+stat['k_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell">'+stat['bb_percentage']+"</td>"+
                     '<td class="align-middle" style="border-right: 1px solid black; '+kbb_style+'">'+stat['kbb_percentage']+"</td>"+
-                    '<td class="align-middle" style="border-right: 1px solid black;">'+stat['swstr_percentage']+"</td>"+
+                    '<td class="align-middle border-right-desktop no-border-right-mobile" style="">'+stat['swstr_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['gb_percentage']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['csw']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['stuff_plus']+"</td>"+
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['velo']+"</td>"+
-                    '<td class="align-middle">'+stat['k_rank']+"</td>"+
-                    '<td class="align-middle xera">'+stat['xwoba_rank']+"</td>"+
+                    '<td class="align-middle d-none d-md-table-cell">'+stat['k_rank']+"</td>"+
+                    '<td class="align-middle xera d-none d-md-table-cell">'+stat['xwoba_rank']+"</td>"+
                     whip_rank_html+
                     '<td class="align-middle d-none d-md-table-cell" style="font-size: 1.2em;">'+rank+"</td>"+
                     '</tr>');
