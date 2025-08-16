@@ -8,7 +8,7 @@
             .ip, .name { border-right: 1px solid black !important; }
         }
         @media (min-width: 541px) {
-            .xera { border-right: 1px solid black !important; }
+            .whip { border-right: 1px solid black !important; }
         }
     </style>
 @endsection
@@ -93,7 +93,10 @@
                 @endif
 
                 <th class="xera">xERA Rank</th>
-                <th class="d-none d-md-table-cell" style="font-weight: bold">Rank</th>
+                @if ($position == 'sp')
+                    <th class="whip">WHIP Rank</th>
+                @endif
+                <th class="d-none d-md-table-cell avg_rank" style="font-weight: bold">Rank</th>
             </tr>
             </thead>
             <tbody>
@@ -251,6 +254,8 @@
                 var kbb_style = '';
                 if ('{{$position}}' == 'sp' && stat['kbb_percentage'] >= 17.5 || '{{$position}}' == 'rp' && stat['kbb_percentage'] >= 20) { kbb_style += 'color: green; '; }
                 if ('{{$position}}' == 'sp' && stat['kbb_percentage'] >= 20 || '{{$position}}' == 'rp' && stat['kbb_percentage'] >= 25) { kbb_style += 'font-weight: bold; font-size: 1.2em'; }
+                var whip_rank_html = '';
+                if ('{{$position}}' == 'sp') { whip_rank_html = '<td class="align-middle whip">'+stat['whip_rank']+'</td>' };
                 $('#pitchers tbody').append(
                     "<tr>" +
                     '<td class="align-middle" style="font-size: 1.2em;">'+rank+"</td>"+
@@ -271,6 +276,7 @@
                     '<td class="align-middle d-none d-md-table-cell" style="border-right: 1px solid black;">'+stat['velo']+"</td>"+
                     '<td class="align-middle">'+stat['k_rank']+"</td>"+
                     '<td class="align-middle xera">'+stat['xwoba_rank']+"</td>"+
+                    whip_rank_html+
                     '<td class="align-middle d-none d-md-table-cell" style="font-size: 1.2em;">'+rank+"</td>"+
                     '</tr>');
             }

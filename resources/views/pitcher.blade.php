@@ -38,8 +38,9 @@
                     <th class="d-none d-md-table-cell"  style="border-right: 1px solid black;">Stuff+</th>
                     <th class="d-none d-md-table-cell"  style="border-right: 1px solid black;">Velo</th>
     {{--                <th class="all" style="border-right: 1px solid black;">IP per G Rank</th>--}}
-                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K% or KpG<br>Rank</th>
-                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xERA Rank</th>
+                    <th class="d-none d-md-table-cell" style="">K% or KpG<br>Rank</th>
+                    <th class="d-none d-md-table-cell" style="">xERA<br>Rank</th>
+                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">WHIP<br>Rank</th>
                     <th class="all" style="font-weight: bold">Rank</th>
                 </tr>
                 </thead>
@@ -69,8 +70,9 @@
                         <td class="d-none d-md-table-cell align-middle" style="border-right: 1px solid black;">{{$stat['stuff_plus']}}</td>
                         <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
     {{--                    <td style="border-right: 1px solid black;">{{ $stat['position'] != 'RP' ? abs($stat['ip_per_g_rank']) : ''}}</td>--}}
-                        <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{$stat['k_rank'] ?? ''}}</td>
-                        <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{$stat['xwoba_rank'] ?? ''}}</td>
+                        <td class="d-none d-md-table-cell" style="">{{$stat['k_rank'] ?? ''}}</td>
+                        <td class="d-none d-md-table-cell"  style="">{{$stat['xwoba_rank'] ?? ''}}</td>
+                        <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{$stat['whip_rank'] ?? ''}}</td>
                         <td style="font-weight: bold">{{$stat['tru_rank']}}</td>
 
                     </tr>
@@ -105,7 +107,7 @@
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Stuff+</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">Velo</th>
                     {{--                <th class="all" style="border-right: 1px solid black;">IP per G Rank</th>--}}
-                    <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">K% or KpG<br>Rank</th>
+                    <th class="d-none d-md-table-cell" style="">K% or KpG<br>Rank</th>
                     <th class="d-none d-md-table-cell" style="border-right: 1px solid black;">xERA Rank</th>
                     <th class="all" style="font-weight: bold">Rank</th>
                 </tr>
@@ -136,7 +138,7 @@
                             <td class="d-none d-md-table-cell align-middle" style="border-right: 1px solid black;">{{$stat['stuff_plus']}}</td>
                             <td class="d-none d-md-table-cell" style="border-right: 1px solid black;">{{number_format($stat['velo'], 1)}}</td>
                             {{--                    <td style="border-right: 1px solid black;">{{ $stat['position'] != 'RP' ? abs($stat['ip_per_g_rank']) : ''}}</td>--}}
-                            <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{$stat['k_rank'] ?? ''}}</td>
+                            <td class="d-none d-md-table-cell"  style="">{{$stat['k_rank'] ?? ''}}</td>
                             <td class="d-none d-md-table-cell"  style="border-right: 1px solid black;">{{$stat['xwoba_rank'] ?? ''}}</td>
                             <td style="font-weight: bold">{{$stat['tru_rank']}}</td>
 

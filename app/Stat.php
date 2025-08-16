@@ -65,6 +65,7 @@ class Stat extends Model
             'year' => $year,
             'position' => strtoupper($position),
             ['secondhalf_xwoba', '<>', null],
+            ['secondhalf_whip', '<>', null],
             ['secondhalf_k', '<>', null],
             ['secondhalf_g', '<>', null],
             ['secondhalf_k_per_game', '<>', null],
@@ -89,6 +90,7 @@ class Stat extends Model
                 'k_per_game' => $player['secondhalf_k_per_game'],
                 'ip' => $player['secondhalf_ip'],
                 'xwoba' => $player['secondhalf_xwoba'],
+                'whip' => $player['secondhalf_whip'],
                 'opprpa' => $player['opprpa'],
                 'oppops' => $player['oppops'],
                 'pa' => $player['pa'],
@@ -267,6 +269,7 @@ class Stat extends Model
         }
 
         $xwoba_sorted = $all_data;
+        $whip_sorted = $all_data;
         $k_sorted = $all_data;
         $ipg_sorted = $all_data;
 
@@ -294,12 +297,12 @@ class Stat extends Model
                 });
             }
 
-            usort($ipg_sorted, function ($a, $b) {
-                if ($a['innings_per_game'] == $b['innings_per_game']) {
-                    return $a['ip'] > $b['ip'] ? -1 : 1;
-                }
-                return $a['innings_per_game'] < $b['innings_per_game'];
-            });
+//            usort($ipg_sorted, function ($a, $b) {
+//                if ($a['innings_per_game'] == $b['innings_per_game']) {
+//                    return $a['ip'] > $b['ip'] ? -1 : 1;
+//                }
+//                return $a['innings_per_game'] < $b['innings_per_game'];
+//            });
         } else {
             usort($xwoba_sorted, function($a, $b) {
                 if ($a['xwoba'] == $b['xwoba']) {
@@ -325,23 +328,31 @@ class Stat extends Model
                 });
             }
 
-            usort($ipg_sorted, function ($a, $b) {
-                if ($a['innings_per_game'] == $b['innings_per_game']) {
+            usort($whip_sorted, function($a, $b) {
+                if ($a['whip'] == $b['whip']) {
                     return $a['ip'] > $b['ip'] ? -1 : 1;
                 }
-                return $a['innings_per_game'] < $b['innings_per_game'];
+                return $a['whip'] > $b['whip'];
             });
+
+//            usort($ipg_sorted, function ($a, $b) {
+//                if ($a['innings_per_game'] == $b['innings_per_game']) {
+//                    return $a['ip'] > $b['ip'] ? -1 : 1;
+//                }
+//                return $a['innings_per_game'] < $b['innings_per_game'];
+//            });
         }
 
         foreach ($all_data as $key => $data) {
 
             $k_rank = array_search($data['id'], array_column($k_sorted, 'id'));
             $xwoba_rank = array_search($data['id'], array_column($xwoba_sorted, 'id'));
-            $ipg_rank = array_search($data['id'], array_column($ipg_sorted, 'id'));
+            $whip_rank = array_search($data['id'], array_column($whip_sorted, 'id'));
+//            $ipg_rank = array_search($data['id'], array_column($ipg_sorted, 'id'));
 
             if (strtoupper($position) == 'SP') {
                 $all_data[$key]['tru'] = (
-                    $k_rank + $xwoba_rank
+                ($k_rank + ($xwoba_rank + $whip_rank)/ 2) / 2
 //                    $k_rank + $xwoba_rank + $ipg_rank
 //                    (($data['k_per_game'] - $worst_k_per_game) / ($best_k_per_game - $worst_k_per_game))
 //                    +
@@ -349,7 +360,8 @@ class Stat extends Model
                 );
                 $all_data[$key]['k_rank'] = $k_rank+1;
                 $all_data[$key]['xwoba_rank'] = $xwoba_rank+1;
-                $all_data[$key]['ipg_rank'] = $ipg_rank+1;
+                $all_data[$key]['whip_rank'] = $whip_rank+1;
+//                $all_data[$key]['ipg_rank'] = $ipg_rank+1;
             } else if (strtoupper($position) == 'RP') {
                 // rank among rp at k percentage + rank among rp at xadjusted xwoba might be better
                 $all_data[$key]['tru'] = (

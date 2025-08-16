@@ -48,7 +48,7 @@ class calculateTru extends Command
             }
         }
 
-        DB::statement('update stats set tru = null, secondhalf_tru = null, k_rank = null, xwoba_rank = null where year = ?',[$year]);
+        DB::statement('update stats set tru = null, secondhalf_tru = null, k_rank = null, xwoba_rank = null, whip_rank = null where year = ?',[$year]);
 
         $starters = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP');
         $starters2ndHalf = Stat::computeKperGameMinusAdjustedXwoba($year, 'SP',true);
@@ -67,6 +67,8 @@ class calculateTru extends Command
             $Stat->secondhalf_ip_per_g_rank = $starters2ndHalf[$starter['id']]['ipg_rank'] ?? null;
             $Stat->xwoba_rank = $starter['xwoba_rank'] ?? null;
             $Stat->secondhalf_xwoba_rank = $starters2ndHalf[$starter['id']]['xwoba_rank'] ?? null;
+            $Stat->whip_rank = $starter['whip_rank'] ?? null;
+            $Stat->secondhalf_whip_rank = $starters2ndHalf[$starter['id']]['whip_rank'] ?? null;
             $Stat->save();
         }
 
