@@ -103,7 +103,7 @@ class scrapeFangraphs extends Command
             ]);
 
             $stats->age = $player['age'];
-            $Player->slug2 = str_replace('-', '', $stats->slug);
+            $Player->slug2 = str_replace('-', '', $Player->slug);
             $Player->save();
 
             foreach ($data[$lowername] as $stat => $val) {
@@ -143,7 +143,7 @@ class scrapeFangraphs extends Command
 
             $stats->age = $player['age'];
             $stats->position = 'SP';
-            $Player->slug2 = str_replace('-', '', $stats->slug);
+            $Player->slug2 = str_replace('-', '', $Player->slug);
             $Player->save();
 
             //$stats->velo = $player['velo'];
