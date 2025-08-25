@@ -253,7 +253,7 @@ class Stat extends Model
                 $all_data = Stat::startingPitcherStats($year,$second_half,10);
             }
         } else {
-            $all_data = Stat::reliefPitcherStats($year,$second_half,null);
+            $all_data = Stat::reliefPitcherStats($year,$second_half, 5);
         }
 
         $league_ops = Stat::leagueAverageStats($year)['ops'];
