@@ -20,7 +20,7 @@ class scrapeFangraphs extends Command
     const RAWleaguePitchersDataSource = 'https://www.fangraphs.com/api/leaders/major-league/data?age=0&pos=all&stats=sta&lg=all&qual=0&season=2019&season1=2019&startdate=2019-01-01&enddate=2019-12-31&month=0&team=0%2Css&pageitems=30&pagenum=1&ind=0&rost=0&players=0&type=c%2C76%2C113%2C217%2C6%2C42%2C48&sortdir=default&sortstat=GB%25';
 
     const RAWhitterDataSource = 'https://www.fangraphs.com/api/leaders/major-league/data?age=&pos=np&stats=bat&lg=all&qual=0&season=2019&season1=2019&startdate=&enddate=&month=0&team=0&pageitems=2000000000&pagenum=1&ind=0&rost=0&players=&type=c%2C3%2C4%2C6%2C12%2C23%2C11%2C13%2C21%2C35%2C34%2C110%2C311%2C61%2C308%2C199%2C317&sortdir=default&sortstat=xwOBA';
-    const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/api/leaders/major-league/data?age=0&pos=np&stats=bat&lg=all&qual=0&season=2020&season1=2020&startdate=2023-03-01&enddate=2023-11-01&month=31&team=0&pageitems=2000000000&pagenum=1&ind=0&rost=0&players=&type=c%2C3%2C4%2C6%2C12%2C23%2C11%2C13%2C21%2C35%2C34%2C110%2C311%2C61%2C308%2C199%2C317&sortdir=default&sortstat=xwOBA';
+    const RAWhitterDataSource2ndHalf = 'https://www.fangraphs.com/api/leaders/major-league/data?age=0&pos=np&stats=bat&lg=all&qual=0&season=2019&season1=2019&startdate=2019-03-01&enddate=2019-11-01&month=31&team=0&pageitems=2000000000&pagenum=1&ind=0&rost=0&players=&type=c%2C3%2C4%2C6%2C12%2C23%2C11%2C13%2C21%2C35%2C34%2C110%2C311%2C61%2C308%2C199%2C317&sortdir=default&sortstat=xwOBA';
 
     const RAWhitterVsLeftDataSource = 'https://www.fangraphs.com/api/leaders/major-league/data?age=0&pos=np&stats=bat&lg=all&qual=0&season=2019&season1=2019&startdate=2019-01-01&enddate=2019-12-31&month=13&team=0&pageitems=2000000000&pagenum=1&ind=0&rost=0&players=0&type=1&sortdir=default&sortstat=wRC%2B';
     const RAWhitterVsLeftDataSource2ndHalf = 'https://www.fangraphs.com/api/leaders/major-league/data?age=0&pos=np&stats=bat&lg=all&qual=0&season=2019&season1=2019&startdate=2019-01-01&enddate=2019-12-31&month=13&team=0&pageitems=2000000000&pagenum=1&ind=0&rost=0&players=0&type=1&sortdir=default&sortstat=wRC%2B';
@@ -106,11 +106,13 @@ class scrapeFangraphs extends Command
             $Player->slug2 = str_replace('-', '', $Player->slug);
             $Player->save();
 
-            foreach ($data[$lowername] as $stat => $val) {
-                if (in_array($stat, ['name', 'age'])) { continue; }
-                if (isset($player['secondhalf_'.$stat])) {
-                    $player['secondhalf_'.$stat] = $data_2nd[$lowername][$stat] ?? null;
-                }
+            if (isset($data_2nd[$lowername])) {
+                $player['secondhalf_hr'] = $data_2nd[$lowername]['hr'];
+                $player['secondhalf_avg'] = $data_2nd[$lowername]['avg'];
+                $player['secondhalf_g'] = $data_2nd[$lowername]['g'];
+                $player['secondhalf_pa'] = $data_2nd[$lowername]['pa'];
+                $player['secondhalf_pa_per_g'] = $data_2nd[$lowername]['pa'] / $data_2nd[$lowername]['g'] ?? 0;
+                $player['secondhalf_hr_per_g'] = $data_2nd[$lowername]['hr'] / $data_2nd[$lowername]['g'] ?? 0;
             }
             unset($player['name']);
 

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Stat;
+use App\Hitter;
 use App\League;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Console\Command;
@@ -138,6 +139,64 @@ class generateTextFile extends Command
 
         Storage::disk('public')->put("{$year}.txt", $output);
         Storage::disk('public')->put($year.'/pitchers-' . date('Y-m-d') . '.txt', $output);
+
+
+        /**
+         * HITTERS
+         */
+
+        $players_of_interest = json_decode(file_get_contents(__DIR__ . '/../../../hitters_of_interest.json'), true);
+
+        $custom_lists = array_keys($players_of_interest);
+        $custom_players = [];
+
+        $min_pa = Stat::calculateMinPlateAppearances($year);
+
+        $hitters = Hitter::where(['year' => $year, ['pa', '>=', $min_pa], ['rank_avg_rank', '>=', 0]])->with('player')->orderBy('rank_avg_rank', 'asc')->get()->toArray();
+
+        ob_start();
+
+        foreach ($hitters as $key => $player) {
+
+            $player_formatted_data = \Formatter::hitter($player);
+
+            foreach ($custom_lists as $list) {
+                if (in_array($player['player']['name'], $players_of_interest[$list])) {
+                    $custom_players[$list][] = $player_formatted_data;
+                }
+            }
+        }
+
+        foreach ($custom_lists as $list) {
+            if (!empty($custom_players[$list])) {
+                echo "\n{$list}\n";
+                foreach ($custom_players[$list] as $player) {
+                    echo \Formatter::hitterOutput($player);
+                }
+            }
+        }
+
+        echo "\nAll Hitters\n";
+        foreach ($hitters as $key => $player) {
+
+            $player_formatted_data = \Formatter::hitter($player);
+
+            echo \Formatter::hitterOutput($player_formatted_data);
+
+            foreach ($custom_lists as $list) {
+                if (in_array($player['player']['name'], $players_of_interest[$list])) {
+                    $custom_players[$list][] = $player_formatted_data;
+                }
+            }
+        }
+
+        echo "\n\n";
+
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Storage::disk('public')->put("{$year}-hitters.txt", $output);
+        Storage::disk('public')->put($year.'/hitters-' . date('Y-m-d') . '.txt', $output);
 
     }
 }

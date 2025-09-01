@@ -18,6 +18,7 @@ class scrapeSavant extends Command
     const RAWhittersBrlsPaURL = "https://baseballsavant.mlb.com/leaderboard/statcast?type=batter&year=2019&position=&team=&min=1&csv=true";
     const RAWhittersXstatsURL = "https://baseballsavant.mlb.com/leaderboard/expected_statistics?type=batter&year=2019&position=&team=&filterType=bip&min=1&csv=true";
     const RAWhittersHomeRunURL = "https://baseballsavant.mlb.com/leaderboard/home-runs?type=batter&year=2019&position=&team=&filterType=bip&min=1&csv=true";
+    const RAWhitters2ndHalfURL = 'https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfGT=R%7C&hfPR=&hfZ=&hfStadium=&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=2019%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=2019-07-15&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInfield=&hfOutfield=&hfInn=&hfBBT=&hfFlag=&metric_1=&group_by=name&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&chk_stats_xba=on&chk_stats_xwoba=on&minors=false';
 
     const RAWhittersPullFlyballURL = "https://baseballsavant.mlb.com/statcast_search?hfPT=&hfAB=&hfGT=R%7C&hfPR=&hfZ=&hfStadium=&hfBBL=&hfNewZones=&hfPull=Pull%7C&hfC=&hfSea=2019%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInfield=&hfOutfield=&hfInn=&hfBBT=fly%5C.%5C.ball%7C&hfFlag=&metric_1=&group_by=name&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc#results";
 
@@ -43,6 +44,7 @@ class scrapeSavant extends Command
     private $hittersBrlsPerPaURL;
     private $hittersXstatsURL;
     private $hittersHomeRunURL;
+    private $hitters2ndHalfURL;
 
     private $hittersPullFlyballURL;
 
@@ -147,6 +149,7 @@ class scrapeSavant extends Command
         $this->getHittersXstatsData($hitters);
         $this->getHittersHomeRunData($hitters);
         $this->getHittersSprintSpeedData($hitters);
+        $this->getHitters2ndHalfData($hitters);
 
         foreach ($hitters as $player) {
             if (!isset($player['name'])) {
@@ -172,6 +175,8 @@ class scrapeSavant extends Command
             $stats->pulled_flyballs = $player['pulled_flyballs'] ?? null;
             $stats->xwoba = $player['xwoba'] ?? null;
             $stats->xhr = $player['xhr'] ?? null;
+            $stats->secondhalf_xba = $player['secondhalf_xba'] ?? null;
+            $stats->secondhalf_xwoba = $player['secondhalf_xwoba'] ?? null;
             $stats->save();
         }
 
@@ -187,6 +192,7 @@ class scrapeSavant extends Command
         $this->hittersPullFlyballURL = str_replace('2019', $year, self::RAWhittersPullFlyballURL);
         $this->hittersXstatsURL = str_replace('2019', $year, self::RAWhittersXstatsURL) . '&' . bin2hex(random_bytes(2));
         $this->hittersHomeRunURL = str_replace('2019', $year, self::RAWhittersHomeRunURL) . '&' . bin2hex(random_bytes(2));
+        $this->hitters2ndHalfURL = str_replace('2019', $year, self::RAWhitters2ndHalfURL) . '&' . bin2hex(random_bytes(2));
     }
 
     private function parseXwobaData($players) {
@@ -277,6 +283,38 @@ class scrapeSavant extends Command
 
             if (!empty($player_data['pulled_flyballs'])) {
                 $data[strtolower($player_data['name'])]['pulled_flyballs'] = $player_data['pulled_flyballs'];
+            }
+        }
+    }
+
+    public function parseHitters2ndHalfData(&$hitters, $players) {
+        if (is_iterable($players)) foreach ($players as $key => $player) {
+
+            if ($key == 0) {
+                continue;
+            }
+
+            $player_data = [];
+
+            $player_data['name'] = trim($player[3]) . ' ' . trim($player[2]);
+            $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+            $player_data['name'] = strtr( $player_data['name'], $unwanted_array );
+            $player_data['name'] = trim(preg_replace("/[^A-Za-z0-9\- ]/", '', $player_data['name']));
+
+            $player_data['secondhalf_xba'] = floatval(trim($player[12]," \""));
+            $player_data['secondhalf_xwoba'] = floatval(trim($player[11]," \""));
+
+            if (isset(self::playersToSkip[$player_data['name']]) && in_array('id_'.trim($player['2'],"\""), self::playersToSkip[$player_data['name']])) {
+                continue;
+            }
+
+            if (!empty($player_data) && !empty($hitters[strtolower($player_data['name'])])) {
+                $hitters[strtolower($player_data['name'])]['secondhalf_xba'] = $player_data['secondhalf_xba'];
+                $hitters[strtolower($player_data['name'])]['secondhalf_xwoba'] = $player_data['secondhalf_xwoba'];
             }
         }
     }
@@ -411,6 +449,19 @@ class scrapeSavant extends Command
         }
 
         return $data;
+    }
+
+    public function getHitters2ndHalfData(&$hitters)
+    {
+        $data = file_get_contents($this->hitters2ndHalfURL);
+
+        $rows = explode("\n", $data);
+        $data_parsed = [];
+        foreach ($rows as $row) {
+            $data_parsed[] = ( str_getcsv( $row, ",", "'"));
+        }
+
+        $this->parseHitters2ndHalfData($hitters, $data_parsed);
     }
 
     public function getHittersSprintSpeedData(&$hitters)
