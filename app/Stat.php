@@ -453,7 +453,7 @@ class Stat extends Model
             'year' => $year,
             ['pa', '>=', $min_pa],
             ['xwoba', '<>', null],
-            ['pa_per_g', '>=', 3.7],
+            ['pa_per_g', '>=', 3.6],
         ])->orderBy('xwoba', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
@@ -467,7 +467,7 @@ class Stat extends Model
             'year' => $year,
             ['pa', '>=', $min_pa],
             ['avg', '<>', null],
-            ['pa_per_g', '>=', 3.7],
+            ['pa_per_g', '>=', 3.6],
         ])->orderBy('avg', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
@@ -481,7 +481,7 @@ class Stat extends Model
             'year' => $year,
             ['hr_per_g', '<>', null],
             ['pa', '>=', $min_pa],
-            ['pa_per_g', '>=', 3.7],
+            ['pa_per_g', '>=', 3.6],
         ])->orderBy('hr_per_g', 'desc')->orderBy('pa', 'desc')->get();
 
         $i = 1;
@@ -499,7 +499,7 @@ class Stat extends Model
         $players = Hitter::where([
             'year' => $year,
             ['pa', '>=', $min_pa],
-            ['pa_per_g', '>=', 3.7],
+            ['pa_per_g', '>=', 3.6],
         ])->get();
 
         foreach ($players as $player) {
@@ -558,7 +558,7 @@ class Stat extends Model
             ['secondhalf_pa', '>=', $min_pa],
             ['secondhalf_g', '<>', null],
             ['secondhalf_xwoba', '<>', null],
-            ['secondhalf_pa_per_g', '>=', 3.7],
+            ['secondhalf_pa_per_g', '>=', 3.6],
         ])->orderBy('secondhalf_xwoba', 'desc')->orderBy('secondhalf_pa', 'desc')->get();
 
         $i = 1;
@@ -573,7 +573,7 @@ class Stat extends Model
             ['secondhalf_pa', '>=', $min_pa],
             ['secondhalf_g', '<>', null],
             ['secondhalf_avg', '<>', null],
-            ['secondhalf_pa_per_g', '>=', 3.7],
+            ['secondhalf_pa_per_g', '>=', 3.6],
         ])->orderBy('secondhalf_avg', 'desc')->orderBy('secondhalf_pa', 'desc')->get();
 
         $i = 1;
@@ -588,7 +588,7 @@ class Stat extends Model
             ['secondhalf_pa', '>=', $min_pa],
             ['secondhalf_g', '<>', null],
             ['secondhalf_hr_per_g', '<>', null],
-            ['secondhalf_pa_per_g', '>=', 3.7],
+            ['secondhalf_pa_per_g', '>=', 3.6],
         ])->orderBy('secondhalf_hr_per_g', 'desc')->orderBy('secondhalf_pa', 'desc')->get();
 
         $i = 1;
@@ -604,7 +604,7 @@ class Stat extends Model
         $players = Hitter::where([
             'year' => $year,
             ['secondhalf_pa', '>=', $min_pa],
-            ['secondhalf_pa_per_g', '>=', 3.7],
+            ['secondhalf_pa_per_g', '>=', 3.6],
         ])->get();
 
         foreach ($players as $player) {

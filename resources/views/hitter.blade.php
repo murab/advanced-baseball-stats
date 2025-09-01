@@ -54,7 +54,7 @@
                     <td><a href="{{route('hitter_ranks', [$stat['year'], strtolower($stat['position'])])}}">{{$stat['year']}}</a></td>
                     <td style="border-right: 1px solid black;">{{$stat['age']}}</td>
                     <td class="all">{{$stat['pa']}}</td>
-                    <td class="all" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 1))}}</td>
+                    <td class="all" style="border-right: 1px solid black;">{{ltrim(number_format($stat['pa_per_g'], 2))}}</td>
                     <td>{{$stat['r']}}</td>
                     <td class="avg" <?php if ($stat['xba']) { ?> style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" data-avg="<?php echo ltrim(number_format($stat['avg'], 3),"0")?>" data-xba="<?php echo ltrim(number_format($stat['xba'], 3),'0')?>" title="Expected: {{ltrim(number_format($stat['xba'], 3),'0')}}" <?php } ?>>{{ltrim(number_format($stat['avg'], 3),"0")}}</td>
                     <td class="hr" <?php if ($stat['xba']) { ?>style="text-decoration-line: underline; text-decoration-color: lightgray; text-decoration-style: dotted;" data-toggle="tooltip" data-hr="<?php echo $stat['hr']?>" data-xhr="<?php echo $stat['xhr']?>" title="Expected: {{$stat['xhr']}}" <?php } ?>>{{$stat['hr']}}</td>
