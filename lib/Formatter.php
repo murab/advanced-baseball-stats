@@ -61,22 +61,16 @@ class Formatter
     {
         $player = [];
 
-//        $player['rank_k_minus_adj_xwoba'] = $data['tru'];
         $player['rank_formatted'] = str_pad($data['rank_avg_rank'], 3);
         $player['pa_formatted'] = str_pad((int)$data['pa'], 3);
         $player['rank_secondhalf_formatted'] = str_pad($data['secondhalf_rank_avg_rank'] ?? '', 3);
         $player['name_formatted'] = str_pad(substr($data['player']['name'], 0, 20), 20);
-//        $player['swstr_percentage_formatted'] = str_pad(number_format($data['swstr_percentage'], 1), 4, ' ', STR_PAD_LEFT);
-        //$player['k_percentage_formatted'] = str_pad(number_format($data['k_percentage'], 1), 4, ' ', STR_PAD_LEFT);
-//        $player['gb_percentage_formatted'] = str_pad(round($data['gb_percentage'], 0, PHP_ROUND_HALF_UP), 2);
-//        $player['k_percentage_plus_formatted'] = str_pad($data['k_percentage_plus'], 3, ' ', STR_PAD_LEFT);
-//        $player['velo_formatted'] = str_pad(number_format($data['velo'], 1), 5);
-        //$player['ip_formatted'] = str_pad($data['ip'], 5);
-        //$player['kpg_formatted'] = str_pad(number_format($data['k'] / $data['g'], 1), 4);
+        $player['r_formatted'] = str_pad($data['r'], 3, ' ', STR_PAD_LEFT);
+        $player['avg_formatted'] = ".".str_pad(round($data['avg']*1000), 3, ' ', STR_PAD_LEFT);
+        $player['hr_formatted'] = str_pad($data['hr'], 2, ' ', STR_PAD_LEFT);
+        $player['rbi_formatted'] = str_pad($data['rbi'], 3, ' ', STR_PAD_LEFT);
+        $player['sb_formatted'] = str_pad($data['sb'], 2, ' ', STR_PAD_LEFT);
 
-        //$KpercentMinusXwoba[$key]['rank'] = $rank;
-
-        //$val = $player['val_formatted'] = ((string) (number_format($data['value'] * 100, 1)) . '%');
         return $player;
     }
 
@@ -110,10 +104,12 @@ class Formatter
         $output = "{$player['rank_formatted']} " .
             "{$player['rank_secondhalf_formatted']}|" .
             "{$player['pa_formatted']}|" .
-            "{$player['name_formatted']}" .
-            //"{$player['k_percentage_plus_formatted']}+|" .
-//            "{$player['swstr_percentage_formatted']}%|" .
-//            "{$player['gb_percentage_formatted']}%|" .
+            "{$player['name_formatted']}|" .
+            "{$player['r_formatted']} " .
+            "{$player['avg_formatted']} " .
+            "{$player['hr_formatted']} " .
+            "{$player['rbi_formatted']} " .
+            "{$player['sb_formatted']}" .
             "\n";
         return $output;
     }
