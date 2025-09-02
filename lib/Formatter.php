@@ -62,13 +62,14 @@ class Formatter
         $player = [];
 
         $player['rank_formatted'] = str_pad($data['rank_avg_rank'], 3);
+        $player['age_formatted'] = $data['age'];
         $player['pa_formatted'] = str_pad((int)$data['pa'], 3);
         $player['rank_secondhalf_formatted'] = str_pad($data['secondhalf_rank_avg_rank'] ?? '', 3);
-        $player['name_formatted'] = str_pad(substr($data['player']['name'], 0, 20), 20);
+        $player['name_formatted'] = str_pad(substr($data['player']['name'], 0, 17), 17);
         $player['r_formatted'] = str_pad($data['r'], 3, ' ', STR_PAD_LEFT);
         $player['avg_formatted'] = ".".str_pad(round($data['avg']*1000), 3, ' ', STR_PAD_LEFT);
-        $player['hr_formatted'] = str_pad($data['hr'], 2, ' ', STR_PAD_LEFT);
-        $player['rbi_formatted'] = str_pad($data['rbi'], 3, ' ', STR_PAD_LEFT);
+        $player['hr_formatted'] = str_pad($data['hr'], 2, ' ', STR_PAD_RIGHT);
+        $player['rbi_formatted'] = str_pad($data['rbi'], 3, ' ', STR_PAD_RIGHT);
         $player['sb_formatted'] = str_pad($data['sb'], 2, ' ', STR_PAD_LEFT);
 
         return $player;
@@ -104,6 +105,7 @@ class Formatter
         $output = "{$player['rank_formatted']} " .
             "{$player['rank_secondhalf_formatted']}|" .
             "{$player['pa_formatted']}|" .
+            "{$player['age_formatted']}|" .
             "{$player['name_formatted']}|" .
             "{$player['r_formatted']} " .
             "{$player['avg_formatted']} " .
