@@ -37,6 +37,7 @@ class Formatter
         $player['rank_k_minus_adj_xwoba'] = $data['tru'];
         $player['rank_formatted'] = str_pad($data['tru_rank'], 3);
         $player['ip_formatted'] = str_pad((int)$data['ip'], 3);
+        $player['age_formatted'] = str_pad((int)$data['age'], 2);
         $player['rank_secondhalf_formatted'] = str_pad($data['secondhalf_tru_rank'] ?? '', 3);
         $player['name_formatted'] = str_pad(substr($data['player']['name'], 0, 19), 19);
         $player['swstr_percentage_formatted'] = str_pad(number_format($data['swstr_percentage'], 1), 4, ' ', STR_PAD_LEFT);
@@ -86,6 +87,7 @@ class Formatter
         $output = "{$player['rank_formatted']} " .
             "{$player['rank_secondhalf_formatted']}|" .
             "{$player['ip_formatted']}|" .
+            "{$player['age_formatted']}|" .
             "{$player['name_formatted']}|" .
             //"{$player['k_percentage_plus_formatted']}+|" .
             "{$player['swstr_percentage_formatted']}%|" .
